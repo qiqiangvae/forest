@@ -12,4 +12,30 @@
 
     <artifactId>forest-parent</artifactId>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.qiqiang</groupId>
+                <artifactId>forest-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.qiqiang</groupId>
+                <artifactId>forest-mybatis-plus-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.qiqiang</groupId>
+                <artifactId>forest-query</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.qiqiang</groupId>
+                <artifactId>forest-dependence</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

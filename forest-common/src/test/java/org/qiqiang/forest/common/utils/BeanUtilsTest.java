@@ -1,11 +1,10 @@
-package org.qiqiang.forest.common.utils.beancopier;
+package org.qiqiang.forest.common.utils;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Test;
-import org.qiqiang.forest.common.utils.BaseTest;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

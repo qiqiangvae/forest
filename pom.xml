@@ -13,6 +13,8 @@
         <module>forest-dependence</module>
         <module>forest-common</module>
         <module>forest-mybatis-plus-starter</module>
+        <module>forest-query</module>
+        <module>forest-example</module>
     </modules>
 
     <properties>
