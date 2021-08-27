@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>forest-parent</artifactId>
+        <groupId>org.qiqiang</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../forest-parent</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>forest-dependence</artifactId>
+
+    <properties>
+        <!--数据库-->
+        <mybatis-plus.version>3.4.3.1</mybatis-plus.version>
+        <spring-boot.version>2.5.4</spring-boot.version>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <!--Spring Boot-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!--数据库-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
