@@ -3,6 +3,7 @@ package org.qiqiang.forest.mybatisplus.query;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.hibernate.validator.HibernateValidator;
+import org.qiqiang.forest.query.QueryParam;
 
 import javax.validation.Validation;
 import javax.validation.Validator;

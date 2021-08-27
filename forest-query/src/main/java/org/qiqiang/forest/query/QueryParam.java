@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mybatisplus.query;
+package org.qiqiang.forest.query;
 
 /**
  * 基础查询类
