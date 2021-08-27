@@ -1,16 +1,12 @@
 package org.qiqiang.forest.common.utils;
 
-import junit.framework.TestCase;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 import java.util.List;
 
-@RunWith(JUnit4.class)
-public class JsonUtilsTest extends TestCase {
+public class JsonUtilsTest extends BaseTest {
 
     @Test
     public void read2ListTest() {

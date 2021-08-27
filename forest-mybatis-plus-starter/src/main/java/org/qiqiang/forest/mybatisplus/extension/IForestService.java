@@ -6,12 +6,24 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.ResultHandler;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author qiqiang
  */
 public interface IForestService<T> extends IService<T> {
+    /**
+     * 根据自定义条件批量更新
+     *
+     * @param entityList 需要更新的数据
+     * @param function 自定义条件
+     * @param batchSize     分批更新大小
+     * @return 是否更新成功
+     */
+    boolean updateBatchByWrapper(Collection<T> entityList, Function<T, Wrapper<T>> function, int batchSize);
+
     /**
      * 流式获取数据
      *

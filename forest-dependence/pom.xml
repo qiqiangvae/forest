@@ -16,11 +16,21 @@
         <!--数据库-->
         <mybatis-plus.version>3.4.3.1</mybatis-plus.version>
         <spring-boot.version>2.5.4</spring-boot.version>
+        <druid.version>1.2.6</druid.version>
+        <mysql-connector-java.version>8.0.26</mysql-connector-java.version>
+        <easyexcel.version>2.2.6</easyexcel.version>
+        <cglib.version>3.3.0</cglib.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
     </properties>
 
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.qiqiang</groupId>
+                <artifactId>forest-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!--Spring Boot-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -38,7 +48,28 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.26</version>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!--工具-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
