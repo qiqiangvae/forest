@@ -12,6 +12,7 @@
         <module>forest-parent</module>
         <module>forest-dependence</module>
         <module>forest-common</module>
+        <module>forest-mybatis-plus-starter</module>
     </modules>
 
     <properties>

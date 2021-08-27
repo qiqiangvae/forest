@@ -12,4 +12,12 @@
 
     <artifactId>forest-parent</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.qiqiang</groupId>
+            <artifactId>forest-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 </project>
