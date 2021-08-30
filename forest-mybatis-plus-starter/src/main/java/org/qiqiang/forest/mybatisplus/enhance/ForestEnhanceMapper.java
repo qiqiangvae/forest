@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mybatisplus.extension;
+package org.qiqiang.forest.mybatisplus.enhance;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -11,7 +11,7 @@ import org.apache.ibatis.session.ResultHandler;
  *
  * @author qiqiang
  */
-public interface ForestBaseMapper<T> extends BaseMapper<T> {
+public interface ForestEnhanceMapper<T> extends BaseMapper<T> {
     /**
      * 通过流获取数据
      *

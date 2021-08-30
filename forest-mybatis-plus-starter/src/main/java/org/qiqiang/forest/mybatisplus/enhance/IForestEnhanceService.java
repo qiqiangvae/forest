@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mybatisplus.extension;
+package org.qiqiang.forest.mybatisplus.enhance;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
@@ -13,7 +13,7 @@ import java.util.function.Function;
 /**
  * @author qiqiang
  */
-public interface IForestService<T> extends IService<T> {
+public interface IForestEnhanceService<T> extends IService<T> {
     /**
      * 根据自定义条件批量更新
      *

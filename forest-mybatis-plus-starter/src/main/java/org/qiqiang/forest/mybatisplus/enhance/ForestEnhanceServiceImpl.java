@@ -1,10 +1,11 @@
-package org.qiqiang.forest.mybatisplus.extension;
+package org.qiqiang.forest.mybatisplus.enhance;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.session.ResultHandler;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +21,14 @@ import java.util.function.Function;
  * @author qiqiang
  */
 @Slf4j
-public class ForestServiceImpl<M extends ForestBaseMapper<T>, T> extends ServiceImpl<M, T> implements IForestService<T> {
+public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> extends ServiceImpl<M, T> implements IForestEnhanceService<T> {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateBatchByWrapper(Collection<T> entityList, Function<T, Wrapper<T>> function, int batchSize) {
+        if (CollectionUtils.isEmpty(entityList)) {
+            log.warn("updateBatchByWrapper entityList is empty");
+            return true;
+        }
         String sqlStatement = getSqlStatement(SqlMethod.UPDATE_BY_ID);
         return executeBatch(entityList, batchSize, (sqlSession, entity) -> {
             MapperMethod.ParamMap<Object> param = new MapperMethod.ParamMap<>();
