@@ -12,6 +12,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 /**
+ * 操作系统工具类
  * @author qiqiang
  */
 public class OSUtils {
@@ -28,6 +29,7 @@ public class OSUtils {
     private static final String OS_LINUX = "LINUX";
     private static final String OS_MAC = "MAC OS";
     private static String localIP = null;
+    private static final String COLON = ":";
 
 
     @SuppressWarnings("unused")
@@ -144,16 +146,14 @@ public class OSUtils {
      * get local IP in the format of Long
      *
      * @return long
-     * @throws SocketException      exception
-     * @throws UnknownHostException exception
      */
-    public static long getLongIp() throws SocketException, UnknownHostException {
+    public static long getLongIp() {
         String stringIp = OSUtils.getStringIp();
         if (stringIp == null || stringIp.length() == 0) {
             return -1;
         }
         byte[] intIp;
-        if (stringIp.contains(":")) {
+        if (stringIp.contains(COLON)) {
             intIp = OSUtils.ipv62Int(stringIp);
         } else {
             intIp = OSUtils.ipv42Int(stringIp);
@@ -200,11 +200,11 @@ public class OSUtils {
         String tmpStringIp = stringIp;
 
         //erase the ":"
-        if (tmpStringIp.startsWith(":")) {
+        if (tmpStringIp.startsWith(COLON)) {
             tmpStringIp = tmpStringIp.substring(1);
         }
 
-        String[] groups = tmpStringIp.split(":");
+        String[] groups = tmpStringIp.split(COLON);
         for (int ig = groups.length - 1; ig > -1; ig--) {
             if (groups[ig].contains(".")) {
                 ret = OSUtils.ipv42Int(groups[ig]);

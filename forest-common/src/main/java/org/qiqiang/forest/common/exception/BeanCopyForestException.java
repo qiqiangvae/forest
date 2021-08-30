@@ -5,7 +5,7 @@ package org.qiqiang.forest.common.exception;
  *
  * @author qiqiang
  */
-public class BeanCopyForestException extends ForestBaseException {
+public class BeanCopyForestException extends BaseForestException {
     public BeanCopyForestException(String message) {
         super(message);
     }

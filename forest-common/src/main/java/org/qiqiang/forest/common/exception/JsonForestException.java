@@ -5,7 +5,7 @@ package org.qiqiang.forest.common.exception;
  *
  * @author qiqiang
  */
-public class JsonForestException extends ForestBaseException {
+public class JsonForestException extends BaseForestException {
     public JsonForestException(Throwable cause) {
         super(cause);
     }

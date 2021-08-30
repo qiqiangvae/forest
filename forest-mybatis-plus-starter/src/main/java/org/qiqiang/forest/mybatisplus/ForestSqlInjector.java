@@ -2,7 +2,7 @@ package org.qiqiang.forest.mybatisplus;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
-import org.qiqiang.forest.mybatisplus.method.FetchByStream;
+import org.qiqiang.forest.mybatisplus.enhance.FetchByStream;
 
 import java.util.List;
 
