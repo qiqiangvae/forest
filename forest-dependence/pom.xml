@@ -20,6 +20,8 @@
         <easyexcel.version>2.2.6</easyexcel.version>
         <cglib.version>3.3.0</cglib.version>
         <commons-collections4.version>4.4</commons-collections4.version>
+        <reflections.version>0.9.12</reflections.version>
+        <javax.el.version>3.0.0</javax.el.version>
     </properties>
 
 
@@ -64,6 +66,21 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
                 <version>${commons-collections4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>javax.el-api</artifactId>
+                <version>${javax.el.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>javax.el</artifactId>
+                <version>${javax.el.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

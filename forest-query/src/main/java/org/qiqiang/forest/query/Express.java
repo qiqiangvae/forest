@@ -21,6 +21,22 @@ public enum Express {
      */
     between,
     /**
+     * 大于
+     */
+    gt,
+    /**
+     * 大于等于
+     */
+    gte,
+    /**
+     * 小于
+     */
+    lt,
+    /**
+     * 小于等于
+     */
+    lte,
+    /**
      * 左右模糊
      */
     like,

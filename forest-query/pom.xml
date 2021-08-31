@@ -13,7 +13,9 @@
     <artifactId>forest-query</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.qiqiang</groupId>
+            <artifactId>forest-common</artifactId>
+        </dependency>
     </dependencies>
-
 </project>
