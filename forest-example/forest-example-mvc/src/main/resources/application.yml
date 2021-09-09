@@ -1,0 +1,9 @@
+server:
+  port: 6666
+spring:
+#  mvc:
+#    format:
+#      date-time: yyyy-MM-dd HH:mm:ss
+#      date: yyyy-MM-dd
+  jackson:
+    time-zone: GMT+8

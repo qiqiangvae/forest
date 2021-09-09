@@ -2,6 +2,7 @@ package org.qiqiang.forest.mybatisplus.query;
 
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -11,6 +12,7 @@ import org.junit.runners.JUnit4;
 import org.qiqiang.forest.common.utils.DateUtils;
 import org.qiqiang.forest.query.Condition;
 import org.qiqiang.forest.query.Express;
+import org.qiqiang.forest.query.SortColumn;
 
 import java.util.Date;
 
@@ -22,18 +24,23 @@ public class AbstractQueryParamTest {
         StudentParam studentParam = new StudentParam();
         Date start = DateUtils.parse2Date("2015-09-01");
         Date end = DateUtils.parse2Date("2017-09-01");
-        Wrapper<StudentDO> studentDOWrapper = studentParam.<StudentParam>select("name", "age")
+        studentParam.<StudentParam>select("name", "age")
                 .setName("forest")
                 .setAge(5)
                 .setBirthdayRange(new Date[]{start, end})
-                .toWrapper();
+                .setPaging(1, 20)
+                .addOrder(new SortColumn("age", SortColumn.Sort.Desc))
+        ;
+        Wrapper<StudentDO> studentDOWrapper = QueryParamBuilder.toWrapper(studentParam);
         System.out.println(studentDOWrapper.getCustomSqlSegment());
+        Page<StudentDO> page = QueryParamBuilder.toPage(studentParam);
+        System.out.println(page);
     }
 
     @Getter
     @Setter
     @Accessors(chain = true)
-    static class StudentParam extends AbstractQueryParam<StudentDO> {
+    static class StudentParam extends AbstractQueryParam {
         @Condition
         String name;
         @Condition(express = Express.gt)

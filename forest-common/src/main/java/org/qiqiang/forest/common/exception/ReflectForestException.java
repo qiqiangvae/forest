@@ -3,7 +3,7 @@ package org.qiqiang.forest.common.exception;
 /**
  * @author qiqiang
  */
-public class ReflectForestException extends ForestBaseException{
+public class ReflectForestException extends BaseForestException{
     public ReflectForestException() {
     }
 

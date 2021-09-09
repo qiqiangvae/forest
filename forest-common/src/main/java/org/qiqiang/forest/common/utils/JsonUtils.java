@@ -72,13 +72,13 @@ public class JsonUtils {
 
     public static <T> List<T> read2List(String jsonString, Class<T> clazz) {
         try {
-            return OBJECT_MAPPER.readValue(jsonString, getCollectionType(ArrayList.class, clazz));
+            return OBJECT_MAPPER.readValue(jsonString, getArrayListType(clazz));
         } catch (JsonProcessingException e) {
             throw new JsonForestException("json string 转对象异常", e);
         }
     }
 
-    private static JavaType getCollectionType(Class<?> collectionClass, Class<?>... elementClasses) {
-        return OBJECT_MAPPER.getTypeFactory().constructParametricType(collectionClass, elementClasses);
+    private static JavaType getArrayListType(Class<?>... elementClasses) {
+        return OBJECT_MAPPER.getTypeFactory().constructParametricType(ArrayList.class, elementClasses);
     }
 }
