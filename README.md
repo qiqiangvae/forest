@@ -2,8 +2,8 @@
 一个业务无关的通用脚手架、工具框架
 
 * forest-parent。父依赖模块。
-* forest-common。公共模块。
-* forest-dependence。外部依赖版本管理。
+* forest-common。公共模块，提供一些常用工具和基础类。
+* forest-dependence。常用外部依赖版本管理。
 * forest-mvc。MVC 相关扩展。
 * forest-mybatis-plus-starter。mybatis-plus 相关扩展。
 * forest-query。查询基础模块，其它类型数据库的查询操作可以基于此扩展。

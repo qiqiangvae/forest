@@ -15,12 +15,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.stream.Stream;
 
 /**
+ * xss 拦截包装 request
+ *
  * @author qiqiang
  */
 @Slf4j
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
-
-    private HttpServletRequest orgRequest = null;
 
     /**
      * 判断是否是上传 上传忽略
@@ -29,7 +29,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     public XssHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
-        orgRequest = request;
         String contentType = request.getContentType();
         if (null != contentType) {
             isUpData = contentType.startsWith("multipart");
@@ -84,11 +83,11 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         } else {
             //处理原request的流中的数据
             byte[] bytes = inputHandlers(super.getInputStream()).getBytes();
-            final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+            final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
             return new ServletInputStream() {
                 @Override
                 public int read() throws IOException {
-                    return bais.read();
+                    return byteArrayInputStream.read();
                 }
 
                 @Override
