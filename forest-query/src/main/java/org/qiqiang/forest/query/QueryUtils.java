@@ -1,6 +1,5 @@
 package org.qiqiang.forest.query;
 
-import org.apache.commons.collections4.list.TreeList;
 import org.qiqiang.forest.common.utils.reflection.AnnotationUtils;
 import org.qiqiang.forest.common.utils.reflection.FieldUtils;
 
@@ -14,21 +13,17 @@ import java.util.stream.Stream;
  */
 public class QueryUtils {
 
-    public static Map<Field, List<ConditionWrapper>> parseQueryParam(QueryParam queryParam) {
+    public static Map<Field, ConditionWrapper> parseQueryParam(QueryParam queryParam) {
         Class<? extends QueryParam> paramClass = queryParam.getClass();
         Set<Field> fields = FieldUtils.getAllFields(paramClass);
-        Map<Field, List<ConditionWrapper>> conditionMap = new LinkedHashMap<>(fields.size());
+        Map<Field, ConditionWrapper> conditionMap = new LinkedHashMap<>(fields.size());
         for (Field field : fields) {
-            Condition[] conditions = AnnotationUtils.getAnnotations(field, Condition.class);
-            conditionMap.put(field, convertConditions(conditions));
+            Condition condition = AnnotationUtils.getAnnotation(field, Condition.class);
+            if (condition != null) {
+                conditionMap.put(field, new ConditionWrapper(condition.express(), condition.col()));
+            }
         }
         return conditionMap;
-    }
-
-    private static List<ConditionWrapper> convertConditions(Condition[] conditions) {
-        return Stream.of(conditions)
-                .map(condition -> new ConditionWrapper(condition.express(), condition.col()))
-                .collect(Collectors.toList());
     }
 
     public static Map<Field, SortColumn> parseSorts(QueryParam queryParam) {

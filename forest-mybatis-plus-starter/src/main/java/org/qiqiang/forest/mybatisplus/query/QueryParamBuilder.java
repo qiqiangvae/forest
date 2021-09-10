@@ -67,22 +67,21 @@ public class QueryParamBuilder {
         if (CollectionUtils.isNotEmpty(queryParam.getSelectList())) {
             queryWrapper.select(queryParam.getSelectList().toArray(new String[0]));
         }
-        Map<Field, List<ConditionWrapper>> conditionMap = QueryUtils.parseQueryParam(queryParam);
-        for (Map.Entry<Field, List<ConditionWrapper>> entry : conditionMap.entrySet()) {
+        Map<Field, ConditionWrapper> conditionMap = QueryUtils.parseQueryParam(queryParam);
+        for (Map.Entry<Field, ConditionWrapper> entry : conditionMap.entrySet()) {
             final Field field = entry.getKey();
             final String fieldName = field.getName();
             final Object value = PropertyUtils.getValue(field, queryParam);
             if (value == null) {
                 continue;
             }
-            for (ConditionWrapper condition : entry.getValue()) {
-                String col = condition.getCol();
-                if (StringUtils.isBlank(col)) {
-                    col = fieldName;
-                }
-                Express express = condition.getExpress();
-                buildQueryWrapper(queryParam, queryWrapper, fieldName, value, col, express);
+            ConditionWrapper condition = entry.getValue();
+            String col = condition.getCol();
+            if (StringUtils.isBlank(col)) {
+                col = fieldName;
             }
+            Express express = condition.getExpress();
+            buildQueryWrapper(queryParam, queryWrapper, fieldName, value, col, express);
         }
         return queryWrapper;
     }
