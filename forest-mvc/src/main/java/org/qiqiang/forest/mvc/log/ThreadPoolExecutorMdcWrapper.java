@@ -1,6 +1,5 @@
-package org.qiqiang.forest.mvc.logtrace.threadPool;
+package org.qiqiang.forest.mvc.log;
 
-import org.qiqiang.forest.mvc.logtrace.ThreadMdcUtil;
 import org.slf4j.MDC;
 
 import java.util.concurrent.*;

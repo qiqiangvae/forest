@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mvc.logtrace;
+package org.qiqiang.forest.mvc.log;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

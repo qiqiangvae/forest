@@ -1,14 +1,14 @@
-package org.qiqiang.forest.mvc.logtrace;
+package org.qiqiang.forest.mvc.log;
 
+import org.qiqiang.forest.common.utils.IdGenerator;
 import org.slf4j.MDC;
 import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.Callable;
 
-import static org.qiqiang.forest.mvc.logtrace.LogConstant.TRACE_ID;
+import static org.qiqiang.forest.mvc.log.LogConstant.TRACE_ID;
 
 /**
  * @author : Zhang Huang
@@ -17,7 +17,7 @@ import static org.qiqiang.forest.mvc.logtrace.LogConstant.TRACE_ID;
 public class ThreadMdcUtil {
 
     public static String createTraceId() {
-        String uuid = UUID.randomUUID().toString();
+        String uuid = IdGenerator.uuid();
         return DigestUtils.md5DigestAsHex(uuid.getBytes(StandardCharsets.UTF_8)).substring(8, 24);
     }
 
