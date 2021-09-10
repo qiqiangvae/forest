@@ -52,7 +52,6 @@ public class JsoupUtil {
     }
 
     public static String jsonStringConvert(String s) {
-        log.info("[处理JSON字符串] [将嵌套的双引号转成单引号] [原JSON] :{}", s);
         char[] temp = s.toCharArray();
         int n = temp.length;
         for (int i = 0; i < n; i++) {
@@ -70,8 +69,6 @@ public class JsoupUtil {
                 }
             }
         }
-        String r = new String(temp);
-        log.info("[处理JSON字符串] [将嵌套的双引号转成单引号] [处理后的JSON] :{}", r);
-        return r;
+        return new String(temp);
     }
 }
