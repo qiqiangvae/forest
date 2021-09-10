@@ -22,6 +22,7 @@
         <commons-collections4.version>4.4</commons-collections4.version>
         <reflections.version>0.9.12</reflections.version>
         <javax.el.version>3.0.0</javax.el.version>
+        <jsoup.version>1.14.2</jsoup.version>
     </properties>
 
 
@@ -35,6 +36,8 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
+
+
             <!--数据库-->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -51,12 +54,15 @@
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
+
+
             <!--工具-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
             </dependency>
+            <!--bean copier-->
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
@@ -72,6 +78,7 @@
                 <artifactId>reflections</artifactId>
                 <version>${reflections.version}</version>
             </dependency>
+            <!--validator 校验-->
             <dependency>
                 <groupId>javax.el</groupId>
                 <artifactId>javax.el-api</artifactId>
@@ -81,6 +88,12 @@
                 <groupId>org.glassfish</groupId>
                 <artifactId>javax.el</artifactId>
                 <version>${javax.el.version}</version>
+            </dependency>
+            <!--防止xss攻击-->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

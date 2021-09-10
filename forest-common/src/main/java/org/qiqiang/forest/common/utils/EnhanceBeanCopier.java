@@ -49,6 +49,7 @@ public abstract class EnhanceBeanCopier {
     public static EnhanceBeanCopier create(Class<?> source, Class<?> target, boolean useConverter) {
         String cacheKey = source.getName() + source.getName();
         EnhanceBeanCopier copier;
+        // 保证线程安全
         if (!BEAN_COPIER_CACHE_MAP.containsKey(cacheKey)) {
             synchronized (EnhanceBeanCopier.class) {
                 if (!BEAN_COPIER_CACHE_MAP.containsKey(cacheKey)) {

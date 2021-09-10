@@ -7,10 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * 正则工具类
  *
  * @author qiqiang
  */
-public class RegexUtil {
+public class RegexUtils {
 
     public static ArrayList<String[]> getListMatcher(String str, String regex) {
         ArrayList<String[]> list = new ArrayList<>();
@@ -47,10 +48,10 @@ public class RegexUtil {
     }
 
     public static Integer[] getEditorImgList(String str) {
-        ArrayList<String[]> list = RegexUtil.getListMatcher(str, RegexUtil.getEditorImgRegex());
+        ArrayList<String[]> list = RegexUtils.getListMatcher(str, RegexUtils.getEditorImgRegex());
         Set<Integer> set = new HashSet<>();
         for (String[] aa : list) {
-            set.add(NumberUtil.parseInt(aa[0]));
+            set.add(NumberUtils.parseInt(aa[0]));
         }
         return set.toArray(new Integer[0]);
     }
@@ -68,19 +69,19 @@ public class RegexUtil {
     }
 
     public static String replaceBlankSpan(String str) {
-        return RegexUtil
-            .replaceMatcher(
-                str,
-                "<SPAN style=\"FONT-SIZE: 0pt; COLOR: #ffffff\"[^>]*>[^<]*</SPAN>",
-                "");
+        return RegexUtils
+                .replaceMatcher(
+                        str,
+                        "<SPAN style=\"FONT-SIZE: 0pt; COLOR: #ffffff\"[^>]*>[^<]*</SPAN>",
+                        "");
     }
 
     public static String toLink(String content) {
-        content = RegexUtil
-            .replaceMatcher(
-                content,
-                "((?:(?:http|ftp|https):\\/\\/){0,1}(?:(?:\\w|\\d)+\\.)+(?:\\S+))",
-                "<a href=\"$1\">$1</a>");
+        content = RegexUtils
+                .replaceMatcher(
+                        content,
+                        "((?:(?:http|ftp|https):\\/\\/){0,1}(?:(?:\\w|\\d)+\\.)+(?:\\S+))",
+                        "<a href=\"$1\">$1</a>");
         return content;
     }
 }

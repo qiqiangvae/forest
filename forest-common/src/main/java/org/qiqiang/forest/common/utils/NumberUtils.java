@@ -8,10 +8,11 @@ import java.math.RoundingMode;
 import java.util.Random;
 
 /**
+ * 数字工具类
  *
  * @author qiqiang
  */
-public class NumberUtil {
+public class NumberUtils {
 
     private static final Random RND = new Random();
 
@@ -106,7 +107,7 @@ public class NumberUtil {
             } else if (dividend instanceof Float) {
                 ret = BigDecimal.valueOf((Float) dividend);
             } else if (dividend instanceof String) {
-                ret = BigDecimal.valueOf(NumberUtil.parseDouble((String) dividend));
+                ret = BigDecimal.valueOf(NumberUtils.parseDouble((String) dividend));
             } else {
                 return 0D;
             }
@@ -117,7 +118,7 @@ public class NumberUtil {
             } else if (dividend instanceof Float) {
                 ret = ret.divide(BigDecimal.valueOf((Float) divisor), scale, RoundingMode.HALF_UP);
             } else if (divisor instanceof String) {
-                ret = ret.divide(BigDecimal.valueOf(NumberUtil.parseDouble((String) divisor)), scale, RoundingMode.HALF_UP);
+                ret = ret.divide(BigDecimal.valueOf(NumberUtils.parseDouble((String) divisor)), scale, RoundingMode.HALF_UP);
             } else {
                 return 0D;
             }

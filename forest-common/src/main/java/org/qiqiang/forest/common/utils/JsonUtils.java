@@ -70,6 +70,14 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * json string 转 List
+     *
+     * @param jsonString json context
+     * @param clazz      Target class
+     * @param <T>        Target class
+     * @return list
+     */
     public static <T> List<T> read2List(String jsonString, Class<T> clazz) {
         try {
             return OBJECT_MAPPER.readValue(jsonString, getArrayListType(clazz));
@@ -80,5 +88,9 @@ public class JsonUtils {
 
     private static JavaType getArrayListType(Class<?>... elementClasses) {
         return OBJECT_MAPPER.getTypeFactory().constructParametricType(ArrayList.class, elementClasses);
+    }
+
+    public static ObjectMapper getObjectMapper() {
+        return OBJECT_MAPPER;
     }
 }
