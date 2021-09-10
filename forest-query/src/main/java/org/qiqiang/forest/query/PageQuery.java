@@ -17,7 +17,7 @@ public class PageQuery implements QueryParam, Serializable {
      */
     private int pageSize = 10;
 
-    private List<SortColumn> orders;
+    private List<SortColumn> sorts = new ArrayList<>();
 
     public int[] getPaging() {
         return new int[]{current, pageSize};
@@ -39,24 +39,28 @@ public class PageQuery implements QueryParam, Serializable {
         return (T) this;
     }
 
-    public <T extends PageQuery> T addOrder(SortColumn orderItem) {
-        if (orders == null) {
-            orders = new ArrayList<>();
+    public <T extends PageQuery> T addSort(SortColumn orderItem) {
+        if (sorts == null) {
+            sorts = new ArrayList<>();
         }
-        orders.add(orderItem);
+        sorts.add(orderItem);
         return (T) this;
     }
 
-    public <T extends PageQuery> T addOrder(String column, SortColumn.Sort sort) {
-        return addOrder(new SortColumn(column, sort));
+    public <T extends PageQuery> T addSort(String column, SortColumn.Sort sort) {
+        return addSort(column, sort, 0);
     }
 
-    public <T extends PageQuery> T setOrders(List<SortColumn> orders) {
-        this.orders = orders;
+    public <T extends PageQuery> T addSort(String column, SortColumn.Sort sort, int order) {
+        return addSort(new SortColumn(column, sort, order));
+    }
+
+    public <T extends PageQuery> T addSorts(List<SortColumn> sorts) {
+        this.sorts.addAll(sorts);
         return (T) this;
     }
 
-    public List<SortColumn> getOrders() {
-        return orders;
+    public List<SortColumn> getSorts() {
+        return sorts;
     }
 }

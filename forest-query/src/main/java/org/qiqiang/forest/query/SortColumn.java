@@ -1,22 +1,35 @@
 package org.qiqiang.forest.query;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author qiqiang
  */
 @Getter
-public class SortColumn {
-    private final String column;
-    private Sort sort = Sort.Asc;
+public class SortColumn implements Comparable<SortColumn> {
+    @Setter
+    private String column;
+    private final Sort sort;
+    private final int order;
 
-    public SortColumn(String column, Sort sort) {
+    public SortColumn(String column, Sort sort, int order) {
         this.column = column;
         this.sort = sort;
+        this.order = order;
+    }
+
+    public SortColumn(String column, Sort sort) {
+        this(column, sort, 0);
     }
 
     public SortColumn(String column) {
-        this.column = column;
+        this(column, Sort.Asc, 0);
+    }
+
+    @Override
+    public int compareTo(SortColumn o) {
+        return Integer.compare(order, o.order);
     }
 
     public enum Sort {

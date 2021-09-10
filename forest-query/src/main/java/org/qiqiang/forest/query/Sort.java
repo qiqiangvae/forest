@@ -26,4 +26,12 @@ public @interface Sort {
      * @return 字段名
      */
     String col() default "";
+
+    /**
+     * 排序
+     * 数值越小越优先
+     *
+     * @return 排序
+     */
+    int order() default 0;
 }

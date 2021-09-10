@@ -12,6 +12,7 @@ import org.junit.runners.JUnit4;
 import org.qiqiang.forest.common.utils.DateUtils;
 import org.qiqiang.forest.query.Condition;
 import org.qiqiang.forest.query.Express;
+import org.qiqiang.forest.query.Sort;
 import org.qiqiang.forest.query.SortColumn;
 
 import java.util.Date;
@@ -29,7 +30,8 @@ public class QueryParamBuilderTest {
                 .setAge(5)
                 .setBirthdayRange(new Date[]{start, end})
                 .setPaging(1, 20)
-                .addOrder(new SortColumn("age", SortColumn.Sort.Desc))
+                .addSort(new SortColumn("age", SortColumn.Sort.Desc, 1))
+                .addSort(new SortColumn("birthday", SortColumn.Sort.Desc))
         ;
         Wrapper<StudentDO> studentDOWrapper = QueryParamBuilder.toWrapper(studentParam);
         System.out.println(studentDOWrapper.getCustomSqlSegment());
@@ -42,6 +44,7 @@ public class QueryParamBuilderTest {
     @Accessors(chain = true)
     static class StudentParam extends AbstractQueryParam {
         @Condition
+        @Sort
         String name;
         @Condition(express = Express.gt)
         Integer age;

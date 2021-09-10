@@ -35,10 +35,19 @@ public class QueryParamBuilder {
     public static <T> Page<T> toPage(AbstractQueryParam queryParam) {
         int[] paging = queryParam.getPaging();
         Page<T> page = new Page<>(paging[0], paging[1]);
-        List<SortColumn> orders = queryParam.getOrders();
-        Map<Field, SortColumn> conditionMap = QueryUtils.parseSorts(queryParam);
-        if (CollectionUtils.isNotEmpty(orders)) {
-            List<OrderItem> orderItems = orders.stream().map(
+        List<SortColumn> sorts = queryParam.getSorts();
+        Map<Field, SortColumn> sortMap = QueryUtils.parseSorts(queryParam);
+        for (Map.Entry<Field, SortColumn> entry : sortMap.entrySet()) {
+            SortColumn value = entry.getValue();
+            if (StringUtils.isBlank(value.getColumn())) {
+                value.setColumn(entry.getKey().getName());
+            }
+        }
+        sorts.addAll(sortMap.values());
+        if (CollectionUtils.isNotEmpty(sorts)) {
+            List<OrderItem> orderItems = sorts.stream()
+                    .sorted()
+                    .map(
                             orderColumn -> new OrderItem(orderColumn.getColumn(), orderColumn.getSort().equals(SortColumn.Sort.Asc))
                     )
                     .collect(Collectors.toList());
