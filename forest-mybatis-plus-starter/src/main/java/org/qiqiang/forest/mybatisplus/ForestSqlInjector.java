@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * sql 注入器
+ * 需要自己在代码中注入该类
  *
  * @author qiqiang
  */
