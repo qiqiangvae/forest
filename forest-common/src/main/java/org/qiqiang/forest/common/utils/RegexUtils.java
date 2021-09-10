@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
  *
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class RegexUtils {
 
     public static ArrayList<String[]> getListMatcher(String str, String regex) {

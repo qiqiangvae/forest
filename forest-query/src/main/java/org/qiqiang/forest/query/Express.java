@@ -48,6 +48,6 @@ public enum Express {
      * 右模糊
      */
     right_like,
-    ;
+
 
 }

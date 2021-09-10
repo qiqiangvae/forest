@@ -22,6 +22,7 @@ public abstract class AbstractQueryParam extends PageQuery {
      * @param col col
      * @return this
      */
+    @SuppressWarnings("unchecked")
     public <T extends AbstractQueryParam> T select(String... col) {
         if (col != null && col.length > 0) {
             this.selectList = Stream.of(col).collect(Collectors.toList());

@@ -18,6 +18,7 @@ public class PropertyUtils {
      * @param <T>    target class
      * @return field value
      */
+    @SuppressWarnings("unchecked")
     public static <T> T getValue(Field field, Object object) {
         field.setAccessible(true);
         try {

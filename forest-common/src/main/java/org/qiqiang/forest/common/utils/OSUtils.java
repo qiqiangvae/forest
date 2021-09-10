@@ -15,6 +15,7 @@ import java.util.Properties;
  * 操作系统工具类
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class OSUtils {
 
     private static final String OS_NAME_CONSTANT = "os.name";
@@ -43,6 +44,7 @@ public class OSUtils {
      *
      * @return get current process's ID
      */
+    @SuppressWarnings("unused")
     public static int getCurrentProcessId() {
         RuntimeMXBean runtimeMxBean = ManagementFactory.getRuntimeMXBean();
         return Integer.parseInt(runtimeMxBean.getName().split("@")[0]);
@@ -147,6 +149,7 @@ public class OSUtils {
      *
      * @return long
      */
+    @SuppressWarnings("unused")
     public static long getLongIp() {
         String stringIp = OSUtils.getStringIp();
         if (stringIp == null || stringIp.length() == 0) {

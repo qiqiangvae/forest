@@ -10,6 +10,8 @@ import org.jsoup.safety.Safelist;
  */
 @Slf4j
 public class JsoupUtil {
+    private static final int QUOTATION_MARKS_LENGTH = 2;
+
 
     /**
      * 标签白名单
@@ -55,7 +57,7 @@ public class JsoupUtil {
         int n = temp.length;
         for (int i = 0; i < n; i++) {
             if (temp[i] == ':' && temp[i + 1] == '"') {
-                for (int j = i + 2; j < n; j++) {
+                for (int j = i + QUOTATION_MARKS_LENGTH; j < n; j++) {
                     if (temp[j] == '"') {
                         //如果该字符为双引号,下个字符不是逗号或大括号,替换
                         if (temp[j + 1] != ',' && temp[j + 1] != '}') {

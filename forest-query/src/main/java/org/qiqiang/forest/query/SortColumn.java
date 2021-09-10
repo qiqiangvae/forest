@@ -23,6 +23,7 @@ public class SortColumn implements Comparable<SortColumn> {
         this(column, sort, 0);
     }
 
+    @SuppressWarnings("unused")
     public SortColumn(String column) {
         this(column, Sort.Asc, 0);
     }

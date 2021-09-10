@@ -86,7 +86,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
             return new ServletInputStream() {
                 @Override
-                public int read() throws IOException {
+                public int read() {
                     return byteArrayInputStream.read();
                 }
 
@@ -113,7 +113,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new InputStreamReader(servletInputStream, StandardCharsets.UTF_8));
-            String line = "";
+            String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }

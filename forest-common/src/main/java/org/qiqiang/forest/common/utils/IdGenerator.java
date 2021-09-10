@@ -7,12 +7,15 @@ import java.util.UUID;
  *
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class IdGenerator {
 
+    @SuppressWarnings("unused")
     public static String uuid() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
+    @SuppressWarnings("unused")
     public static String snowFlask() {
         // todo 待实现
         return "";

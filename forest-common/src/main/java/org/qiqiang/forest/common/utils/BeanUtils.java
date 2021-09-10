@@ -23,7 +23,7 @@ public class BeanUtils {
      * @param <T>    target class
      */
     public static <S, T> void copy(S source, T target) {
-        EnhanceBeanCopier beanCopier = EnhanceBeanCopier.create(source.getClass(), target.getClass(), false);
+        BaseEnhanceCopier beanCopier = BaseEnhanceCopier.create(source.getClass(), target.getClass(), false);
         beanCopier.copy(source, target);
     }
 
@@ -68,7 +68,7 @@ public class BeanUtils {
         try {
             // 此处有争议，是否需要保证集合内的数据都是同一类型
             S s = sourceList.get(0);
-            EnhanceBeanCopier beanCopier = EnhanceBeanCopier.create(s.getClass(), targetClass, false);
+            BaseEnhanceCopier beanCopier = BaseEnhanceCopier.create(s.getClass(), targetClass, false);
             for (S source : sourceList) {
                 Constructor<T> constructor = targetClass.getConstructor();
                 target = constructor.newInstance();

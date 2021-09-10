@@ -3,8 +3,6 @@ package org.qiqiang.forest.common.utils;
 import net.sf.cglib.core.*;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Type;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -22,15 +20,14 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author qiqiang
  */
-public abstract class EnhanceBeanCopier {
+public abstract class BaseEnhanceCopier {
 
     private static final String SET_PREFIX = "set";
 
-    private static final Logger logger = LoggerFactory.getLogger(EnhanceBeanCopier.class);
-    private static final Map<String, EnhanceBeanCopier> BEAN_COPIER_CACHE_MAP = new ConcurrentHashMap<>();
+    private static final Map<String, BaseEnhanceCopier> BEAN_COPIER_CACHE_MAP = new ConcurrentHashMap<>();
 
     private static final BeanCopierKey KEY_FACTORY = (BeanCopierKey) KeyFactory.create(BeanCopierKey.class);
-    private static final Type BEAN_COPIER = TypeUtils.parseType(EnhanceBeanCopier.class.getName());
+    private static final Type BEAN_COPIER = TypeUtils.parseType(BaseEnhanceCopier.class.getName());
     private static final Signature COPY = new Signature("copy", Type.VOID_TYPE, new Type[]{Constants.TYPE_OBJECT, Constants.TYPE_OBJECT});
 
     interface BeanCopierKey {
@@ -46,12 +43,12 @@ public abstract class EnhanceBeanCopier {
         Object newInstance(String source, String target, boolean useConverter);
     }
 
-    public static EnhanceBeanCopier create(Class<?> source, Class<?> target, boolean useConverter) {
+    public static BaseEnhanceCopier create(Class<?> source, Class<?> target, boolean useConverter) {
         String cacheKey = source.getName() + source.getName();
-        EnhanceBeanCopier copier;
+        BaseEnhanceCopier copier;
         // 保证线程安全
         if (!BEAN_COPIER_CACHE_MAP.containsKey(cacheKey)) {
-            synchronized (EnhanceBeanCopier.class) {
+            synchronized (BaseEnhanceCopier.class) {
                 if (!BEAN_COPIER_CACHE_MAP.containsKey(cacheKey)) {
                     Generator<?> gen = new Generator<>();
                     gen.setSource(source);
@@ -79,7 +76,7 @@ public abstract class EnhanceBeanCopier {
 
     public static class Generator<T> extends AbstractClassGenerator<T> {
 
-        private static final Source SOURCE = new Source(EnhanceBeanCopier.class.getName());
+        private static final Source SOURCE = new Source(BaseEnhanceCopier.class.getName());
         private Class<?> source;
         private Class<?> target;
         private boolean useConverter;
@@ -111,9 +108,9 @@ public abstract class EnhanceBeanCopier {
             return source.getClassLoader();
         }
 
-        public EnhanceBeanCopier create() {
+        public BaseEnhanceCopier create() {
             Object key = KEY_FACTORY.newInstance(source.getName(), target.getName(), useConverter);
-            return (EnhanceBeanCopier) super.create(key);
+            return (BaseEnhanceCopier) super.create(key);
         }
 
         @Override
