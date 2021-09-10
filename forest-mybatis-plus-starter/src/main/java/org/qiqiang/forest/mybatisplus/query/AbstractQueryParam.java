@@ -19,15 +19,14 @@ public abstract class AbstractQueryParam extends PageQuery {
     /**
      * 需要查询的字段
      *
-     * @param col
-     * @param <S>
-     * @return
+     * @param col col
+     * @return this
      */
-    public <S extends AbstractQueryParam> S select(String... col) {
+    public <T extends AbstractQueryParam> T select(String... col) {
         if (col != null && col.length > 0) {
             this.selectList = Stream.of(col).collect(Collectors.toList());
         }
-        return (S) this;
+        return (T) this;
     }
 
     protected List<String> getSelectList() {

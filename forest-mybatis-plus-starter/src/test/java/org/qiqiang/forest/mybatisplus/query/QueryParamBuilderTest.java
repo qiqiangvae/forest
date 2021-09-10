@@ -17,7 +17,7 @@ import org.qiqiang.forest.query.SortColumn;
 import java.util.Date;
 
 @RunWith(JUnit4.class)
-public class AbstractQueryParamTest {
+public class QueryParamBuilderTest {
 
     @Test
     public void toWrapper() {
