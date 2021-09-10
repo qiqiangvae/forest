@@ -6,7 +6,7 @@
 * forest-dependence。外部依赖版本管理。
 * forest-mvc。MVC 相关扩展。
 * forest-mybatis-plus-starter。mybatis-plus 相关扩展。
-* forest-query。查询基础模块。
+* forest-query。查询基础模块，其它类型数据库的查询操作可以基于此扩展。
 
 # forest-common
 
@@ -26,7 +26,7 @@
 Mybatis-plus 扩展。
 
 * Mybatis-plus 基于注解模式的查询。
-* 流式查询方法扩展。
+* 流式查询方法扩展，大数据量情况下可极大提升查询效率。见`org.qiqiang.forest.mybatisplus.enhance.ForestSqlInjector`。
 
 # forest-mvc
 

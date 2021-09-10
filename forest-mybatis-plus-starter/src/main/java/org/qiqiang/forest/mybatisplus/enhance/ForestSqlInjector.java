@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mybatisplus;
+package org.qiqiang.forest.mybatisplus.enhance;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
@@ -8,7 +8,13 @@ import java.util.List;
 
 /**
  * sql 注入器
- * 需要自己在代码中注入该类
+ * 需要自己在代码中注入该配置或直接将 ForestSqlInjector 交给 spring 管理
+ * <code>
+ *     MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
+ *     GlobalConfig conf = new GlobalConfig();
+ *     conf.setSqlInjector(customizedSqlInjector);
+ *     sqlSessionFactory.setGlobalConfig(conf);
+ * </code>
  *
  * @author qiqiang
  */

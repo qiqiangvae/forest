@@ -19,14 +19,18 @@ import static org.qiqiang.forest.mvc.ForestMvcConstants.BEAN_FOREST_XSS_FILTER;
 
 
 /**
+ * forest mvc 自动配置
+ *
  * @author qiqiang
  */
 @Slf4j
 @RequiredArgsConstructor
 @Configuration(proxyBeanMethods = false)
-
 public class ForestMvcAutoConfiguration {
 
+    /**
+     * Forest MVC 配置类
+     */
     @Bean(BEAN_FOREST_MVC_PROPERTIES)
     ForestMvcProperties forestMvcProperties() {
         return new ForestMvcProperties();

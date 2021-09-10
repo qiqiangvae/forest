@@ -17,6 +17,7 @@ import java.util.function.Function;
 
 /**
  * forest 通用服务
+ * 注意，在jdbc url 加上参数 rewriteBatchedStatements=true 可极大提升批量操作的效率
  *
  * @author qiqiang
  */
