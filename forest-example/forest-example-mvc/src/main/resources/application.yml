@@ -11,4 +11,8 @@ forest:
   mvc:
     # 是否启用 xss 拦截
     enable-xss: true
-    enable-log-trace: true
+    enable-trace: true
+    enable-log: true
+    log-ignore-text: 该字段不打印
+    log-ignore-req: ""
+    log-ignore-resp: context

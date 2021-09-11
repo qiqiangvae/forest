@@ -14,10 +14,31 @@
       "description": "是否开启 xss 攻击拦截."
     },
     {
-       "name": "forest.mvc.enable-log-trace",
-       "type": "java.lang.Boolean",
-       "defaultValue": false,
-       "description": "是否开启 日志追踪 traceId. 还需要注意修改logback.xml中<appender>-><encoder>节点下加上 [%X{traceId}]."
+      "name": "forest.mvc.enable-trace",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "是否开启日志追踪 traceId."
+    },
+    {
+      "name": "forest.mvc.enable-log",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "是否开启切面日志记录."
+    },
+    {
+      "name": "forest.mvc.log-ignore-text",
+      "type": "java.lang.String",
+      "description": "日志忽略字段提示文本."
+    },
+    {
+      "name": "forest.mvc.log-ignore-req",
+      "type": "java.lang.String",
+      "description": "全局忽略请求字段."
+    },
+    {
+      "name": "forest.mvc.log-ignore-resp",
+      "type": "java.lang.String",
+      "description": "全局忽略返回字段."
     }
   ]
 }

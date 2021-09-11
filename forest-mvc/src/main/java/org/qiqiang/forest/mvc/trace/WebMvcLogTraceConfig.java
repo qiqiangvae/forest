@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author : Zhang Huang
  * @date : 2021-09-10 3:03 下午
  */
-@ConditionalOnProperty(name = "forest.mvc.enable-log-trace", havingValue = "true")
+@ConditionalOnProperty(name = "forest.mvc.enable-trace", havingValue = "true")
 public class WebMvcLogTraceConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

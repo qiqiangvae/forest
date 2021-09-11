@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 还需要注意修改logback.xml中<appender>-><encoder>节点下加上 [%X{traceId}]
+ *
  * @author : Zhang Huang
  * @date : 2021-09-10 2:56 下午
  */

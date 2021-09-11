@@ -23,6 +23,7 @@
         <reflections.version>0.9.12</reflections.version>
         <javax.el.version>3.0.0</javax.el.version>
         <jsoup.version>1.14.2</jsoup.version>
+        <jackson.version>2.12.4</jackson.version>
     </properties>
 
 
@@ -95,6 +96,12 @@
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>${jsoup.version}</version>
+            </dependency>
+            <!--jackson-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

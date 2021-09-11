@@ -20,4 +20,6 @@ public class TimeTestVO {
     private LocalDate localDate;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime localDateTime;
+
+    private XssTestVO xssTestVO;
 }
