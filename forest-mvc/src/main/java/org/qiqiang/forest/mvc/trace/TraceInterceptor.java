@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mvc.log;
+package org.qiqiang.forest.mvc.trace;
 
 import org.slf4j.MDC;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;

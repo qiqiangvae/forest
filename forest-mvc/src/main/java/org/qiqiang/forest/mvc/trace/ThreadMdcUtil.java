@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mvc.log;
+package org.qiqiang.forest.mvc.trace;
 
 import org.qiqiang.forest.common.utils.IdGenerator;
 import org.slf4j.MDC;
@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import static org.qiqiang.forest.mvc.log.LogConstant.TRACE_ID;
+import static org.qiqiang.forest.mvc.trace.LogConstant.TRACE_ID;
 
 /**
  * @author : Zhang Huang
@@ -27,10 +27,12 @@ public class ThreadMdcUtil {
         }
     }
 
+    @SuppressWarnings("unused")
     public static void setTraceId() {
         MDC.put(TRACE_ID, createTraceId());
     }
 
+    @SuppressWarnings("unused")
     public static void setTraceId(String traceId) {
         MDC.put(TRACE_ID, traceId);
     }

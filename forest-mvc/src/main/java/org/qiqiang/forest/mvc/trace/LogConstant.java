@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mvc.log;
+package org.qiqiang.forest.mvc.trace;
 
 /**
  * @author : Zhang Huang

@@ -10,7 +10,6 @@ import java.util.UUID;
 @SuppressWarnings("unused")
 public class IdGenerator {
 
-    @SuppressWarnings("unused")
     public static String uuid() {
         return UUID.randomUUID().toString().replace("-", "");
     }
