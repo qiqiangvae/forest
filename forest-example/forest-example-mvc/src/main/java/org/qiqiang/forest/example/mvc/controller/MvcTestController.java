@@ -26,7 +26,7 @@ public class MvcTestController {
     }
 
     @RequestMapping("/timeTest")
-    @LogPrinter(ignoreReq = {"timeTestVO.localDate"})
+    @LogPrinter(enable = false)
     public LocalDateTime timeTest(@RequestBody TimeTestVO timeTestVO) {
         System.out.println(timeTestVO);
         return LocalDateTime.now();

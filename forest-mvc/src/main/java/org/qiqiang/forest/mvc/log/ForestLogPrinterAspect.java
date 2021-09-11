@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.qiqiang.forest.common.utils.JsonUtils;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
@@ -46,13 +47,17 @@ public class ForestLogPrinterAspect {
     }
 
     public void addGlobalIgnoreReq(Collection<String> ignores) {
-        globalIgnoreReq.addAll(ignores);
-        log.info("配置全局忽略请求字段[{}]", String.join(",", ignores));
+        if (!CollectionUtils.isEmpty(ignores)) {
+            globalIgnoreReq.addAll(ignores);
+            log.info("配置全局忽略请求字段[{}]", String.join(",", ignores));
+        }
     }
 
     public void addGlobalIgnoreResp(Collection<String> ignores) {
-        globalIgnoreResp.addAll(ignores);
-        log.info("配置全局忽略返回字段[{}]", String.join(",", ignores));
+        if (!CollectionUtils.isEmpty(ignores)) {
+            globalIgnoreResp.addAll(ignores);
+            log.info("配置全局忽略返回字段[{}]", String.join(",", ignores));
+        }
     }
 
     @PostConstruct
@@ -65,9 +70,11 @@ public class ForestLogPrinterAspect {
         // 处理类上的配置
         Object target = pjp.getTarget();
         LogPrinter classLogPointer = target.getClass().getAnnotation(LogPrinter.class);
+        boolean enable = true;
         Set<String> ignoreReq = new HashSet<>(globalIgnoreReq);
         Set<String> ignoreResp = new HashSet<>(globalIgnoreResp);
         if (classLogPointer != null) {
+            enable = classLogPointer.enable();
             ignoreReq.addAll(Stream.of(classLogPointer.ignoreReq()).collect(Collectors.toSet()));
             ignoreResp.addAll(Stream.of(classLogPointer.ignoreResp()).collect(Collectors.toSet()));
         }
@@ -75,20 +82,25 @@ public class ForestLogPrinterAspect {
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         Method method = signature.getMethod();
         LogPrinter logPointer = method.getAnnotation(LogPrinter.class);
-        if (logPointer != null) {
+        if (enable && logPointer != null) {
+            enable = logPointer.enable();
             ignoreReq.addAll(Stream.of(logPointer.ignoreReq()).collect(Collectors.toSet()));
             ignoreResp.addAll(Stream.of(logPointer.ignoreResp()).collect(Collectors.toSet()));
         }
-        // 入参打印
-        String[] parameterNames = signature.getParameterNames();
-        Object[] args = pjp.getArgs();
-        Map<String, Object> requestLog = getRequestLog(ignoreReq, parameterNames, args);
-        log.info("[{}]入参：[{}]", method.getName(), JsonUtils.write2String(requestLog));
+        if (enable) {
+            // 入参打印
+            String[] parameterNames = signature.getParameterNames();
+            Object[] args = pjp.getArgs();
+            Map<String, Object> requestLog = getRequestLog(ignoreReq, parameterNames, args);
+            log.info("[{}]入参：[{}]", method.getName(), JsonUtils.write2String(requestLog));
+        }
         // 真正处理
         Object result = pjp.proceed();
-        // 出参打印
-        String responseLog = getResponseLog(ignoreResp, result);
-        log.info("[{}]出参：[{}]", method.getName(), JsonUtils.write2String(responseLog));
+        if (enable) {
+            // 出参打印
+            String responseLog = getResponseLog(ignoreResp, result);
+            log.info("[{}]出参：[{}]", method.getName(), responseLog);
+        }
         return result;
     }
 
