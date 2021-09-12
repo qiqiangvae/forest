@@ -34,6 +34,7 @@ public class ForestMatchingPointcut implements Pointcut, ClassFilter, MethodMatc
             ResourcePatternResolver resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
             packagePath = StringUtils.replace(packagePath, ".", "/");
             MetadataReaderFactory readerFactory = new CachingMetadataReaderFactory(resourceLoader);
+            ClassLoader classLoader = ForestMatchingPointcut.class.getClassLoader();
             try {
                 String locationPattern = "classpath*:" + packagePath + "/*.class";
                 Resource[] resources = resolver.getResources(locationPattern);
@@ -41,7 +42,7 @@ public class ForestMatchingPointcut implements Pointcut, ClassFilter, MethodMatc
                     MetadataReader reader = readerFactory.getMetadataReader(resource);
                     ClassMetadata classMetadata = reader.getClassMetadata();
                     String className = classMetadata.getClassName();
-                    Class<?> clazz = ForestMatchingPointcut.class.getClassLoader().loadClass(className);
+                    Class<?> clazz = classLoader.loadClass(className);
                     if (!clazz.isInterface()) {
                         classnameSet.add(clazz.getName());
                     }

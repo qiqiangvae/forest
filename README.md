@@ -7,6 +7,7 @@
 * forest-mvc。MVC 相关扩展。
 * forest-mybatis-plus-starter。mybatis-plus 相关扩展。
 * forest-query。查询基础模块，其它类型数据库的查询操作可以基于此扩展。
+* Forest-framework。核心框架，提供通用日志打印功能、上下文工具。
 
 # forest-common
 
@@ -39,5 +40,23 @@ forest:
   mvc:
     # 是否启用 xss 拦截
     enable-xss: true
+```
+
+
+
+# forest-framework
+
+框架核心层。提供如下功能：
+
+* 日志打印。基于Spring AOP 实现，可定制打印参数和拦截路径，理论上只要是被 Spring 管理的 Bean 都可以拦截，只要在配置文件中全局配置或者在指定类或方法上加上`@LogPrinter` 注解即可。
+
+```yaml
+forest:
+  log:
+    ignore-text: "#该字段不打印#"
+    ignore-req: ""
+    ignore-resp: context
+    package-path: org.qiqiang.forest.example.mvc.controller
+    enable: true
 ```
 

@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LogPrinter {
     /**
-     * 是否不启用
+     * 是否启用
      */
     boolean enable() default true;
 
