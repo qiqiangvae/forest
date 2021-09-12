@@ -16,6 +16,7 @@
         <module>forest-query</module>
         <module>forest-mvc</module>
         <module>forest-maven-plugin</module>
+        <module>forest-framework</module>
     </modules>
 
     <properties>

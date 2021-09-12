@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mvc.log;
+package org.qiqiang.forest.mvc.extension;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;

@@ -3,7 +3,7 @@ package org.qiqiang.forest.example.mvc.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.qiqiang.forest.example.mvc.vo.TimeTestVO;
 import org.qiqiang.forest.example.mvc.vo.XssTestVO;
-import org.qiqiang.forest.mvc.log.LogPrinter;
+import org.qiqiang.forest.framework.log.LogPrinter;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @RestController
 @Slf4j
-@LogPrinter
+//@LogPrinter
 public class MvcTestController {
     @RequestMapping("/hello")
     public String hello() {
@@ -26,7 +26,7 @@ public class MvcTestController {
     }
 
     @RequestMapping("/timeTest")
-    @LogPrinter(enable = false)
+    @LogPrinter(ignoreReq = "timeTestVO.date")
     public LocalDateTime timeTest(@RequestBody TimeTestVO timeTestVO) {
         System.out.println(timeTestVO);
         return LocalDateTime.now();

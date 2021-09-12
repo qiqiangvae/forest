@@ -18,27 +18,6 @@
       "type": "java.lang.Boolean",
       "defaultValue": false,
       "description": "是否开启日志追踪 traceId."
-    },
-    {
-      "name": "forest.mvc.enable-log",
-      "type": "java.lang.Boolean",
-      "defaultValue": false,
-      "description": "是否开启切面日志记录."
-    },
-    {
-      "name": "forest.mvc.log-ignore-text",
-      "type": "java.lang.String",
-      "description": "日志忽略字段提示文本."
-    },
-    {
-      "name": "forest.mvc.log-ignore-req",
-      "type": "java.lang.String",
-      "description": "全局忽略请求字段."
-    },
-    {
-      "name": "forest.mvc.log-ignore-resp",
-      "type": "java.lang.String",
-      "description": "全局忽略返回字段."
     }
   ]
 }

@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "name": "forest-mvc",
+      "type": "org.qiqiang.forest.framework.log.ForestLogProperties",
+      "sourceType": "org.qiqiang.forest.framework.log.ForestLogProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "forest.log.enable",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "是否开启切面日志记录."
+    },
+    {
+      "name": "forest.log.ignore-text",
+      "type": "java.lang.String",
+      "description": "日志忽略字段提示文本."
+    },
+    {
+      "name": "forest.log.ignore-req",
+      "type": "java.lang.String",
+      "description": "全局忽略请求字段."
+    },
+    {
+      "name": "forest.log.ignore-resp",
+      "type": "java.lang.String",
+      "description": "全局忽略返回字段."
+    },
+    {
+      "name": "forest.log.package-path",
+      "type": "java.lang.String",
+      "description": "扫描包路径."
+    }
+  ]
+}

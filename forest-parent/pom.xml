@@ -36,6 +36,11 @@
             </dependency>
             <dependency>
                 <groupId>org.qiqiang</groupId>
+                <artifactId>forest-framework</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.qiqiang</groupId>
                 <artifactId>forest-dependence</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>

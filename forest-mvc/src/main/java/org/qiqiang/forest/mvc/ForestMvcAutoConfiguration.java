@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.qiqiang.forest.mvc.log.ForestLogPrinterAspect;
 import org.qiqiang.forest.mvc.xss.XssFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,7 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
-import static org.qiqiang.forest.mvc.ForestMvcConstants.*;
+import static org.qiqiang.forest.mvc.ForestMvcConstants.BEAN_FOREST_MVC_PROPERTIES;
+import static org.qiqiang.forest.mvc.ForestMvcConstants.BEAN_FOREST_XSS_FILTER;
 
 
 /**
@@ -61,18 +61,5 @@ public class ForestMvcAutoConfiguration {
         return xssFilterFilterRegistrationBean;
     }
 
-    /**
-     * 注入日志切面
-     */
-    @Bean(BEAN_FOREST_LOG_ASPECT)
-    @ConditionalOnProperty(name = "forest.mvc.enable-log", havingValue = "true")
-    ForestLogPrinterAspect forestLogAspect(ObjectMapper objectMapper, ForestMvcProperties forestMvcProperties) {
-        ForestLogPrinterAspect forestLogAspect = new ForestLogPrinterAspect();
-        forestLogAspect.setObjectMapper(objectMapper);
-        forestLogAspect.setIgnoreText(forestMvcProperties.getLogIgnoreText());
-        forestLogAspect.addGlobalIgnoreReq(forestMvcProperties.getLogIgnoreReq());
-        forestLogAspect.addGlobalIgnoreResp(forestMvcProperties.getLogIgnoreResp());
-        return forestLogAspect;
-    }
 
 }

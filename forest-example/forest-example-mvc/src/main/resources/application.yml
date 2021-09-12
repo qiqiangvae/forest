@@ -12,7 +12,9 @@ forest:
     # 是否启用 xss 拦截
     enable-xss: true
     enable-trace: true
-    enable-log: true
-    log-ignore-text: 该字段不打印
-    log-ignore-req: ""
-    log-ignore-resp: context
+  log:
+    ignore-text: "#该字段不打印#"
+    ignore-req: ""
+    ignore-resp: context
+    package-path: org.qiqiang.forest.example.mvc.controller
+    enable: true
