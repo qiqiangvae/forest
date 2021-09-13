@@ -118,9 +118,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
         if (ignore.length == 1) {
             map.put(ignore[0], ignoreText);
         } else {
-            String[] childrenIgnore = new String[ignore.length - 1];
-            System.arraycopy(ignore, 1, childrenIgnore, 0, ignore.length - 1);
-            removeIgnoreArgs((Map<String, Object>) map.get(ignore[0]), childrenIgnore);
+            removeIgnoreArgs((Map<String, Object>) map.get(ignore[0]), StringUtils.split(ignore[1], ".", 2));
         }
     }
 

@@ -27,10 +27,10 @@ public class MvcTestController {
     }
 
     @RequestMapping("/timeTest")
-    @LogPrinter(ignoreReq = "timeTestVO.date")
-    public LocalDateTime timeTest(@RequestBody TimeTestVO timeTestVO) {
+    @LogPrinter(ignoreReq = {"timeTestVO.date","timeTestVO.xssTestVO.context"})
+    public TimeTestVO timeTest(@RequestBody TimeTestVO timeTestVO) {
         System.out.println(timeTestVO);
-        return LocalDateTime.now();
+        return timeTestVO;
     }
 
     @PostMapping("/xssTest")
