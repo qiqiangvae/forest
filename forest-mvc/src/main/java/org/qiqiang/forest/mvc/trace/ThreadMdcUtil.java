@@ -15,6 +15,7 @@ import static org.qiqiang.forest.mvc.ForestMvcConstants.TRACE_ID;
  * @author : Zhang Huang
  * @date : 2021-09-10 2:58 下午
  */
+@SuppressWarnings("unused")
 public class ThreadMdcUtil {
 
     public static String createTraceId() {
@@ -28,12 +29,10 @@ public class ThreadMdcUtil {
         }
     }
 
-    @SuppressWarnings("unused")
     public static void setTraceId() {
         MDC.put(TRACE_ID, createTraceId());
     }
 
-    @SuppressWarnings("unused")
     public static void setTraceId(String traceId) {
         MDC.put(TRACE_ID, traceId);
     }

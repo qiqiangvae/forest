@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * @author qiqiang
  */
+@SuppressWarnings({"unchecked", "unused"})
 public class PageQuery implements QueryParam, Serializable {
     /**
      * 当前页
@@ -23,26 +24,22 @@ public class PageQuery implements QueryParam, Serializable {
         return new int[]{current, pageSize};
     }
 
-    @SuppressWarnings({"unchecked", "unused"})
     public <T extends PageQuery> T setPageSize(int pageSize) {
         this.pageSize = pageSize;
         return (T) this;
     }
 
-    @SuppressWarnings({"unchecked", "unused"})
     public <T extends PageQuery> T setCurrent(int current) {
         this.current = current;
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public <T extends PageQuery> T setPaging(int current, int pageSize) {
         this.current = current;
         this.pageSize = pageSize;
         return (T) this;
     }
 
-    @SuppressWarnings("unchecked")
     public <T extends PageQuery> T addSort(SortColumn orderItem) {
         if (sorts == null) {
             sorts = new ArrayList<>();
@@ -51,7 +48,6 @@ public class PageQuery implements QueryParam, Serializable {
         return (T) this;
     }
 
-    @SuppressWarnings("unused")
     public <T extends PageQuery> T addSort(String column, SortColumn.Sort sort) {
         return addSort(column, sort, 0);
     }
@@ -60,7 +56,6 @@ public class PageQuery implements QueryParam, Serializable {
         return addSort(new SortColumn(column, sort, order));
     }
 
-    @SuppressWarnings({"unchecked", "unused"})
     public <T extends PageQuery> T addSorts(List<SortColumn> sorts) {
         this.sorts.addAll(sorts);
         return (T) this;

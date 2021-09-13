@@ -16,7 +16,7 @@ import java.util.Properties;
  * @author qiqiang
  */
 @SuppressWarnings("unused")
-public class OSUtils {
+public class OsUtils {
 
     private static final String OS_NAME_CONSTANT = "os.name";
     private static final String LINE_SEPARATOR_CONSTANT = "line.separator";
@@ -33,7 +33,6 @@ public class OSUtils {
     private static final String COLON = ":";
 
 
-    @SuppressWarnings("unused")
     public static int getAvailableProcessors() {
         return Runtime.getRuntime().availableProcessors();
     }
@@ -44,18 +43,15 @@ public class OSUtils {
      *
      * @return get current process's ID
      */
-    @SuppressWarnings("unused")
     public static int getCurrentProcessId() {
         RuntimeMXBean runtimeMxBean = ManagementFactory.getRuntimeMXBean();
         return Integer.parseInt(runtimeMxBean.getName().split("@")[0]);
     }
 
-    @SuppressWarnings("unused")
     public static String getCurrentPath() {
-        return OSUtils.getProperty(OSUtils.CURRENT_PATH);
+        return OsUtils.getProperty(OsUtils.CURRENT_PATH);
     }
 
-    @SuppressWarnings("unused")
     public static String getStandardPath() {
         File directory = new File("");
         try {
@@ -66,7 +62,6 @@ public class OSUtils {
         return null;
     }
 
-    @SuppressWarnings("unused")
     public static String getAbsolutionPath() {
         File directory = new File("");
         try {
@@ -84,37 +79,35 @@ public class OSUtils {
     /**
      * get OS name
      */
-    @SuppressWarnings("unused")
-    public static final String OS_NAME = OSUtils.getProperty(OS_NAME_CONSTANT);
+    public static final String OS_NAME = OsUtils.getProperty(OS_NAME_CONSTANT);
 
-    @SuppressWarnings("unused")
-    private static final String LINE_SEPARATOR = OSUtils.getProperty(LINE_SEPARATOR_CONSTANT);
-    @SuppressWarnings("unused")
-    private static final String FILE_SEPARATOR = OSUtils.getProperty(FILE_SEPARATOR_CONSTANT);
+    private static final String LINE_SEPARATOR = OsUtils.getProperty(LINE_SEPARATOR_CONSTANT);
+
+    private static final String FILE_SEPARATOR = OsUtils.getProperty(FILE_SEPARATOR_CONSTANT);
 
     private static String getProperty(final String propertyName) {
         return PROPERTIES.getProperty(propertyName);
     }
 
     public static String getSystemOsName() {
-        return OSUtils.getProperty(OSUtils.OS_NAME_CONSTANT);
+        return OsUtils.getProperty(OsUtils.OS_NAME_CONSTANT);
     }
 
     public static String getHostName() throws SocketException, UnknownHostException {
-        String osName = OSUtils.getSystemOsName();
+        String osName = OsUtils.getSystemOsName();
 
         try {
             String osNameTmp = osName.toUpperCase();
             InetAddress iNet;
 
-            if (osNameTmp.startsWith(OSUtils.OS_WINDOWS)) {
-                iNet = OSUtils.getWindowsLocalAddress();
-            } else if (osNameTmp.startsWith(OSUtils.OS_LINUX)) {
-                iNet = OSUtils.getUnixLocalAddress();
-            } else if (osNameTmp.startsWith(OSUtils.OS_MAC)) {
-                iNet = OSUtils.getMacLocalAddress();
+            if (osNameTmp.startsWith(OsUtils.OS_WINDOWS)) {
+                iNet = OsUtils.getWindowsLocalAddress();
+            } else if (osNameTmp.startsWith(OsUtils.OS_LINUX)) {
+                iNet = OsUtils.getUnixLocalAddress();
+            } else if (osNameTmp.startsWith(OsUtils.OS_MAC)) {
+                iNet = OsUtils.getMacLocalAddress();
             } else {
-                iNet = OSUtils.getUnixLocalAddress();
+                iNet = OsUtils.getUnixLocalAddress();
             }
             if (iNet == null) {
                 throw new UnknownHostException("local IP is unknown!");
@@ -149,17 +142,16 @@ public class OSUtils {
      *
      * @return long
      */
-    @SuppressWarnings("unused")
     public static long getLongIp() {
-        String stringIp = OSUtils.getStringIp();
+        String stringIp = OsUtils.getStringIp();
         if (stringIp == null || stringIp.length() == 0) {
             return -1;
         }
         byte[] intIp;
         if (stringIp.contains(COLON)) {
-            intIp = OSUtils.ipv62Int(stringIp);
+            intIp = OsUtils.ipv62Int(stringIp);
         } else {
-            intIp = OSUtils.ipv42Int(stringIp);
+            intIp = OsUtils.ipv42Int(stringIp);
         }
         BigInteger bigInteger = new BigInteger(intIp);
         return bigInteger.longValue();
@@ -210,7 +202,7 @@ public class OSUtils {
         String[] groups = tmpStringIp.split(COLON);
         for (int ig = groups.length - 1; ig > -1; ig--) {
             if (groups[ig].contains(".")) {
-                ret = OSUtils.ipv42Int(groups[ig]);
+                ret = OsUtils.ipv42Int(groups[ig]);
                 compositedFlag = true;
             } else if ("".equals(groups[ig])) {
                 //出现零长度压缩，计算缺少的数组

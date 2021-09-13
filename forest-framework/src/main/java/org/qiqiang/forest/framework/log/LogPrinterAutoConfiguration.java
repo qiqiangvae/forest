@@ -31,17 +31,17 @@ public class LogPrinterAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(name = "forestPointcutAdvisor")
     @ConditionalOnProperty(name = "forest.log.enable", havingValue = "true")
-    DefaultPointcutAdvisor forestPointcutAdvisor(ObjectMapper objectMapper, ForestLogProperties forestLogProperties, ResourceLoader resourceLoader) {
+    DefaultPointcutAdvisor forestPointcutAdvisor(LogMethodInterceptor logMethodInterceptor, ForestLogProperties forestLogProperties, ResourceLoader resourceLoader) {
         log.info("启用日志拦截功能");
         DefaultPointcutAdvisor forestPointcutAdvisor = new DefaultPointcutAdvisor();
         ForestMatchingPointcut forestMatchingPointcut = new ForestMatchingPointcut(forestLogProperties.getPackagePath(), resourceLoader);
         forestPointcutAdvisor.setPointcut(forestMatchingPointcut);
-        Advice advice = getAdvice(objectMapper, forestLogProperties);
-        forestPointcutAdvisor.setAdvice(advice);
+        forestPointcutAdvisor.setAdvice(logMethodInterceptor);
         return forestPointcutAdvisor;
     }
 
-    private Advice getAdvice(ObjectMapper objectMapper, ForestLogProperties forestMvcProperties) {
+    @Bean
+    LogMethodInterceptor logMethodInterceptor(ObjectMapper objectMapper, ForestLogProperties forestMvcProperties) {
         LogMethodInterceptor advice = new LogMethodInterceptor();
         advice.setObjectMapper(objectMapper);
         advice.setIgnoreText(forestMvcProperties.getIgnoreText());

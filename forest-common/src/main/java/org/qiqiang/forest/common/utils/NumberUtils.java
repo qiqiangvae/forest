@@ -12,11 +12,11 @@ import java.util.Random;
  *
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class NumberUtils {
 
     private static final Random RND = new Random();
 
-    @SuppressWarnings("unused")
     public static int getRandomInt(int min, int max) {
         return (int) Math.round((Math.random() * (max - min)) + min);
     }
@@ -36,7 +36,6 @@ public class NumberUtils {
         return re;
     }
 
-    @SuppressWarnings("unused")
     public static Long parseLong(String in) {
         return parseLong(in, 0L);
     }
@@ -67,7 +66,6 @@ public class NumberUtils {
         return re;
     }
 
-    @SuppressWarnings("unused")
     public static int[] parseInt(String[] in) {
         int[] arr = new int[in.length];
         int i = 0;
@@ -84,7 +82,6 @@ public class NumberUtils {
      * @param digCount digCount
      * @return String
      */
-    @SuppressWarnings("unused")
     public static String getRandomNumberWithFixLength(int digCount) {
         StringBuilder sb = new StringBuilder(digCount);
         for (int i = 0; i < digCount; i++) {
@@ -101,7 +98,6 @@ public class NumberUtils {
      * @param divisor  除数
      * @return Double
      */
-    @SuppressWarnings("unused")
     public static Double divide(int scale, Object dividend, Object divisor) {
         BigDecimal ret;
         try {

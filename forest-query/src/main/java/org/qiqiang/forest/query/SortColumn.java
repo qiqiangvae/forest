@@ -7,6 +7,7 @@ import lombok.Setter;
  * @author qiqiang
  */
 @Getter
+@SuppressWarnings("unused")
 public class SortColumn implements Comparable<SortColumn> {
     @Setter
     private String column;
@@ -23,7 +24,6 @@ public class SortColumn implements Comparable<SortColumn> {
         this(column, sort, 0);
     }
 
-    @SuppressWarnings("unused")
     public SortColumn(String column) {
         this(column, Sort.Asc, 0);
     }

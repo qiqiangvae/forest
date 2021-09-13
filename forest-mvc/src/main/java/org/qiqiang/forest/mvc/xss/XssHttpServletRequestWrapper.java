@@ -44,7 +44,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     public String getParameter(String name) {
         String value = super.getParameter(name);
         if (value != null) {
-            value = JsoupUtil.clean(value);
+            value = JsoupUtils.clean(value);
         }
         return value;
     }
@@ -57,7 +57,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     public String[] getParameterValues(String name) {
         String[] values = super.getParameterValues(name);
         if (ArrayUtils.isNotEmpty(values)) {
-            values = Stream.of(values).map(s -> JsoupUtil.clean(name)).toArray(String[]::new);
+            values = Stream.of(values).map(s -> JsoupUtils.clean(name)).toArray(String[]::new);
         }
         return values;
     }
@@ -71,7 +71,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     public String getHeader(String name) {
         String value = super.getHeader(name);
         if (value != null) {
-            value = JsoupUtil.clean(value);
+            value = JsoupUtils.clean(value);
         }
         return value;
     }
@@ -135,6 +135,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
                 }
             }
         }
-        return JsoupUtil.cleanJson(sb.toString());
+        return JsoupUtils.cleanJson(sb.toString());
     }
 }

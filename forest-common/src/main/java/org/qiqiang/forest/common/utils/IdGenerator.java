@@ -14,7 +14,6 @@ public class IdGenerator {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
-    @SuppressWarnings("unused")
     public static String snowFlask() {
         // todo 待实现
         return "";

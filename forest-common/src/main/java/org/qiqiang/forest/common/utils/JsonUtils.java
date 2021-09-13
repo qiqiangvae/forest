@@ -17,6 +17,7 @@ import java.util.*;
  * @author qiqiang
  */
 @Slf4j
+@SuppressWarnings("unused")
 public class JsonUtils {
     private static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -56,7 +57,6 @@ public class JsonUtils {
      * @param object 对象
      * @return json String
      */
-    @SuppressWarnings("unused")
     public static String write2String(Object object) {
         try {
             return OBJECT_MAPPER.writeValueAsString(object);
@@ -81,7 +81,6 @@ public class JsonUtils {
      * @param <T>        对象 class
      * @return 对象
      */
-    @SuppressWarnings("unused")
     public static <T> T read2Object(String jsonString, Class<T> clazz) {
         try {
             return OBJECT_MAPPER.readValue(jsonString, clazz);
@@ -110,7 +109,6 @@ public class JsonUtils {
         return OBJECT_MAPPER.getTypeFactory().constructParametricType(ArrayList.class, elementClasses);
     }
 
-    @SuppressWarnings("unused")
     public static ObjectMapper getObjectMapper() {
         return OBJECT_MAPPER;
     }

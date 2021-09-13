@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.qiqiang.forest.framework.log.LogPrinterAutoConfiguration
+  org.qiqiang.forest.framework.log.LogPrinterAutoConfiguration,\
+  org.qiqiang.forest.framework.context.ForestContextAutoConfiguration

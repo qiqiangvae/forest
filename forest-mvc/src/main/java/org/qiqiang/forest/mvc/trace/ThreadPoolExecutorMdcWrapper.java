@@ -13,7 +13,9 @@ import java.util.concurrent.*;
  * @see ThreadPoolExecutorMdcWrapper#execute(Runnable)#submit(Runnable)#submit(Callable)#submit(Runnable, Object) 中把上下文中的traceId进行传递；
  * 具体的使用就是把你原来executor = new ThreadPoolExecutor(...)改成executor = new ThreadPoolExecutorMdcWrapper(...)即可
  */
+@SuppressWarnings("unused")
 public class ThreadPoolExecutorMdcWrapper extends ThreadPoolExecutor {
+
 
     public ThreadPoolExecutorMdcWrapper(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);

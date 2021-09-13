@@ -9,7 +9,7 @@ import org.jsoup.safety.Safelist;
  * @author qiqiang
  */
 @Slf4j
-public class JsoupUtil {
+public class JsoupUtils {
     private static final int QUOTATION_MARKS_LENGTH = 2;
 
 
