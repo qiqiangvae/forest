@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.qiqiang.forest.mvc.trace.TraceFilter;
 import org.qiqiang.forest.mvc.xss.XssFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -14,8 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
-import static org.qiqiang.forest.mvc.ForestMvcConstants.BEAN_FOREST_MVC_PROPERTIES;
-import static org.qiqiang.forest.mvc.ForestMvcConstants.BEAN_FOREST_XSS_FILTER;
+import static org.qiqiang.forest.mvc.ForestMvcConstants.*;
 
 
 /**
@@ -61,5 +61,17 @@ public class ForestMvcAutoConfiguration {
         return xssFilterFilterRegistrationBean;
     }
 
+    /**
+     * 注入 日志跟踪 拦截
+     */
+    @Bean(BEAN_FOREST_TRACE_FILTER)
+    @ConditionalOnProperty(name = "forest.mvc.enable-trace", havingValue = "true")
+    FilterRegistrationBean<TraceFilter> forestTraceFilterRegistrationBean() {
+        log.info("开启 日志跟踪 拦截");
+        FilterRegistrationBean<TraceFilter> traceFilterFilterRegistrationBean = new FilterRegistrationBean<>();
+        traceFilterFilterRegistrationBean.setOrder(Integer.MIN_VALUE);
+        traceFilterFilterRegistrationBean.setFilter(new TraceFilter());
+        return traceFilterFilterRegistrationBean;
+    }
 
 }

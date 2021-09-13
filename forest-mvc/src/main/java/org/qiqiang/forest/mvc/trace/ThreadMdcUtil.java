@@ -8,7 +8,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import static org.qiqiang.forest.mvc.trace.LogConstant.TRACE_ID;
+import static org.qiqiang.forest.mvc.ForestMvcConstants.TRACE_ID;
+
 
 /**
  * @author : Zhang Huang
