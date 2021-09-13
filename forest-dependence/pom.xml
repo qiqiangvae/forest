@@ -7,6 +7,7 @@
         <groupId>org.qiqiang</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>forest-dependence</artifactId>
@@ -24,6 +25,7 @@
         <javax.el.version>3.0.0</javax.el.version>
         <jsoup.version>1.14.2</jsoup.version>
         <jackson.version>2.12.4</jackson.version>
+        <fastjson.version>1.2.78</fastjson.version>
     </properties>
 
 
@@ -102,6 +104,11 @@
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

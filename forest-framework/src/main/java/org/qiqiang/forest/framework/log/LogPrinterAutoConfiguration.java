@@ -1,8 +1,8 @@
 package org.qiqiang.forest.framework.log;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,13 +41,18 @@ public class LogPrinterAutoConfiguration {
      */
     @Bean(ForestLogPrinterConstants.BEAN_LOG_METHOD_INTERCEPTOR)
     @ConditionalOnProperty(name = "forest.log.enable", havingValue = "true")
-    LogMethodInterceptor logMethodInterceptor(ObjectMapper objectMapper, ForestLogProperties forestLogProperties) {
+    LogMethodInterceptor logMethodInterceptor(ForestLogProperties forestLogProperties, LogPrinterFunction logPrinterFunction) {
         LogMethodInterceptor advice = new LogMethodInterceptor();
-        advice.setObjectMapper(objectMapper);
+        advice.setLogPrinterFunction(logPrinterFunction);
         advice.setIgnoreText(forestLogProperties.getIgnoreText());
         advice.addGlobalIgnoreReq(forestLogProperties.getIgnoreReq());
         advice.addGlobalIgnoreResp(forestLogProperties.getIgnoreResp());
         return advice;
     }
 
+    @Bean
+    @ConditionalOnMissingBean(LogPrinterFunction.class)
+    public LogPrinterFunction defaultLogPrinter() {
+        return new DefaultLogPrinter();
+    }
 }

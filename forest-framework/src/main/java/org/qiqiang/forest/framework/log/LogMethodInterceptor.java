@@ -1,17 +1,15 @@
 package org.qiqiang.forest.framework.log;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang3.StringUtils;
-import org.qiqiang.forest.common.utils.JsonUtils;
+import org.qiqiang.forest.common.function.ExFunction;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
 import java.time.temporal.Temporal;
 import java.util.*;
@@ -27,11 +25,15 @@ public class LogMethodInterceptor implements MethodInterceptor {
 
     private final ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
-    private final Map<Class<? extends LogResponseWriter>, LogResponseWriter> writerMap = new ConcurrentHashMap<>();
+    private final Map<Class<? extends LogResponseWriter>, LogResponseWriter> writerCache = new ConcurrentHashMap<>();
+    /**
+     * 分割字符串缓存，追求性能极致
+     */
+    private final Map<String, String[]> splitCache = new ConcurrentHashMap<>();
 
 
     @Setter
-    private ObjectMapper objectMapper;
+    private LogPrinterFunction logPrinterFunction;
     /**
      * 忽略字段显示的内容
      */
@@ -65,35 +67,25 @@ public class LogMethodInterceptor implements MethodInterceptor {
         }
     }
 
-    @PostConstruct
-    public void postConstruct() {
-        JsonUtils.init(objectMapper);
-    }
-
-    private String getResponseLog(Set<String> ignoreResp, Object result, Class<? extends LogResponseWriter> writer) {
+    private String getResponseLog(Set<String> ignoreResp, Object result, Class<? extends LogResponseWriter> writerClass) {
         if (result == null) {
             return null;
         }
         if (isSimpleType(result)) {
             return result.toString();
         }
-        Map<String, Object> map = JsonUtils.convert2Map(result);
+        Map<String, Object> jsonMap = logPrinterFunction.convert2Map(result);
         // 修改日志
-        if (writer != null) {
-            map = writerMap.computeIfAbsent(writer, k -> {
-                try {
-                    return k.getConstructor().newInstance();
-                } catch (Exception e) {
-                    log.error(e.getLocalizedMessage(), e);
-                }
-                return writerMap.computeIfAbsent(DefaultLogResponseWriter.class, k2 -> new DefaultLogResponseWriter());
-            }).write(result, map);
+        if (writerClass != null) {
+            jsonMap = writerCache.computeIfAbsent(writerClass,
+                    (ExFunction<Class<? extends LogResponseWriter>, LogResponseWriter>) k -> k.getConstructor().newInstance()
+            ).write(result, jsonMap);
         }
-        // 出参打印
+        // 移除忽略的字段
         for (String ignore : ignoreResp) {
-            removeIgnoreArgs(map, StringUtils.split(ignore, ".", 2));
+            removeIgnoreArgs(jsonMap, splitIgnore(ignore));
         }
-        return JsonUtils.write2String(map);
+        return logPrinterFunction.toString(jsonMap);
     }
 
     private boolean isSimpleType(Object result) {
@@ -118,9 +110,9 @@ public class LogMethodInterceptor implements MethodInterceptor {
         for (int i = 0; i < parameters.length; i++) {
             argsMap.put(parameters[i], args[i]);
         }
-        Map<String, Object> map = JsonUtils.convert2Map(argsMap);
+        Map<String, Object> map = logPrinterFunction.convert2Map(argsMap);
         for (String ignore : ignoreReq) {
-            removeIgnoreArgs(map, StringUtils.split(ignore, ".", 2));
+            removeIgnoreArgs(map, splitIgnore(ignore));
         }
         return map;
     }
@@ -133,8 +125,24 @@ public class LogMethodInterceptor implements MethodInterceptor {
         if (ignore.length == 1) {
             map.put(ignore[0], ignoreText);
         } else {
-            removeIgnoreArgs((Map<String, Object>) map.get(ignore[0]), StringUtils.split(ignore[1], ".", 2));
+            Map<String, Object> childValue = (Map<String, Object>) map.compute(ignore[0], (key, old) -> {
+                if (old == null) {
+                    return new HashMap<>(0);
+                } else if (old instanceof Map) {
+                    return old;
+                } else {
+                    return new HashMap<>(0);
+                }
+            });
+            removeIgnoreArgs(childValue, splitIgnore(ignore[1]));
         }
+    }
+
+    /**
+     * 因为忽略的字段是有数量限制的，所以可以做一层缓存，尽可能提升性能
+     */
+    private String[] splitIgnore(String ignore) {
+        return splitCache.computeIfAbsent(ignore, s -> StringUtils.split(ignore, ".", 2));
     }
 
 
@@ -147,12 +155,12 @@ public class LogMethodInterceptor implements MethodInterceptor {
         assert target != null;
         LogPrinter classLogPointer = target.getClass().getAnnotation(LogPrinter.class);
         boolean enable = true;
-        Class<? extends LogResponseWriter> writer = DefaultLogResponseWriter.class;
+        Class<? extends LogResponseWriter> writerClass = DefaultLogResponseWriter.class;
         Set<String> ignoreReq = new HashSet<>(globalIgnoreReq);
         Set<String> ignoreResp = new HashSet<>(globalIgnoreResp);
         if (classLogPointer != null) {
             enable = classLogPointer.enable();
-            writer = classLogPointer.writer();
+            writerClass = classLogPointer.writer();
             ignoreReq.addAll(Stream.of(classLogPointer.ignoreReq()).collect(Collectors.toSet()));
             ignoreResp.addAll(Stream.of(classLogPointer.ignoreResp()).collect(Collectors.toSet()));
         }
@@ -160,7 +168,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
         LogPrinter methodLogPointer = method.getAnnotation(LogPrinter.class);
         if (enable && methodLogPointer != null) {
             enable = methodLogPointer.enable();
-            writer = methodLogPointer.writer();
+            writerClass = methodLogPointer.writer();
             ignoreReq.addAll(Stream.of(methodLogPointer.ignoreReq()).collect(Collectors.toSet()));
             ignoreResp.addAll(Stream.of(methodLogPointer.ignoreResp()).collect(Collectors.toSet()));
         }
@@ -170,7 +178,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
                 // 因为没法获取实际参数名，所以利用 spring 线程的方法获取实际参数名
                 String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);
                 Map<String, Object> requestLog = getRequestLog(ignoreReq, parameterNames, args);
-                log.info("[{}]入参：[{}]", name, JsonUtils.write2String(requestLog));
+                log.info("[{}]入参：[{}]", name, logPrinterFunction.toString(requestLog));
             } catch (Exception e) {
                 log.error(e.getLocalizedMessage(), e);
             }
@@ -179,7 +187,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
         final Object result = methodInvocation.proceed();
         if (enable) {
             try {
-                String responseLog = getResponseLog(ignoreResp, result, writer);
+                String responseLog = getResponseLog(ignoreResp, result, writerClass);
                 log.info("[{}]出参：[{}]", name, responseLog);
             } catch (Exception e) {
                 log.error(e.getLocalizedMessage(), e);
