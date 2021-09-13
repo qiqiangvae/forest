@@ -1,20 +1,17 @@
 package org.qiqiang.forest.example.mvc.logwriter;
 
-import org.qiqiang.forest.example.mvc.vo.TimeTestVO;
-import org.qiqiang.forest.example.mvc.vo.XssTestVO;
 import org.qiqiang.forest.framework.log.LogResponseWriter;
+
+import java.util.Map;
 
 /**
  * @author qiqiang
  */
 public class ExampleLogWriter implements LogResponseWriter {
+
     @Override
-    public Object write(Object result) {
-        if (result instanceof TimeTestVO) {
-            TimeTestVO vo = (TimeTestVO) result;
-            XssTestVO xssTestVO = vo.getXssTestVO();
-            xssTestVO.setContext("我是重写后的值");
-        }
-        return result;
+    public Map<String, Object> write(Object result, Map<String, Object> jsonMap) {
+        jsonMap.put("specialKey", "我是一个被新增的字段");
+        return jsonMap;
     }
 }

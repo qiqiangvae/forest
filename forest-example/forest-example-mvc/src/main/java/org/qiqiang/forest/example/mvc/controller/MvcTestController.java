@@ -28,7 +28,7 @@ public class MvcTestController {
     }
 
     @RequestMapping("/timeTest")
-    @LogPrinter(ignoreReq = {"timeTestVO.date", "timeTestVO.xssTestVO.context"}, writer = ExampleLogWriter.class)
+    @LogPrinter(ignoreReq = {"timeTestVO.date", "timeTestVO.xssTestVO.context"}, ignoreResp = "xssTestVO.context", writer = ExampleLogWriter.class)
     public TimeTestVO timeTest(@RequestBody TimeTestVO timeTestVO) {
         System.out.println(timeTestVO);
         return timeTestVO;

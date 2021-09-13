@@ -1,12 +1,14 @@
 package org.qiqiang.forest.framework.log;
 
+import java.util.Map;
+
 /**
  * @author qiqiang
  */
 public class DefaultLogResponseWriter implements LogResponseWriter {
 
     @Override
-    public Object write(Object result) {
-        return result;
+    public Map<String, Object> write(Object result, Map<String, Object> jsonMap) {
+        return jsonMap;
     }
 }

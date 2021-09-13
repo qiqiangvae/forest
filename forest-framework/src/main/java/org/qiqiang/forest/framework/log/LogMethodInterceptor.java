@@ -2,6 +2,7 @@ package org.qiqiang.forest.framework.log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -70,7 +71,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
         JsonUtils.init(objectMapper);
     }
 
-    private String getResponseLog(Set<String> ignoreResp, Object result) {
+    private String getResponseLog(Set<String> ignoreResp, Object result, Class<? extends LogResponseWriter> writer) {
         if (result == null) {
             return null;
         }
@@ -78,6 +79,18 @@ public class LogMethodInterceptor implements MethodInterceptor {
             return result.toString();
         }
         Map<String, Object> map = JsonUtils.convert2Map(result);
+        // 修改日志
+        if (writer != null) {
+            map = writerMap.computeIfAbsent(writer, k -> {
+                try {
+                    return k.getConstructor().newInstance();
+                } catch (Exception e) {
+                    log.error(e.getLocalizedMessage(), e);
+                }
+                return writerMap.computeIfAbsent(DefaultLogResponseWriter.class, k2 -> new DefaultLogResponseWriter());
+            }).write(result, map);
+        }
+        // 出参打印
         for (String ignore : ignoreResp) {
             removeIgnoreArgs(map, StringUtils.split(ignore, ".", 2));
         }
@@ -135,10 +148,12 @@ public class LogMethodInterceptor implements MethodInterceptor {
         assert target != null;
         LogPrinter classLogPointer = target.getClass().getAnnotation(LogPrinter.class);
         boolean enable = true;
+        Class<? extends LogResponseWriter> writer = DefaultLogResponseWriter.class;
         Set<String> ignoreReq = new HashSet<>(globalIgnoreReq);
         Set<String> ignoreResp = new HashSet<>(globalIgnoreResp);
         if (classLogPointer != null) {
             enable = classLogPointer.enable();
+            writer = classLogPointer.writer();
             ignoreReq.addAll(Stream.of(classLogPointer.ignoreReq()).collect(Collectors.toSet()));
             ignoreResp.addAll(Stream.of(classLogPointer.ignoreResp()).collect(Collectors.toSet()));
         }
@@ -146,6 +161,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
         LogPrinter methodLogPointer = method.getAnnotation(LogPrinter.class);
         if (enable && methodLogPointer != null) {
             enable = methodLogPointer.enable();
+            writer = methodLogPointer.writer();
             ignoreReq.addAll(Stream.of(methodLogPointer.ignoreReq()).collect(Collectors.toSet()));
             ignoreResp.addAll(Stream.of(methodLogPointer.ignoreResp()).collect(Collectors.toSet()));
         }
@@ -164,19 +180,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
         final Object result = methodInvocation.proceed();
         if (enable) {
             try {
-                Object logResult = result;
-                // 出参打印
-                if (methodLogPointer != null) {
-                    logResult = writerMap.computeIfAbsent(methodLogPointer.writer(), k -> {
-                        try {
-                            return k.getConstructor().newInstance();
-                        } catch (Exception e) {
-                            log.error(e.getLocalizedMessage(), e);
-                        }
-                        return writerMap.computeIfAbsent(DefaultLogResponseWriter.class, k2 -> new DefaultLogResponseWriter());
-                    }).write(logResult);
-                }
-                String responseLog = getResponseLog(ignoreResp, logResult);
+                String responseLog = getResponseLog(ignoreResp, result, writer);
                 log.info("[{}]出参：[{}]", name, responseLog);
             } catch (Exception e) {
                 log.error(e.getLocalizedMessage(), e);
