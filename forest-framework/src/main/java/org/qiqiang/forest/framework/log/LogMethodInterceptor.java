@@ -74,6 +74,16 @@ public class LogMethodInterceptor implements MethodInterceptor {
         if (isSimpleType(result)) {
             return result.toString();
         }
+        // 集合和数组处理
+        if (result instanceof Collection) {
+            return "[" + ((Collection<?>) result).stream().map(o -> getResponseLog(ignoreResp, o, writerClass)).collect(Collectors.joining(",")) + "]";
+        } else if (result.getClass().isArray()) {
+            return "[" + Stream.of((Object[]) result).map(o -> getResponseLog(ignoreResp, o, writerClass)).collect(Collectors.joining(",")) + "]";
+        }
+        return getJsonString(ignoreResp, result, writerClass);
+    }
+
+    private String getJsonString(Set<String> ignoreResp, Object result, Class<? extends LogResponseWriter> writerClass) {
         Map<String, Object> jsonMap = logPrinterFunction.convert2Map(result);
         // 修改日志
         if (writerClass != null) {
@@ -125,15 +135,10 @@ public class LogMethodInterceptor implements MethodInterceptor {
         if (ignore.length == 1) {
             map.put(ignore[0], ignoreText);
         } else {
-            Map<String, Object> childValue = (Map<String, Object>) map.compute(ignore[0], (key, old) -> {
-                if (old == null) {
-                    return new HashMap<>(0);
-                } else if (old instanceof Map) {
-                    return old;
-                } else {
-                    return new HashMap<>(0);
-                }
-            });
+            Map<String, Object> childValue = (Map<String, Object>) map.compute(
+                    ignore[0],
+                    (key, old) -> old instanceof Map ? old : new HashMap<>(0)
+            );
             removeIgnoreArgs(childValue, splitIgnore(ignore[1]));
         }
     }

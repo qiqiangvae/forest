@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author qiqiang
@@ -44,4 +45,18 @@ public class MvcTestController {
     public String contextTest() {
         return ForestContext.getRemote("user");
     }
+
+    @RequestMapping("/upload")
+    @LogPrinter(ignoreReq = {"timeTestVO.date", "timeTestVO.xssTestVO.context"}, ignoreResp = "xssTestVO.context", writer = ExampleLogWriter.class)
+    public String timeTest(MultipartFile file) {
+        return file.getName();
+    }
+
+    @PostMapping("/arrayTest")
+    @LogPrinter(ignoreReq = {"timeTestVO.date", "timeTestVO.xssTestVO.context"}, ignoreResp = "xssTestVO.context", writer = ExampleLogWriter.class)
+    public TimeTestVO[] arrayTest(@RequestBody TimeTestVO timeTestVO) {
+        return new TimeTestVO[]{timeTestVO, timeTestVO, timeTestVO};
+    }
+
+
 }
