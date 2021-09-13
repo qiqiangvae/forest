@@ -2,7 +2,6 @@ package org.qiqiang.forest.framework.log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
