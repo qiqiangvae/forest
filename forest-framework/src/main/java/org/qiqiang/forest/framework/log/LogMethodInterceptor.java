@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
 import java.time.temporal.Temporal;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,6 +26,8 @@ import java.util.stream.Stream;
 public class LogMethodInterceptor implements MethodInterceptor {
 
     private final ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
+
+    private final Map<Class<? extends LogResponseWriter>, LogResponseWriter> writerMap = new ConcurrentHashMap<>();
 
 
     @Setter
@@ -140,11 +143,11 @@ public class LogMethodInterceptor implements MethodInterceptor {
             ignoreResp.addAll(Stream.of(classLogPointer.ignoreResp()).collect(Collectors.toSet()));
         }
         // 处理方法上的配置
-        LogPrinter logPointer = method.getAnnotation(LogPrinter.class);
-        if (enable && logPointer != null) {
-            enable = logPointer.enable();
-            ignoreReq.addAll(Stream.of(logPointer.ignoreReq()).collect(Collectors.toSet()));
-            ignoreResp.addAll(Stream.of(logPointer.ignoreResp()).collect(Collectors.toSet()));
+        LogPrinter methodLogPointer = method.getAnnotation(LogPrinter.class);
+        if (enable && methodLogPointer != null) {
+            enable = methodLogPointer.enable();
+            ignoreReq.addAll(Stream.of(methodLogPointer.ignoreReq()).collect(Collectors.toSet()));
+            ignoreResp.addAll(Stream.of(methodLogPointer.ignoreResp()).collect(Collectors.toSet()));
         }
         String name = target.getClass().getSimpleName() + "#" + method.getName();
         if (enable) {
@@ -158,16 +161,26 @@ public class LogMethodInterceptor implements MethodInterceptor {
             }
         }
         // 真正处理
-        Object result = methodInvocation.proceed();
+        final Object result = methodInvocation.proceed();
         if (enable) {
             try {
+                Object logResult = result;
                 // 出参打印
-                String responseLog = getResponseLog(ignoreResp, result);
+                if (methodLogPointer != null) {
+                    logResult = writerMap.computeIfAbsent(methodLogPointer.writer(), k -> {
+                        try {
+                            return k.getConstructor().newInstance();
+                        } catch (Exception e) {
+                            log.error(e.getLocalizedMessage(), e);
+                        }
+                        return writerMap.computeIfAbsent(DefaultLogResponseWriter.class, k2 -> new DefaultLogResponseWriter());
+                    }).write(logResult);
+                }
+                String responseLog = getResponseLog(ignoreResp, logResult);
                 log.info("[{}]出参：[{}]", name, responseLog);
             } catch (Exception e) {
                 log.error(e.getLocalizedMessage(), e);
             }
-
         }
         return result;
     }

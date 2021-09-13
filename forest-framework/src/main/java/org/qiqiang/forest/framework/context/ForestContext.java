@@ -1,7 +1,6 @@
 package org.qiqiang.forest.framework.context;
 
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +32,7 @@ public class ForestContext {
      */
     public static void set(String key, Object value) {
         Map<String, Object> data = CONTEXT.get();
-        data.compute(ForestContextConstants.SEQUENCE, (k, old) -> StringUtils.isBlank((CharSequence) old) ? generateSequence() : old);
+        data.computeIfAbsent(ForestContextConstants.SEQUENCE, k -> generateSequence());
         data.put(key, value);
     }
 
@@ -60,7 +59,7 @@ public class ForestContext {
     }
 
     public static String getSequence() {
-        return (String) CONTEXT.get().compute(ForestContextConstants.SEQUENCE, (k, old) -> StringUtils.isBlank((CharSequence) old) ? generateSequence() : old);
+        return (String) CONTEXT.get().computeIfAbsent(ForestContextConstants.SEQUENCE, k -> generateSequence());
     }
 
     private static String generateSequence() {

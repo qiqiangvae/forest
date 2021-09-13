@@ -32,4 +32,9 @@ public @interface LogPrinter {
      */
     String[] ignoreResp() default {};
 
+    /**
+     * 结果重写
+     */
+    Class<? extends LogResponseWriter> writer() default DefaultLogResponseWriter.class;
+
 }

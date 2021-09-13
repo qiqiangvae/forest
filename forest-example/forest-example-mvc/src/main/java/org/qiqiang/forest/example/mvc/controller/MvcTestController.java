@@ -1,6 +1,7 @@
 package org.qiqiang.forest.example.mvc.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.qiqiang.forest.example.mvc.logwriter.ExampleLogWriter;
 import org.qiqiang.forest.example.mvc.vo.TimeTestVO;
 import org.qiqiang.forest.example.mvc.vo.XssTestVO;
 import org.qiqiang.forest.framework.context.ForestContext;
@@ -27,7 +28,7 @@ public class MvcTestController {
     }
 
     @RequestMapping("/timeTest")
-    @LogPrinter(ignoreReq = {"timeTestVO.date","timeTestVO.xssTestVO.context"})
+    @LogPrinter(ignoreReq = {"timeTestVO.date", "timeTestVO.xssTestVO.context"}, writer = ExampleLogWriter.class)
     public TimeTestVO timeTest(@RequestBody TimeTestVO timeTestVO) {
         System.out.println(timeTestVO);
         return timeTestVO;
