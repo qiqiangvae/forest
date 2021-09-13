@@ -29,8 +29,17 @@ public class LogMethodInterceptor implements MethodInterceptor {
 
     @Setter
     private ObjectMapper objectMapper;
+    /**
+     * 忽略字段显示的内容
+     */
     private String ignoreText = "@该字段内容已忽略@";
+    /**
+     * 全局配置的忽略请求字段
+     */
     private final Set<String> globalIgnoreReq = new HashSet<>();
+    /**
+     * 全局配置的忽略相应字段
+     */
     private final Set<String> globalIgnoreResp = new HashSet<>();
 
     public void setIgnoreText(String ignoreText) {
@@ -142,7 +151,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
         String name = target.getClass().getSimpleName() + "#" + method.getName();
         if (enable) {
             try {
-                // 入参打印
+                // 因为没法获取实际参数名，所以利用 spring 线程的方法获取实际参数名
                 String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);
                 Map<String, Object> requestLog = getRequestLog(ignoreReq, parameterNames, args);
                 log.info("[{}]入参：[{}]", name, JsonUtils.write2String(requestLog));
