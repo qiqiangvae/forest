@@ -2,7 +2,6 @@ package org.qiqiang.forest.framework.log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.aopalliance.aop.Advice;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,7 +14,7 @@ import org.springframework.core.io.ResourceLoader;
  * @author qiqiang
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableAspectJAutoProxy
 public class LogPrinterAutoConfiguration {
 

@@ -59,6 +59,9 @@ public class LogMethodInterceptor implements MethodInterceptor {
     }
 
     private String getResponseLog(Set<String> ignoreResp, Object result) {
+        if (result == null) {
+            return null;
+        }
         if (isSimpleType(result)) {
             return result.toString();
         }

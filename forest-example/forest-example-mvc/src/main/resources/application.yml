@@ -18,3 +18,5 @@ forest:
     ignore-resp: context
     package-path: org.qiqiang.forest.example.mvc.controller
     enable: true
+  context:
+    type: redis

@@ -3,6 +3,7 @@ package org.qiqiang.forest.example.mvc.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.qiqiang.forest.example.mvc.vo.TimeTestVO;
 import org.qiqiang.forest.example.mvc.vo.XssTestVO;
+import org.qiqiang.forest.framework.context.ForestContext;
 import org.qiqiang.forest.framework.log.LogPrinter;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,5 +40,10 @@ public class MvcTestController {
 
     public void printTraceId() {
         log.info("hello world 2");
+    }
+
+    @RequestMapping("contextTest")
+    public String contextTest() {
+        return ForestContext.getRemote("user");
     }
 }

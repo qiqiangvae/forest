@@ -60,3 +60,11 @@ forest:
     enable: true
 ```
 
+* 上下文管理。提供上下文参数获取方法，支持远程上下文，推荐 redis 实现方式，需引入`spring-boot-starter-data-redis`依赖
+
+```yaml
+forest:
+  context:
+    type: redis
+```
+

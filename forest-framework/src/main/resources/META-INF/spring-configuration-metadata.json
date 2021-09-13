@@ -1,9 +1,14 @@
 {
   "groups": [
     {
-      "name": "forest-mvc",
+      "name": "forest-log",
       "type": "org.qiqiang.forest.framework.log.ForestLogProperties",
       "sourceType": "org.qiqiang.forest.framework.log.ForestLogProperties"
+    },
+    {
+      "name": "forest-context",
+      "type": "org.qiqiang.forest.framework.context.ForestContextProperties",
+      "sourceType": "org.qiqiang.forest.framework.context.ForestContextProperties"
     }
   ],
   "properties": [
@@ -31,6 +36,12 @@
     {
       "name": "forest.log.package-path",
       "type": "java.lang.String",
+      "description": "扫描包路径."
+    },
+    {
+      "name": "forest.context.type",
+      "type": "org.qiqiang.forest.framework.context.RemoteContextType",
+      "defaultValue": "simple",
       "description": "扫描包路径."
     }
   ]
