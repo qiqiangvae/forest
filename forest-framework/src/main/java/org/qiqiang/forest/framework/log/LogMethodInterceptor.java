@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
+ * 日志方法拦截器
+ *
  * @author qiqiang
  */
 @Slf4j
@@ -144,7 +146,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
     }
 
     /**
-     * 因为忽略的字段是有数量限制的，所以可以做一层缓存，尽可能提升性能
+     * 因为忽略的字段是有限的，所以可以做一层缓存，尽可能提升性能
      */
     private String[] splitIgnore(String ignore) {
         return splitCache.computeIfAbsent(ignore, s -> StringUtils.split(ignore, ".", 2));

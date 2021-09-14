@@ -26,6 +26,7 @@
         <jsoup.version>1.14.2</jsoup.version>
         <jackson.version>2.12.4</jackson.version>
         <fastjson.version>1.2.78</fastjson.version>
+        <commons-codec.version>1.15</commons-codec.version>
     </properties>
 
 
@@ -99,7 +100,7 @@
                 <artifactId>jsoup</artifactId>
                 <version>${jsoup.version}</version>
             </dependency>
-            <!--jackson-->
+            <!--json-->
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
@@ -109,6 +110,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
