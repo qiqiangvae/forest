@@ -29,7 +29,7 @@ public class Base64Utils {
     }
 
     public static byte[] decode2bytes(byte[] data) {
-        return Base64.getEncoder().encode(data);
+        return Base64.getDecoder().decode(data);
     }
 
     public static byte[] decode2bytes(String text) {

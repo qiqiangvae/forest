@@ -8,6 +8,7 @@ import java.util.Collection;
 @SuppressWarnings("unused")
 public final class AssertUtils {
 
+
     public static void isTure(Boolean bool, String message) {
         if (!bool) {
             throw new IllegalArgumentException(message);

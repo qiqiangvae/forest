@@ -21,9 +21,10 @@ import java.security.NoSuchAlgorithmException;
 public class Md5Utils {
     private static final String MD5 = "MD5";
 
+
     public static String md5(byte[] data) {
         try {
-            return new String(MessageDigest.getInstance(MD5).digest(data), StandardCharsets.UTF_8);
+            return HexUtils.encodeHex2String(MessageDigest.getInstance(MD5).digest(data));
         } catch (NoSuchAlgorithmException e) {
             throw new ForestCodecException(e);
         }
