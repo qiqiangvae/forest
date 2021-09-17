@@ -17,6 +17,7 @@
         <module>forest-mvc</module>
         <module>forest-maven-plugin</module>
         <module>forest-framework</module>
+        <module>forest-dubbo</module>
     </modules>
 
     <properties>
