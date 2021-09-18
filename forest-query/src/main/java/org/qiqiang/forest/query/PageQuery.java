@@ -1,4 +1,4 @@
-package org.qiqiang.forest.query;
+package org.nature.forest.query;
 
 import java.io.Serializable;
 import java.util.ArrayList;

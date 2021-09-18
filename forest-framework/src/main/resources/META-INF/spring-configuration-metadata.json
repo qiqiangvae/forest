@@ -2,13 +2,13 @@
   "groups": [
     {
       "name": "forest-log",
-      "type": "org.qiqiang.forest.framework.log.ForestLogProperties",
-      "sourceType": "org.qiqiang.forest.framework.log.ForestLogProperties"
+      "type": "org.nature.forest.framework.log.ForestLogProperties",
+      "sourceType": "org.nature.forest.framework.log.ForestLogProperties"
     },
     {
       "name": "forest-context",
-      "type": "org.qiqiang.forest.framework.context.ForestContextProperties",
-      "sourceType": "org.qiqiang.forest.framework.context.ForestContextProperties"
+      "type": "org.nature.forest.framework.context.ForestContextProperties",
+      "sourceType": "org.nature.forest.framework.context.ForestContextProperties"
     }
   ],
   "properties": [
@@ -40,7 +40,7 @@
     },
     {
       "name": "forest.context.type",
-      "type": "org.qiqiang.forest.framework.context.RemoteContextType",
+      "type": "org.nature.forest.framework.context.RemoteContextType",
       "defaultValue": "simple",
       "description": "扫描包路径."
     }

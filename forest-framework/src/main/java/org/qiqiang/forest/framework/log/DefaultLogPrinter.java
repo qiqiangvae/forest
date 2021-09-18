@@ -1,6 +1,6 @@
-package org.qiqiang.forest.framework.log;
+package org.nature.forest.framework.log;
 
-import org.qiqiang.forest.common.utils.JsonUtils;
+import org.nature.forest.common.utils.JsonUtils;
 
 import java.util.Map;
 

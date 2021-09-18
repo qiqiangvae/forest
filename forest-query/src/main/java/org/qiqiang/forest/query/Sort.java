@@ -1,4 +1,4 @@
-package org.qiqiang.forest.query;
+package org.nature.forest.query;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

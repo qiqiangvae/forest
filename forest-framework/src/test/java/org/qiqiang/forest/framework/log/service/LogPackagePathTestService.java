@@ -1,6 +1,6 @@
-package org.qiqiang.forest.framework.log.service;
+package org.nature.forest.framework.log.service;
 
-import org.qiqiang.forest.framework.log.TestModel;
+import org.nature.forest.framework.log.TestModel;
 import org.springframework.stereotype.Service;
 
 /**

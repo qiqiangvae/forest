@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mybatisplus.enhance;
+package org.nature.forest.mybatisplus.enhance;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;

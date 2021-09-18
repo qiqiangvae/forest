@@ -1,4 +1,4 @@
-package org.qiqiang.forest.framework.log;
+package org.nature.forest.framework.log;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.DefaultPointcutAdvisor;

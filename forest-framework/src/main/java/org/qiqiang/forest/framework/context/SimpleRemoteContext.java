@@ -1,4 +1,4 @@
-package org.qiqiang.forest.framework.context;
+package org.nature.forest.framework.context;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;

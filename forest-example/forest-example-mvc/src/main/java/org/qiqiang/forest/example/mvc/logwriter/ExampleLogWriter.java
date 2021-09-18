@@ -1,6 +1,6 @@
-package org.qiqiang.forest.example.mvc.logwriter;
+package org.nature.forest.example.mvc.logwriter;
 
-import org.qiqiang.forest.framework.log.LogResponseWriter;
+import org.nature.forest.framework.log.LogResponseWriter;
 
 import java.util.Map;
 

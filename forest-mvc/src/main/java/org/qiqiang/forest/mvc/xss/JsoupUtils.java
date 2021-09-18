@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mvc.xss;
+package org.nature.forest.mvc.xss;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;

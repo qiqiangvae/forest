@@ -27,7 +27,7 @@
 Mybatis-plus 扩展。
 
 * Mybatis-plus 基于注解模式的查询。
-* 流式查询方法扩展，大数据量情况下可极大提升查询效率。见`org.qiqiang.forest.mybatisplus.enhance.ForestSqlInjector`。
+* 流式查询方法扩展，大数据量情况下可极大提升查询效率。见`org.nature.forest.mybatisplus.enhance.ForestSqlInjector`。
 
 # forest-mvc
 
@@ -56,7 +56,7 @@ forest:
     ignore-text: "#该字段不打印#"
     ignore-req: ""
     ignore-resp: context
-    package-path: org.qiqiang.forest.example.mvc.controller
+    package-path: org.nature.forest.example.mvc.controller
     enable: true
 ```
 

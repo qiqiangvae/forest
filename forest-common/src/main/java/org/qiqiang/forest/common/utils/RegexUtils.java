@@ -1,4 +1,4 @@
-package org.qiqiang.forest.common.utils;
+package org.nature.forest.common.utils;
 
 import java.util.ArrayList;
 import java.util.HashSet;

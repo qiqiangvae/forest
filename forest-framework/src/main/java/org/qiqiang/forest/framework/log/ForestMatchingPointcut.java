@@ -1,4 +1,4 @@
-package org.qiqiang.forest.framework.log;
+package org.nature.forest.framework.log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.aop.ClassFilter;

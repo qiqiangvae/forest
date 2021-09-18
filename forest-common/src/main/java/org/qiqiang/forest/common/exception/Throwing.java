@@ -1,7 +1,7 @@
-package org.qiqiang.forest.common.exception;
+package org.nature.forest.common.exception;
 
-import org.qiqiang.forest.common.function.ExConsumer;
-import org.qiqiang.forest.common.function.ExFunction;
+import org.nature.forest.common.function.ExConsumer;
+import org.nature.forest.common.function.ExFunction;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

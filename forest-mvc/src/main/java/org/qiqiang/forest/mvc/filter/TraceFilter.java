@@ -1,9 +1,9 @@
-package org.qiqiang.forest.mvc.filter;
+package org.nature.forest.mvc.filter;
 
 import lombok.extern.slf4j.Slf4j;
-import org.qiqiang.forest.common.utils.IdGenerator;
-import org.qiqiang.forest.framework.context.ForestContext;
-import org.qiqiang.forest.framework.trace.TraceConstants;
+import org.nature.forest.common.utils.IdGenerator;
+import org.nature.forest.framework.context.ForestContext;
+import org.nature.forest.framework.trace.TraceConstants;
 
 import javax.servlet.*;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package org.qiqiang.forest.framework.log;
+package org.nature.forest.framework.log;
 
 /**
  * @author qiqiang

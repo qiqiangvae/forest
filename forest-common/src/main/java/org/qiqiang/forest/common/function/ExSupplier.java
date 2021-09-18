@@ -1,6 +1,6 @@
-package org.qiqiang.forest.common.function;
+package org.nature.forest.common.function;
 
-import org.qiqiang.forest.common.exception.Throwing;
+import org.nature.forest.common.exception.Throwing;
 
 import java.util.function.Supplier;
 

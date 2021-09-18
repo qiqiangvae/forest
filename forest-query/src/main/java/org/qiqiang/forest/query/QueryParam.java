@@ -1,4 +1,4 @@
-package org.qiqiang.forest.query;
+package org.nature.forest.query;
 
 /**
  * 基础查询类

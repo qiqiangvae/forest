@@ -1,4 +1,4 @@
-package org.qiqiang.forest.common.utils.codec;
+package org.nature.forest.common.utils.codec;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

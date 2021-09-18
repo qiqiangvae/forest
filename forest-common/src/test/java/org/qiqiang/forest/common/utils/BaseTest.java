@@ -1,4 +1,4 @@
-package org.qiqiang.forest.common.utils;
+package org.nature.forest.common.utils;
 
 import junit.framework.TestCase;
 import org.junit.runner.RunWith;

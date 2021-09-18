@@ -1,7 +1,7 @@
-package org.qiqiang.forest.common.utils.codec;
+package org.nature.forest.common.utils.codec;
 
-import org.qiqiang.forest.common.exception.ForestCodecException;
-import org.qiqiang.forest.common.utils.IoUtils;
+import org.nature.forest.common.exception.ForestCodecException;
+import org.nature.forest.common.utils.IoUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

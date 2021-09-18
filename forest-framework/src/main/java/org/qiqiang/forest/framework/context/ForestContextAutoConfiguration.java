@@ -1,4 +1,4 @@
-package org.qiqiang.forest.framework.context;
+package org.nature.forest.framework.context;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

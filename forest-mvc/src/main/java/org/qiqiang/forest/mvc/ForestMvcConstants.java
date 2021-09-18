@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mvc;
+package org.nature.forest.mvc;
 
 /**
  * @author qiqiang

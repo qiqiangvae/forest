@@ -1,8 +1,8 @@
-package org.qiqiang.forest.framework.log;
+package org.nature.forest.framework.log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.qiqiang.forest.framework.log.service.LogPackagePathTestService;
+import org.nature.forest.framework.log.service.LogPackagePathTestService;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -71,7 +71,7 @@ public class LogTest {
         beanDefinitionBuilder.addPropertyValue("enable", true);
         beanDefinitionBuilder.addPropertyValue("ignoreReq", "testModel.age");
         beanDefinitionBuilder.addPropertyValue("ignoreResp", "name");
-        beanDefinitionBuilder.addPropertyValue("packagePath", "org.qiqiang.forest.framework.log.service");
+        beanDefinitionBuilder.addPropertyValue("packagePath", "org.nature.forest.framework.log.service");
 
         context.registerBeanDefinition("forestLogProperties", beanDefinitionBuilder.getBeanDefinition());
         context.registerBeanDefinition("logTestService", beanDefinition);

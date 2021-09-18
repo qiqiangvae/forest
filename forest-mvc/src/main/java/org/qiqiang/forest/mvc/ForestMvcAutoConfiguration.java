@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mvc;
+package org.nature.forest.mvc;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.qiqiang.forest.mvc.filter.TraceFilter;
-import org.qiqiang.forest.mvc.xss.XssFilter;
+import org.nature.forest.mvc.filter.TraceFilter;
+import org.nature.forest.mvc.xss.XssFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
-import static org.qiqiang.forest.mvc.ForestMvcConstants.*;
+import static org.nature.forest.mvc.ForestMvcConstants.*;
 
 
 /**

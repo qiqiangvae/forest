@@ -1,13 +1,13 @@
-package org.qiqiang.forest.example.mvc.controller;
+package org.nature.forest.example.mvc.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.qiqiang.forest.example.mvc.logwriter.ExampleLogWriter;
-import org.qiqiang.forest.example.mvc.service.TestPoolService;
-import org.qiqiang.forest.example.mvc.vo.TimeTestVO;
-import org.qiqiang.forest.example.mvc.vo.XssTestVO;
-import org.qiqiang.forest.framework.context.ForestContext;
-import org.qiqiang.forest.framework.log.LogPrinter;
+import org.nature.forest.example.mvc.logwriter.ExampleLogWriter;
+import org.nature.forest.example.mvc.service.TestPoolService;
+import org.nature.forest.example.mvc.vo.TimeTestVO;
+import org.nature.forest.example.mvc.vo.XssTestVO;
+import org.nature.forest.framework.context.ForestContext;
+import org.nature.forest.framework.log.LogPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;

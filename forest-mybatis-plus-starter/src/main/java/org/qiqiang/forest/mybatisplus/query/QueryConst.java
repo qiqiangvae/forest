@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mybatisplus.query;
+package org.nature.forest.mybatisplus.query;
 
 /**
  * @author qiqiang

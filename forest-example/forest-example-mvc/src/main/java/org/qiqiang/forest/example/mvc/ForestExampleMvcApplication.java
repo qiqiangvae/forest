@@ -1,7 +1,7 @@
-package org.qiqiang.forest.example.mvc;
+package org.nature.forest.example.mvc;
 
-import org.qiqiang.forest.framework.thread.ContextThreadPoolExecutor;
-import org.qiqiang.forest.framework.thread.ContextThreadPoolTaskExecutor;
+import org.nature.forest.framework.thread.ContextThreadPoolExecutor;
+import org.nature.forest.framework.thread.ContextThreadPoolTaskExecutor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

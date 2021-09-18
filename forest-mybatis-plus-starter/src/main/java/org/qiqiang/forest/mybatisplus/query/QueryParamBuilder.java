@@ -1,4 +1,4 @@
-package org.qiqiang.forest.mybatisplus.query;
+package org.nature.forest.mybatisplus.query;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -7,11 +7,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.HibernateValidator;
-import org.qiqiang.forest.common.utils.reflection.PropertyUtils;
-import org.qiqiang.forest.query.ConditionWrapper;
-import org.qiqiang.forest.query.Express;
-import org.qiqiang.forest.query.QueryUtils;
-import org.qiqiang.forest.query.SortColumn;
+import org.nature.forest.common.utils.reflection.PropertyUtils;
+import org.nature.forest.query.ConditionWrapper;
+import org.nature.forest.query.Express;
+import org.nature.forest.query.QueryUtils;
+import org.nature.forest.query.SortColumn;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

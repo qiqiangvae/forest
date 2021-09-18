@@ -1,11 +1,11 @@
-package org.qiqiang.forest.framework.log;
+package org.nature.forest.framework.log;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang3.StringUtils;
-import org.qiqiang.forest.common.function.ExFunction;
+import org.nature.forest.common.function.ExFunction;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.CollectionUtils;

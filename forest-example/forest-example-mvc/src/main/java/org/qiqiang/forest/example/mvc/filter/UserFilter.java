@@ -1,6 +1,6 @@
-package org.qiqiang.forest.example.mvc.filter;
+package org.nature.forest.example.mvc.filter;
 
-import org.qiqiang.forest.framework.context.ForestContext;
+import org.nature.forest.framework.context.ForestContext;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;

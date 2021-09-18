@@ -1,7 +1,7 @@
-package org.qiqiang.forest.common.utils;
+package org.nature.forest.common.utils;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.qiqiang.forest.common.exception.BeanCopyForestException;
+import org.nature.forest.common.exception.BeanCopyForestException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

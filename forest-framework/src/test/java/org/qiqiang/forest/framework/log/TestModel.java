@@ -1,4 +1,4 @@
-package org.qiqiang.forest.framework.log;
+package org.nature.forest.framework.log;
 
 import lombok.Getter;
 import lombok.Setter;

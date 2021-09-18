@@ -1,4 +1,4 @@
-package org.qiqiang.forest.framework.thread;
+package org.nature.forest.framework.thread;
 
 /**
  * Spring 上下文线程池

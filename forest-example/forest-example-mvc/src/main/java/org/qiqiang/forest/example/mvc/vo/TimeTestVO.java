@@ -1,4 +1,4 @@
-package org.qiqiang.forest.example.mvc.vo;
+package org.nature.forest.example.mvc.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

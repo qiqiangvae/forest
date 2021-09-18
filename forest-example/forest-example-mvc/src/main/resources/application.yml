@@ -16,7 +16,7 @@ forest:
     ignore-text: "#该字段不打印#"
     ignore-req: ""
     ignore-resp: context
-    package-path: org.qiqiang.forest.example.mvc.controller
+    package-path: org.nature.forest.example.mvc.controller
     enable: true
   context:
     type: redis

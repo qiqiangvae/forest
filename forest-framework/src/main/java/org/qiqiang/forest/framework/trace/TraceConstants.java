@@ -1,4 +1,4 @@
-package org.qiqiang.forest.framework.trace;
+package org.nature.forest.framework.trace;
 
 /**
  * @author qiqiang

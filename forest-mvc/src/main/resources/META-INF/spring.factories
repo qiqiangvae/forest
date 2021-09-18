@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.qiqiang.forest.mvc.ForestMvcAutoConfiguration
+  org.nature.forest.mvc.ForestMvcAutoConfiguration

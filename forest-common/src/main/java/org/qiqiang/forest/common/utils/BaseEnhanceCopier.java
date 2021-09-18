@@ -1,4 +1,4 @@
-package org.qiqiang.forest.common.utils;
+package org.nature.forest.common.utils;
 
 import net.sf.cglib.core.*;
 import org.objectweb.asm.ClassVisitor;

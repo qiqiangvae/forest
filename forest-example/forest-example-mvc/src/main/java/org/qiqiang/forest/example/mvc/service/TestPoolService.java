@@ -1,4 +1,4 @@
-package org.qiqiang.forest.example.mvc.service;
+package org.nature.forest.example.mvc.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;

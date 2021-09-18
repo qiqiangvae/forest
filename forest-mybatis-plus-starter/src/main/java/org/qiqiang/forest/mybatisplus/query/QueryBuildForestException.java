@@ -1,7 +1,7 @@
-package org.qiqiang.forest.mybatisplus.query;
+package org.nature.forest.mybatisplus.query;
 
 
-import org.qiqiang.forest.common.exception.BaseForestException;
+import org.nature.forest.common.exception.BaseForestException;
 
 /**
  * @author qiqiang

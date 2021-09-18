@@ -1,4 +1,4 @@
-package org.qiqiang.forest.example.mybatisplus;
+package org.nature.forest.example.mybatisplus;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

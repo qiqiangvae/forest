@@ -1,7 +1,7 @@
-package org.qiqiang.forest.query;
+package org.nature.forest.query;
 
-import org.qiqiang.forest.common.utils.reflection.AnnotationUtils;
-import org.qiqiang.forest.common.utils.reflection.FieldUtils;
+import org.nature.forest.common.utils.reflection.AnnotationUtils;
+import org.nature.forest.common.utils.reflection.FieldUtils;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

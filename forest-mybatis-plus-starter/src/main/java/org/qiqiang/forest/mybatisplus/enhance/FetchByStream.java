@@ -1,9 +1,9 @@
-package org.qiqiang.forest.mybatisplus.enhance;
+package org.nature.forest.mybatisplus.enhance;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import org.apache.ibatis.mapping.*;
-import org.qiqiang.forest.mybatisplus.ForestMybatisPlusConst;
+import org.nature.forest.mybatisplus.ForestMybatisPlusConst;
 
 /**
  * 流式获取数据

@@ -1,4 +1,4 @@
-package org.qiqiang.forest.common.exception;
+package org.nature.forest.common.exception;
 
 /**
  * 通用错误码

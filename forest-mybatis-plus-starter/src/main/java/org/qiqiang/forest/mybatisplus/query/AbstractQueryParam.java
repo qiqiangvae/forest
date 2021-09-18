@@ -1,6 +1,6 @@
-package org.qiqiang.forest.mybatisplus.query;
+package org.nature.forest.mybatisplus.query;
 
-import org.qiqiang.forest.query.PageQuery;
+import org.nature.forest.query.PageQuery;
 
 import java.util.List;
 import java.util.stream.Collectors;

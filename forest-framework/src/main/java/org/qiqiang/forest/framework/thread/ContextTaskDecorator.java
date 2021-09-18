@@ -1,4 +1,4 @@
-package org.qiqiang.forest.framework.thread;
+package org.nature.forest.framework.thread;
 
 import org.springframework.core.task.TaskDecorator;
 

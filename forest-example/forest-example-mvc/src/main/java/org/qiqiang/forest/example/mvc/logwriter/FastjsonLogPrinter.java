@@ -1,11 +1,11 @@
-package org.qiqiang.forest.example.mvc.logwriter;
+package org.nature.forest.example.mvc.logwriter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.JSONSerializer;
 import com.alibaba.fastjson.serializer.JavaBeanSerializer;
 import com.alibaba.fastjson.serializer.ObjectSerializer;
 import com.alibaba.fastjson.serializer.SerializeConfig;
-import org.qiqiang.forest.framework.log.LogPrinterFunction;
+import org.nature.forest.framework.log.LogPrinterFunction;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
