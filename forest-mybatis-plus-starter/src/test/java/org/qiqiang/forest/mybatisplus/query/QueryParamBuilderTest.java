@@ -23,8 +23,8 @@ public class QueryParamBuilderTest {
     @Test
     public void toWrapper() {
         StudentParam studentParam = new StudentParam();
-        Date start = DateUtils.parseToDate("2015-09-01", DateUtils.PATTERN_YYYY_MM_DD);
-        Date end = DateUtils.parseToDate("2017-09-01", DateUtils.PATTERN_YYYY_MM_DD);
+        Date start = DateUtils.parseToDate("2015-09-01", DateUtils.PATTERN_USUAL_DATE);
+        Date end = DateUtils.parseToDate("2017-09-01", DateUtils.PATTERN_USUAL_DATE);
         studentParam.<StudentParam>select("name", "age")
                 .setName("forest")
                 .setAge(5)

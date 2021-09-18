@@ -1,7 +1,9 @@
-package org.qiqiang.forest.mvc.trace;
+package org.qiqiang.forest.mvc.filter;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
+import org.qiqiang.forest.common.utils.IdGenerator;
+import org.qiqiang.forest.framework.context.ForestContext;
+import org.qiqiang.forest.framework.trace.TraceConstants;
 
 import javax.servlet.*;
 import java.io.IOException;
@@ -20,11 +22,10 @@ public class TraceFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
-            MDC.clear();
-            ThreadMdcUtil.setTraceIdIfAbsent();
+            ForestContext.set(TraceConstants.TRACE_ID, IdGenerator.uuid());
             chain.doFilter(request, response);
         } finally {
-            MDC.clear();
+            ForestContext.clear();
         }
     }
 

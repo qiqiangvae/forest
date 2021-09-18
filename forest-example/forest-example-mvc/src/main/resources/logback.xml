@@ -19,13 +19,15 @@
     <property name="log.size" value="2MB"/>
     <property name="log.debug.size" value="2MB"/>
 
+    <conversionRule conversionWord="traceId" converterClass="org.qiqiang.forest.framework.trace.TraceConvert" />
+
     <!-- ConsoleAppender 控制台输出日志 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
                 <!-- 设置日志输出格式 -->
                 %red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger)
-                %red(Method):%boldBlue(%method) %red(Line):%yellow(%line) - [%X{traceId}] - %cyan(%msg%n)
+                %red(Method):%boldBlue(%method) %red(Line):%yellow(%line) - [%traceId] - %cyan(%msg%n)
             </pattern>
         </encoder>
     </appender>

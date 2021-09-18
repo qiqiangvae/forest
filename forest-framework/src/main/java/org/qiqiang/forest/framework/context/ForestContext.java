@@ -43,6 +43,10 @@ public class ForestContext {
         return (T) CONTEXT.get().get(key);
     }
 
+    public static Map<String, Object> getAll() {
+        return CONTEXT.get();
+    }
+
     /**
      * 设置远程上下文
      */
@@ -77,6 +81,12 @@ public class ForestContext {
     public static void clear() {
         CONTEXT.remove();
         remoteContext.clear();
+    }
+
+    public static void reset(Map<String, Object> context) {
+        CONTEXT.get().clear();
+        CONTEXT.get().putAll(context);
+
     }
 
     private static class ForestContextThreadLocal extends ThreadLocal<Map<String, Object>> {

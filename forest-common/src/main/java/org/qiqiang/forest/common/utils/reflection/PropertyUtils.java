@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
  *
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class PropertyUtils {
     /**
      * 获取一个对象的字段值
@@ -20,11 +21,17 @@ public class PropertyUtils {
      */
     @SuppressWarnings("unchecked")
     public static <T> T getValue(Field field, Object object) {
-        field.setAccessible(true);
+        boolean accessible = field.isAccessible();
         try {
+            if (!accessible) {
+                field.setAccessible(true);
+            }
             return (T) field.get(object);
         } catch (IllegalAccessException e) {
             throw new ReflectForestException(e);
+        } finally {
+            // 设置回去，保证安全
+            field.setAccessible(accessible);
         }
     }
 
@@ -39,5 +46,26 @@ public class PropertyUtils {
     public static <T> T getValue(String fieldName, Object object) {
         Field field = FieldUtils.getField(object.getClass(), fieldName);
         return getValue(field, object);
+    }
+
+    /**
+     * 设置属性
+     *
+     * @param field  字段
+     * @param object 对象
+     * @param value  新值
+     */
+    public static void setValue(Field field, Object object, Object value) {
+        boolean accessible = field.isAccessible();
+        if (!accessible) {
+            field.setAccessible(true);
+        }
+        try {
+            field.set(object, value);
+        } catch (IllegalAccessException e) {
+            throw new ReflectForestException(e);
+        } finally {
+            field.setAccessible(accessible);
+        }
     }
 }

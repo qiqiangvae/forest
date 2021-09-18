@@ -1,6 +1,5 @@
 package org.qiqiang.forest.common.exception;
 
-import com.sun.istack.internal.NotNull;
 import org.qiqiang.forest.common.function.ExConsumer;
 import org.qiqiang.forest.common.function.ExFunction;
 
@@ -14,13 +13,11 @@ public class Throwing {
     private Throwing() {
     }
 
-    @NotNull
-    public static <T> Consumer<T> rethrow(@NotNull final ExConsumer<T> consumer) {
+    public static <T> Consumer<T> rethrow(final ExConsumer<T> consumer) {
         return consumer;
     }
 
-    @NotNull
-    public static <T, R> Function<T, R> rethrow(@NotNull final ExFunction<T, R> function) {
+    public static <T, R> Function<T, R> rethrow(final ExFunction<T, R> function) {
         return function;
     }
 
@@ -31,8 +28,7 @@ public class Throwing {
      * http://www.baeldung.com/java-sneaky-throws
      */
     @SuppressWarnings("unchecked")
-    @NotNull
-    public static <E extends Throwable> void sneakyThrow(@NotNull final Throwable ex) throws E {
+    public static <E extends Throwable> void sneakyThrow(final Throwable ex) throws E {
         throw (E) ex;
     }
 }
