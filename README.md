@@ -27,7 +27,7 @@
 Mybatis-plus 扩展。
 
 * Mybatis-plus 基于注解模式的查询。
-* 流式查询方法扩展，大数据量情况下可极大提升查询效率。见`org.nature.forest.mybatisplus.enhance.ForestSqlInjector`。
+* 流式查询方法扩展，大数据量情况下可极大提升查询效率。见`ForestSqlInjector`。
 
 # forest-mvc
 

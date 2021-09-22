@@ -8,8 +8,6 @@ import org.nature.forest.example.mvc.vo.TimeTestVO;
 import org.nature.forest.example.mvc.vo.XssTestVO;
 import org.nature.forest.framework.context.ForestContext;
 import org.nature.forest.framework.log.LogPrinter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
