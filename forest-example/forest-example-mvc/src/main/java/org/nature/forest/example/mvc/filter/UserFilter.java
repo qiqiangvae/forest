@@ -20,6 +20,5 @@ public class UserFilter implements Filter {
         }finally {
             ForestContext.clear();
         }
-
     }
 }

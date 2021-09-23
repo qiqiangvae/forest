@@ -13,7 +13,6 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 @SuppressWarnings({"unchecked", "unused"})
 public class ForestContext {
-    static final String PREFIX = "@remote:";
 
     /**
      * 序列号
@@ -51,7 +50,7 @@ public class ForestContext {
      * 设置远程上下文
      */
     public static void setRemote(String key, String value) {
-        set(PREFIX + key, value);
+        set(RemoteContext.REMOTE_PREFIX + key, value);
         remoteContext.set(key, value);
     }
 
@@ -72,7 +71,7 @@ public class ForestContext {
     }
 
     public static String getRemoteSequence() {
-        return PREFIX + getSequence();
+        return RemoteContext.REMOTE_PREFIX + getSequence();
     }
 
     /**

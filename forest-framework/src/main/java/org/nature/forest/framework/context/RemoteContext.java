@@ -7,6 +7,8 @@ package org.nature.forest.framework.context;
  */
 public interface RemoteContext {
 
+    String REMOTE_PREFIX = "@remote:";
+
 
     /**
      * 获取
