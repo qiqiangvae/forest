@@ -1,5 +1,6 @@
 package org.nature.forest.framework.log;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.aop.ClassFilter;
 import org.springframework.aop.MethodMatcher;
@@ -19,6 +20,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author qiqiang
@@ -29,22 +31,29 @@ public class ForestMatchingPointcut implements Pointcut, ClassFilter, MethodMatc
 
     private final ClassFilter classFilter = new AnnotationClassFilter(LogPrinter.class);
 
-    public ForestMatchingPointcut(String packagePath, ResourceLoader resourceLoader) {
-        if (StringUtils.isNotBlank(packagePath)) {
+    public ForestMatchingPointcut(Set<String> packagePath, ResourceLoader resourceLoader) {
+        if (CollectionUtils.isNotEmpty(packagePath)) {
             ResourcePatternResolver resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
-            packagePath = StringUtils.replace(packagePath, ".", "/");
+            final Set<String> paths = packagePath.stream()
+                    .map(path -> StringUtils.replace(path, ".", "/"))
+                    .collect(Collectors.toSet());
             MetadataReaderFactory readerFactory = new CachingMetadataReaderFactory(resourceLoader);
             ClassLoader classLoader = ForestMatchingPointcut.class.getClassLoader();
             try {
-                String locationPattern = "classpath*:" + packagePath + "/*.class";
-                Resource[] resources = resolver.getResources(locationPattern);
-                for (Resource resource : resources) {
-                    MetadataReader reader = readerFactory.getMetadataReader(resource);
-                    ClassMetadata classMetadata = reader.getClassMetadata();
-                    String className = classMetadata.getClassName();
-                    Class<?> clazz = classLoader.loadClass(className);
-                    if (!clazz.isInterface()) {
-                        classnameSet.add(clazz.getName());
+                MetadataReader reader;
+                ClassMetadata classMetadata;
+                Class<?> clazz;
+                for (String path : paths) {
+                    String locationPattern = "classpath*:" + path + "/*.class";
+                    Resource[] resources = resolver.getResources(locationPattern);
+                    for (Resource resource : resources) {
+                        reader = readerFactory.getMetadataReader(resource);
+                        classMetadata = reader.getClassMetadata();
+                        String className = classMetadata.getClassName();
+                        clazz = classLoader.loadClass(className);
+                        if (!clazz.isInterface()) {
+                            classnameSet.add(clazz.getName());
+                        }
                     }
                 }
             } catch (IOException | ClassNotFoundException e) {

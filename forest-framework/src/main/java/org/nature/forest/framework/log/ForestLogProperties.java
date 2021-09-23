@@ -21,7 +21,7 @@ public class ForestLogProperties {
     /**
      * 扫描包路径
      */
-    private String packagePath;
+    private Set<String> packagePath;
     /**
      * 日志忽略字段提示文本
      */

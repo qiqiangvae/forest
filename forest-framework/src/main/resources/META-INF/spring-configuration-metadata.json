@@ -36,7 +36,7 @@
     {
       "name": "forest.log.package-path",
       "type": "java.lang.String",
-      "description": "扫描包路径."
+      "description": "扫描包路径,可逗号分割配置多路径."
     },
     {
       "name": "forest.context.type",
