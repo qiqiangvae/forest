@@ -4,6 +4,7 @@ import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -92,7 +93,7 @@ public class ForestContext {
 
         @Override
         protected Map<String, Object> initialValue() {
-            return new HashMap<>(8);
+            return new ConcurrentHashMap<>(8);
         }
     }
 }

@@ -14,6 +14,11 @@ public class IdGenerator {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
+    /**
+     * 雪花算法
+     *
+     * @return id
+     */
     public static String snowFlask() {
         // todo 待实现
         return "";

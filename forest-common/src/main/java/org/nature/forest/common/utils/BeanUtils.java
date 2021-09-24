@@ -14,6 +14,7 @@ import java.util.function.BiConsumer;
  *
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class BeanUtils {
 
     /**

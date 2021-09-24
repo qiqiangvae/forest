@@ -11,6 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>forest-dependence</artifactId>
+    <description>第三方依赖管理</description>
 
     <properties>
         <!--数据库-->
