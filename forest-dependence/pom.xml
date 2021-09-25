@@ -16,9 +16,12 @@
     <properties>
         <!--数据库-->
         <mybatis-plus.version>3.4.3.1</mybatis-plus.version>
-        <spring-boot.version>2.5.4</spring-boot.version>
         <druid.version>1.2.6</druid.version>
         <mysql-connector-java.version>8.0.26</mysql-connector-java.version>
+        <!--spring-->
+        <spring-boot.version>2.5.4</spring-boot.version>
+        <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <!--工具-->
         <easyexcel.version>2.2.6</easyexcel.version>
         <cglib.version>3.3.0</cglib.version>
         <commons-collections4.version>4.4</commons-collections4.version>
@@ -28,6 +31,7 @@
         <jackson.version>2.12.4</jackson.version>
         <fastjson.version>1.2.78</fastjson.version>
         <commons-codec.version>1.15</commons-codec.version>
+        <!--分布式-->
         <dubbo.version>3.0.2.1</dubbo.version>
     </properties>
 
@@ -39,6 +43,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
