@@ -8,10 +8,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.HibernateValidator;
 import org.nature.forest.common.utils.reflection.PropertyUtils;
-import org.nature.forest.query.ConditionWrapper;
-import org.nature.forest.query.Express;
-import org.nature.forest.query.QueryUtils;
-import org.nature.forest.query.SortColumn;
+import org.nature.forest.query.*;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

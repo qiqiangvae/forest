@@ -1,6 +1,4 @@
-package org.nature.forest.mybatisplus.query;
-
-import org.nature.forest.query.PageQuery;
+package org.nature.forest.query;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +28,7 @@ public abstract class AbstractQueryParam extends PageQuery {
         return (T) this;
     }
 
-    protected List<String> getSelectList() {
+    public List<String> getSelectList() {
         return selectList;
     }
 }

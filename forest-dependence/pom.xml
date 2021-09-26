@@ -19,13 +19,12 @@
         <druid.version>1.2.6</druid.version>
         <mysql-connector-java.version>8.0.26</mysql-connector-java.version>
         <!--spring-->
-        <spring-boot.version>2.5.4</spring-boot.version>
+        <spring-boot.version>2.4.9</spring-boot.version>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
         <!--工具-->
         <easyexcel.version>2.2.6</easyexcel.version>
         <cglib.version>3.3.0</cglib.version>
         <commons-collections4.version>4.4</commons-collections4.version>
-        <reflections.version>0.9.12</reflections.version>
         <javax.el.version>3.0.0</javax.el.version>
         <jsoup.version>1.14.2</jsoup.version>
         <jackson.version>2.12.4</jackson.version>
@@ -33,6 +32,7 @@
         <commons-codec.version>1.15</commons-codec.version>
         <!--分布式-->
         <dubbo.version>3.0.2.1</dubbo.version>
+        <alibaba.version>2.2.6.RELEASE</alibaba.version>
     </properties>
 
 
@@ -59,6 +59,11 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
@@ -90,11 +95,6 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
                 <version>${commons-collections4.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>${reflections.version}</version>
             </dependency>
             <!--validator 校验-->
             <dependency>
@@ -148,6 +148,14 @@
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo</artifactId>
                 <version>${dubbo.version}</version>
+            </dependency>
+            <!--分布式与微服务相关-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${alibaba.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>

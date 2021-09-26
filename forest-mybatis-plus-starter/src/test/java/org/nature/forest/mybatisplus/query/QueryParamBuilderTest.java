@@ -10,10 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.nature.forest.common.utils.DateUtils;
-import org.nature.forest.query.Condition;
-import org.nature.forest.query.Express;
-import org.nature.forest.query.Sort;
-import org.nature.forest.query.SortColumn;
+import org.nature.forest.query.*;
 
 import java.util.Date;
 
