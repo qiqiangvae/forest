@@ -21,8 +21,11 @@
         <!--spring-->
         <spring-boot.version>2.4.9</spring-boot.version>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <feign.version>10.12</feign.version>
         <!--工具-->
         <easyexcel.version>2.2.6</easyexcel.version>
+        <httpclient.version>4.5.13</httpclient.version>
+        <okhttp.version>4.9.0</okhttp.version>
         <cglib.version>3.3.0</cglib.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <javax.el.version>3.0.0</javax.el.version>
@@ -54,7 +57,6 @@
                 <type>pom</type>
             </dependency>
 
-
             <!--数据库-->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -85,7 +87,11 @@
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
             </dependency>
-            <!--bean copier-->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>

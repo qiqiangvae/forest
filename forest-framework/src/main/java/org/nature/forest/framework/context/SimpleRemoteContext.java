@@ -12,26 +12,20 @@ public class SimpleRemoteContext implements RemoteContext, InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        log.info("启用默认远程上下文");
+        log.info("请使用 Redis 远程上下文.");
     }
 
     @Override
     public String get(String key) {
-        throwException();
         return null;
     }
 
     @Override
     public void set(String key, String value) {
-        throwException();
     }
 
     @Override
     public void clear() {
-        throwException();
     }
 
-    private void throwException() {
-        throw new ForestContextException("simple 不支持远程上下文，请使用 redis");
-    }
 }
