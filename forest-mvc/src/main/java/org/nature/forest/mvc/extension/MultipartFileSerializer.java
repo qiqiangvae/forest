@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author qiqiang
  */
 public class MultipartFileSerializer extends StdSerializer<MultipartFile> {
-    protected MultipartFileSerializer(Class<MultipartFile> t) {
+    public MultipartFileSerializer(Class<MultipartFile> t) {
         super(t);
     }
 

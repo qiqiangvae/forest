@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @author qiqiang
  */
-@Component
+//@Component
 @SuppressWarnings("unchecked")
 public class FastjsonLogPrinter implements LogPrinterFunction {
 
