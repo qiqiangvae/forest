@@ -7,7 +7,8 @@ import org.slf4j.Logger;
 /**
  * @author qiqiang
  */
-public class LoggerUtils {
+@SuppressWarnings("unused")
+public class Logging {
     public static void debug(Logger logger, VoidConsumer consumer) {
         if (logger.isDebugEnabled()) {
             consumer.accept();

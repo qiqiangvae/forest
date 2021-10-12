@@ -1,7 +1,7 @@
 package org.nature.forest.framework.context;
 
 import lombok.extern.slf4j.Slf4j;
-import org.nature.forest.common.utils.LoggerUtils;
+import org.nature.forest.common.utils.Logging;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
@@ -13,7 +13,7 @@ public class SimpleRemoteContext implements RemoteContext, InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        LoggerUtils.info(log, () -> log.info("请使用 Redis 远程上下文."));
+        Logging.info(log, () -> log.info("请使用 Redis 远程上下文."));
     }
 
     @Override

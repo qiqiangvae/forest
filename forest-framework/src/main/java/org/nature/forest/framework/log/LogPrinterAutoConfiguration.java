@@ -1,7 +1,7 @@
 package org.nature.forest.framework.log;
 
 import lombok.extern.slf4j.Slf4j;
-import org.nature.forest.common.utils.LoggerUtils;
+import org.nature.forest.common.utils.Logging;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -29,7 +29,7 @@ public class LogPrinterAutoConfiguration {
     @Bean(ForestLogPrinterConstants.BEAN_FOREST_POINTCUT_ADVISOR)
     @ConditionalOnProperty(name = "forest.log.enable", havingValue = "true")
     DefaultPointcutAdvisor forestPointcutAdvisor(LogMethodInterceptor logMethodInterceptor, ForestLogProperties forestLogProperties, ResourceLoader resourceLoader) {
-        LoggerUtils.info(log, () -> log.info("启用日志拦截功能"));
+        Logging.info(log, () -> log.info("启用日志拦截功能"));
         DefaultPointcutAdvisor forestPointcutAdvisor = new DefaultPointcutAdvisor();
         ForestMatchingPointcut forestMatchingPointcut = new ForestMatchingPointcut(forestLogProperties.getPackagePath(), resourceLoader);
         forestPointcutAdvisor.setPointcut(forestMatchingPointcut);

@@ -1,7 +1,7 @@
 package org.nature.forest.framework.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.nature.forest.common.utils.LoggerUtils;
+import org.nature.forest.common.utils.Logging;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -22,7 +22,7 @@ public class SpringContextUtils implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         SpringContextUtils.context = applicationContext;
-        LoggerUtils.debug(log, () -> log.debug("SpringContextUtils 初始化成功."));
+        Logging.debug(log, () -> log.debug("SpringContextUtils 初始化成功."));
     }
 
     public static <T> T getBean(Class<T> clazz) {

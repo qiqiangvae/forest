@@ -2,7 +2,7 @@ package org.nature.forest.example.mvc.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.nature.forest.common.utils.LoggerUtils;
+import org.nature.forest.common.utils.Logging;
 import org.nature.forest.example.mvc.logwriter.ExampleLogWriter;
 import org.nature.forest.example.mvc.service.TestPoolService;
 import org.nature.forest.example.mvc.vo.TimeTestVO;
@@ -32,7 +32,7 @@ public class MvcTestController {
 
     @RequestMapping("/hello")
     public String hello() {
-        LoggerUtils.info(log, () -> log.info("hello"));
+        Logging.info(log, () -> log.info("hello"));
         printTraceId();
         IntStream.range(0, 10).forEach(i -> testPoolService.print());
         return "hello";

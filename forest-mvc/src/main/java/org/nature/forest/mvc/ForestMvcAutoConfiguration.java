@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.nature.forest.common.utils.LoggerUtils;
+import org.nature.forest.common.utils.Logging;
 import org.nature.forest.mvc.filter.TraceFilter;
 import org.nature.forest.mvc.xss.XssFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -55,7 +55,7 @@ public class ForestMvcAutoConfiguration {
     @Bean(BEAN_FOREST_XSS_FILTER)
     @ConditionalOnProperty(name = "forest.mvc.enable-xss", havingValue = "true")
     FilterRegistrationBean<XssFilter> forestXssFilterRegistrationBean() {
-        LoggerUtils.info(log, () -> log.info("开启 xss 拦截"));
+        Logging.info(log, () -> log.info("开启 xss 拦截"));
         FilterRegistrationBean<XssFilter> xssFilterFilterRegistrationBean = new FilterRegistrationBean<>();
         xssFilterFilterRegistrationBean.setOrder(Integer.MIN_VALUE);
         xssFilterFilterRegistrationBean.setFilter(new XssFilter());
@@ -68,7 +68,7 @@ public class ForestMvcAutoConfiguration {
     @Bean(BEAN_FOREST_TRACE_FILTER)
     @ConditionalOnProperty(name = "forest.mvc.enable-trace", havingValue = "true")
     FilterRegistrationBean<TraceFilter> forestTraceFilterRegistrationBean() {
-        LoggerUtils.info(log, () -> log.info("开启 日志跟踪 拦截"));
+        Logging.info(log, () -> log.info("开启 日志跟踪 拦截"));
         FilterRegistrationBean<TraceFilter> traceFilterFilterRegistrationBean = new FilterRegistrationBean<>();
         traceFilterFilterRegistrationBean.setOrder(Integer.MIN_VALUE);
         traceFilterFilterRegistrationBean.setFilter(new TraceFilter());

@@ -3,7 +3,7 @@ package org.nature.forest.framework.log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.nature.forest.common.utils.JsonUtils;
-import org.nature.forest.common.utils.LoggerUtils;
+import org.nature.forest.common.utils.Logging;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -38,7 +38,7 @@ public class DefaultLogPrinter implements LogPrinterFunction, InitializingBean, 
             JacksonLogPrinterCustomizer customizer = beanFactory.getBean(JacksonLogPrinterCustomizer.class);
             customizer.getModules().forEach(objectMapper::registerModule);
         } catch (BeansException exception) {
-            LoggerUtils.warn(log, () -> log.warn("没有找到 JacksonLogPrinterCustomizer"));
+            Logging.warn(log, () -> log.warn("没有找到 JacksonLogPrinterCustomizer"));
         }
     }
 
