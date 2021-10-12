@@ -47,7 +47,7 @@ public class JsonUtils {
      * 可以设置自己的 ObjectMapper，如使用 Spring 的 ObjectMapper
      */
     public static void init(ObjectMapper objectMapper) {
-        log.info("使用自定义的 ObjectMapper");
+        LoggerUtils.info(log, () -> log.info("使用自定义的 ObjectMapper"));
         JsonUtils.OBJECT_MAPPER = objectMapper;
     }
 

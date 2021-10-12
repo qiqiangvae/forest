@@ -3,7 +3,7 @@ package org.nature.forest.framework.log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.nature.forest.common.utils.JsonUtils;
-import org.nature.forest.common.utils.LogUtils;
+import org.nature.forest.common.utils.LoggerUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -31,14 +31,14 @@ public class DefaultLogPrinter implements LogPrinterFunction, InitializingBean, 
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         // 加载自定义模块
         ObjectMapper objectMapper = JsonUtils.getObjectMapper();
         try {
             JacksonLogPrinterCustomizer customizer = beanFactory.getBean(JacksonLogPrinterCustomizer.class);
             customizer.getModules().forEach(objectMapper::registerModule);
         } catch (BeansException exception) {
-            LogUtils.warn(log, () -> log.warn("没有找到 JacksonLogPrinterCustomizer"));
+            LoggerUtils.warn(log, () -> log.warn("没有找到 JacksonLogPrinterCustomizer"));
         }
     }
 

@@ -6,6 +6,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang3.StringUtils;
 import org.nature.forest.common.function.ExFunction;
+import org.nature.forest.common.utils.LoggerUtils;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.CollectionUtils;
@@ -58,14 +59,14 @@ public class LogMethodInterceptor implements MethodInterceptor {
     public void addGlobalIgnoreReq(Collection<String> ignores) {
         if (!CollectionUtils.isEmpty(ignores)) {
             globalIgnoreReq.addAll(ignores);
-            log.info("配置全局忽略请求字段[{}]", String.join(",", ignores));
+            LoggerUtils.info(log, () -> log.info("配置全局忽略请求字段[{}]", String.join(",", ignores)));
         }
     }
 
     public void addGlobalIgnoreResp(Collection<String> ignores) {
         if (!CollectionUtils.isEmpty(ignores)) {
             globalIgnoreResp.addAll(ignores);
-            log.info("配置全局忽略返回字段[{}]", String.join(",", ignores));
+            LoggerUtils.info(log, () -> log.info("配置全局忽略返回字段[{}]", String.join(",", ignores)));
         }
     }
 
@@ -185,7 +186,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
                 // 因为没法获取实际参数名，所以利用 spring 线程的方法获取实际参数名
                 String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);
                 Map<String, Object> requestLog = getRequestLog(ignoreReq, parameterNames, args);
-                log.info("[{}]入参：[{}]", name, logPrinterFunction.toString(requestLog));
+                LoggerUtils.info(log, () -> log.info("[{}]入参：[{}]", name, logPrinterFunction.toString(requestLog)));
             } catch (Exception e) {
                 log.error(e.getLocalizedMessage(), e);
             }
@@ -195,7 +196,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
         if (enable) {
             try {
                 String responseLog = getResponseLog(ignoreResp, result, writerClass);
-                log.info("[{}]出参：[{}]", name, responseLog);
+                LoggerUtils.info(log, () -> log.info("[{}]出参：[{}]", name, responseLog));
             } catch (Exception e) {
                 log.error(e.getLocalizedMessage(), e);
             }

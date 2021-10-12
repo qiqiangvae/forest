@@ -1,6 +1,7 @@
 package org.nature.forest.framework.thread;
 
 import lombok.extern.slf4j.Slf4j;
+import org.nature.forest.common.utils.LoggerUtils;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.util.concurrent.ListenableFuture;
 
@@ -54,12 +55,16 @@ public class MonitorThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {
 
     private void showThreadPoolInfo(String prefix) {
         ThreadPoolExecutor threadPoolExecutor = getThreadPoolExecutor();
-        log.info("当前{}线程池处理中, 正在{}方法,已执行线程总数 [{}], 提交的线程总数 [{}], 当前活跃线程数 [{}], 队列排队数 [{}]",
-                this.getThreadNamePrefix(),
-                prefix,
-                threadPoolExecutor.getTaskCount(),
-                threadPoolExecutor.getCompletedTaskCount(),
-                threadPoolExecutor.getActiveCount(),
-                threadPoolExecutor.getQueue().size());
+        LoggerUtils.info(
+                log,
+                () -> log.info("当前{}线程池处理中, 正在{}方法,已执行线程总数 [{}], 提交的线程总数 [{}], 当前活跃线程数 [{}], 队列排队数 [{}]",
+                        this.getThreadNamePrefix(),
+                        prefix,
+                        threadPoolExecutor.getTaskCount(),
+                        threadPoolExecutor.getCompletedTaskCount(),
+                        threadPoolExecutor.getActiveCount(),
+                        threadPoolExecutor.getQueue().size())
+        );
+
     }
 }

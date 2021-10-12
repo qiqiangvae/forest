@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 /**
  * @author qiqiang
  */
-public class LogUtils {
+public class LoggerUtils {
     public static void debug(Logger logger, VoidConsumer consumer) {
         if (logger.isDebugEnabled()) {
             consumer.accept();
