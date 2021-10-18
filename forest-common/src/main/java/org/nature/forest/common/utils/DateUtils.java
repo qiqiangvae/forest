@@ -13,8 +13,11 @@ import java.util.Date;
  */
 @SuppressWarnings("unused")
 public class DateUtils {
-    public static final String PATTERN_USUAL_DATE = "yyyy-MM-dd";
-    public static final String PATTERN_USUAL_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+
+    public interface Pattern {
+        String PATTERN_USUAL_DATE = "yyyy-MM-dd";
+        String PATTERN_USUAL_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+    }
 
     public static Date parseToDate(String text, String pattern) {
         return localDateToDate(parseToLocalDate(text, pattern));
