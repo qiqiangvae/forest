@@ -2,7 +2,7 @@ package org.nature.forest.mvc.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.nature.forest.common.utils.IdGenerator;
+import org.nature.forest.common.utils.id.IdGenerator;
 import org.nature.forest.framework.context.ForestContext;
 import org.nature.forest.framework.trace.TraceConstants;
 
