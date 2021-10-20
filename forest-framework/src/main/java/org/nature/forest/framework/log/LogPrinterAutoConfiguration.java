@@ -1,7 +1,7 @@
 package org.nature.forest.framework.log;
 
 import lombok.extern.slf4j.Slf4j;
-import org.nature.forest.common.utils.Logging;
+import org.nature.forest.common.java.util.logging.Logging;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

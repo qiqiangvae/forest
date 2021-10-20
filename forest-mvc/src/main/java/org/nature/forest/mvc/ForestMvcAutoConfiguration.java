@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.nature.forest.common.utils.Logging;
+import org.nature.forest.common.java.util.logging.Logging;
 import org.nature.forest.mvc.filter.TraceFilter;
 import org.nature.forest.mvc.xss.XssFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

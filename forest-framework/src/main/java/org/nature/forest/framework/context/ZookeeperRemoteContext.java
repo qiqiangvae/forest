@@ -1,7 +1,7 @@
 package org.nature.forest.framework.context;
 
 import lombok.extern.slf4j.Slf4j;
-import org.nature.forest.common.utils.Logging;
+import org.nature.forest.common.java.util.logging.Logging;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;

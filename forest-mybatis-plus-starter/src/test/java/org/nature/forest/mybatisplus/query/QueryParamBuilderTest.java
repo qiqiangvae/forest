@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.nature.forest.common.utils.DateUtils;
+import org.nature.forest.common.utils.DateConvertor;
 import org.nature.forest.query.*;
 
 import java.util.Date;
@@ -20,8 +20,8 @@ public class QueryParamBuilderTest {
     @Test
     public void toWrapper() {
         StudentParam studentParam = new StudentParam();
-        Date start = DateUtils.parseToDate("2015-09-01", DateUtils.Pattern.PATTERN_USUAL_DATE);
-        Date end = DateUtils.parseToDate("2017-09-01", DateUtils.Pattern.PATTERN_USUAL_DATE);
+        Date start = DateConvertor.parseToDate("2015-09-01", DateConvertor.Pattern.USUAL_DATE);
+        Date end = DateConvertor.parseToDate("2017-09-01", DateConvertor.Pattern.USUAL_DATE);
         studentParam.<StudentParam>select("name", "age")
                 .setName("forest")
                 .setAge(5)

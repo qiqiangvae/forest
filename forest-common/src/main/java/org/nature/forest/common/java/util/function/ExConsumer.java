@@ -1,4 +1,4 @@
-package org.nature.forest.common.function;
+package org.nature.forest.common.java.util.function;
 
 import org.nature.forest.common.exception.Throwing;
 

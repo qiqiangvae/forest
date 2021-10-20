@@ -3,7 +3,7 @@ package org.nature.forest.framework.log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.nature.forest.common.utils.JsonUtils;
-import org.nature.forest.common.utils.Logging;
+import org.nature.forest.common.java.util.logging.Logging;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;

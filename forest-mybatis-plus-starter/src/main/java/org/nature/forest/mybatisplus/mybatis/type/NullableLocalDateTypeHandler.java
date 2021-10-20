@@ -6,7 +6,7 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.LocalDateTypeHandler;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
-import org.nature.forest.common.utils.DateUtils;
+import org.nature.forest.common.utils.DateConvertor;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -26,12 +26,12 @@ public class NullableLocalDateTypeHandler extends LocalDateTypeHandler {
     private final DateTimeFormatter formatter;
 
     public NullableLocalDateTypeHandler() {
-        this(DateUtils.Pattern.PATTERN_USUAL_DATE);
+        this(DateConvertor.Pattern.USUAL_DATE);
     }
 
     public NullableLocalDateTypeHandler(String pattern) {
         if (StringUtils.isBlank(pattern)) {
-            this.formatter = DateTimeFormatter.ofPattern(DateUtils.Pattern.PATTERN_USUAL_DATE);
+            this.formatter = DateTimeFormatter.ofPattern(DateConvertor.Pattern.USUAL_DATE);
         } else {
             this.formatter = DateTimeFormatter.ofPattern(pattern);
         }

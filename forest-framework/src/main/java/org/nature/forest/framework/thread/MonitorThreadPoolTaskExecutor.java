@@ -1,7 +1,7 @@
 package org.nature.forest.framework.thread;
 
 import lombok.extern.slf4j.Slf4j;
-import org.nature.forest.common.utils.Logging;
+import org.nature.forest.common.java.util.logging.Logging;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.util.concurrent.ListenableFuture;
 

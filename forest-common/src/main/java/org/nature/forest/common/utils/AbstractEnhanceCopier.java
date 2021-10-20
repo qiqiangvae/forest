@@ -20,14 +20,14 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author qiqiang
  */
-public abstract class BaseEnhanceCopier {
+public abstract class AbstractEnhanceCopier {
 
     private static final String SET_PREFIX = "set";
 
-    private static final Map<String, BaseEnhanceCopier> BEAN_COPIER_CACHE_MAP = new ConcurrentHashMap<>();
+    private static final Map<String, AbstractEnhanceCopier> BEAN_COPIER_CACHE_MAP = new ConcurrentHashMap<>();
 
     private static final BeanCopierKey KEY_FACTORY = (BeanCopierKey) KeyFactory.create(BeanCopierKey.class);
-    private static final Type BEAN_COPIER = TypeUtils.parseType(BaseEnhanceCopier.class.getName());
+    private static final Type BEAN_COPIER = TypeUtils.parseType(AbstractEnhanceCopier.class.getName());
     private static final Signature COPY = new Signature("copy", Type.VOID_TYPE, new Type[]{Constants.TYPE_OBJECT, Constants.TYPE_OBJECT});
 
     interface BeanCopierKey {
@@ -43,12 +43,12 @@ public abstract class BaseEnhanceCopier {
         Object newInstance(String source, String target, boolean useConverter);
     }
 
-    public static BaseEnhanceCopier create(Class<?> source, Class<?> target, boolean useConverter) {
+    public static AbstractEnhanceCopier create(Class<?> source, Class<?> target, boolean useConverter) {
         String cacheKey = source.getName() + source.getName();
-        BaseEnhanceCopier copier;
+        AbstractEnhanceCopier copier;
         // 保证线程安全
         if (!BEAN_COPIER_CACHE_MAP.containsKey(cacheKey)) {
-            synchronized (BaseEnhanceCopier.class) {
+            synchronized (AbstractEnhanceCopier.class) {
                 if (!BEAN_COPIER_CACHE_MAP.containsKey(cacheKey)) {
                     Generator<?> gen = new Generator<>();
                     gen.setSource(source);
@@ -76,7 +76,7 @@ public abstract class BaseEnhanceCopier {
 
     public static class Generator<T> extends AbstractClassGenerator<T> {
 
-        private static final Source SOURCE = new Source(BaseEnhanceCopier.class.getName());
+        private static final Source SOURCE = new Source(AbstractEnhanceCopier.class.getName());
         private Class<?> source;
         private Class<?> target;
         private boolean useConverter;
@@ -108,9 +108,9 @@ public abstract class BaseEnhanceCopier {
             return source.getClassLoader();
         }
 
-        public BaseEnhanceCopier create() {
+        public AbstractEnhanceCopier create() {
             Object key = KEY_FACTORY.newInstance(source.getName(), target.getName(), useConverter);
-            return (BaseEnhanceCopier) super.create(key);
+            return (AbstractEnhanceCopier) super.create(key);
         }
 
         @Override

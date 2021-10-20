@@ -12,11 +12,11 @@ import java.util.Date;
  * @author qiqiang
  */
 @SuppressWarnings("unused")
-public class DateUtils {
+public class DateConvertor {
 
     public interface Pattern {
-        String PATTERN_USUAL_DATE = "yyyy-MM-dd";
-        String PATTERN_USUAL_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+        String USUAL_DATE = "yyyy-MM-dd";
+        String USUAL_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
     }
 
     public static Date parseToDate(String text, String pattern) {
@@ -28,13 +28,25 @@ public class DateUtils {
         return LocalDate.parse(text, formatter);
     }
 
+    public static LocalDate dateToLocalDate(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
     public static LocalDateTime parseToLocalDateTime(String text, String pattern) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         return LocalDateTime.parse(text, formatter);
     }
 
+    public static LocalDateTime dateToLocalDateTime(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
     public static Date localDateToDate(LocalDate localDate) {
         return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
+    public static Date localDateTimeToDate(LocalDateTime localDateTime) {
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public static String parseToString(Date date, String pattern) {

@@ -1,6 +1,6 @@
-package org.nature.forest.common.utils;
+package org.nature.forest.common.java.util.logging;
 
-import org.nature.forest.common.function.VoidConsumer;
+import org.nature.forest.common.java.util.function.NothingConsumer;
 import org.slf4j.Logger;
 
 
@@ -9,31 +9,31 @@ import org.slf4j.Logger;
  */
 @SuppressWarnings("unused")
 public class Logging {
-    public static void debug(Logger logger, VoidConsumer consumer) {
+    public static void debug(Logger logger, NothingConsumer consumer) {
         if (logger.isDebugEnabled()) {
             consumer.accept();
         }
     }
 
-    public static void info(Logger logger, VoidConsumer consumer) {
+    public static void info(Logger logger, NothingConsumer consumer) {
         if (logger.isInfoEnabled()) {
             consumer.accept();
         }
     }
 
-    public static void warn(Logger logger, VoidConsumer consumer) {
+    public static void warn(Logger logger, NothingConsumer consumer) {
         if (logger.isWarnEnabled()) {
             consumer.accept();
         }
     }
 
-    public static void error(Logger logger, VoidConsumer consumer) {
+    public static void error(Logger logger, NothingConsumer consumer) {
         if (logger.isErrorEnabled()) {
             consumer.accept();
         }
     }
 
-    public static void trace(Logger logger, VoidConsumer consumer) {
+    public static void trace(Logger logger, NothingConsumer consumer) {
         if (logger.isTraceEnabled()) {
             consumer.accept();
         }

@@ -1,7 +1,7 @@
 package org.nature.forest.common.exception;
 
-import org.nature.forest.common.function.ExConsumer;
-import org.nature.forest.common.function.ExFunction;
+import org.nature.forest.common.java.util.function.ExConsumer;
+import org.nature.forest.common.java.util.function.ExFunction;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -9,6 +9,7 @@ import java.util.function.Function;
 /**
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class Throwing {
     private Throwing() {
     }
