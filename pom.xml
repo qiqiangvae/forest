@@ -12,7 +12,7 @@
         <module>forest-parent</module>
         <module>forest-dependence</module>
         <module>forest-common</module>
-        <module>forest-mybatis-plus-starter</module>
+        <module>forest-orm</module>
         <module>forest-query</module>
         <module>forest-mvc</module>
         <module>forest-maven-plugin</module>

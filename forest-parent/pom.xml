@@ -21,7 +21,7 @@
             </dependency>
             <dependency>
                 <groupId>org.nature</groupId>
-                <artifactId>forest-mybatis-plus-starter</artifactId>
+                <artifactId>forest-orm</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
