@@ -3,9 +3,9 @@ package org.nature.forest.common.utils;
 import lombok.extern.slf4j.Slf4j;
 import org.nature.forest.common.java.util.OptionalCollection;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * 批量操作工具类
@@ -30,6 +30,33 @@ public class BatchUtils {
         generator.accept(g);
         g.end();
         return g.count;
+    }
+    public static long execute(int max, Consumer<ExGenerator> generator, Map<Predicate<Class<?>>, Consumer<OptionalCollection<Object>>> consumerMap) {
+        final ExGenerator g = new ExGenerator(max, consumerMap);
+        generator.accept(g);
+        g.end();
+        return g.count;
+    }
+
+    public static class Factory {
+        private final Map<Predicate<Class<?>>, Consumer<OptionalCollection<Object>>> consumerMap;
+
+        private Factory() {
+            consumerMap = new LinkedHashMap<>();
+        }
+
+        public static Factory builder() {
+            return new Factory();
+        }
+
+        public Factory add(Predicate<Class<?>> predicate, Consumer<OptionalCollection<Object>> consumer) {
+            consumerMap.put(predicate, consumer);
+            return this;
+        }
+
+        public Map<Predicate<Class<?>>, Consumer<OptionalCollection<Object>>> build() {
+            return consumerMap;
+        }
     }
 
     public static class Generator<T> {
@@ -57,6 +84,46 @@ public class BatchUtils {
         private void end() {
             count += list.size();
             handler.accept(OptionalCollection.of(list));
+        }
+    }
+
+    public static class ExGenerator {
+        final Map<Class<?>, List<Object>> map;
+        final int max;
+        final Map<Predicate<Class<?>>, Consumer<OptionalCollection<Object>>> consumerMap;
+        long count;
+
+        public ExGenerator(int max, Map<Predicate<Class<?>>, Consumer<OptionalCollection<Object>>> consumerMap) {
+            this.max = max;
+            this.consumerMap = consumerMap;
+            map = new HashMap<>();
+        }
+
+
+        public void add(Object object) {
+            Class<?> clazz = object.getClass();
+            List<Object> list = map.computeIfAbsent(clazz, k -> new ArrayList<>(max));
+            list.add(object);
+            if (list.size() == max) {
+                consumerMap.entrySet().stream()
+                        .filter(entry -> entry.getKey().test(clazz))
+                        .forEach(handler -> {
+                            handler.getValue().accept(OptionalCollection.of(list));
+                        });
+                count += max;
+                list.clear();
+            }
+        }
+
+        private void end() {
+            map.forEach((key, value) -> {
+                consumerMap.entrySet().stream()
+                        .filter(predicateConsumerEntry -> predicateConsumerEntry.getKey().test(key))
+                        .forEach(handler -> {
+                            handler.getValue().accept(OptionalCollection.of(value));
+                        });
+                count += value.size();
+            });
         }
     }
 }
