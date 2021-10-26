@@ -1,4 +1,4 @@
-package org.nature.forest.orm.mybatis;
+package org.nature.forest.orm.mybatis.type;
 
 
 import org.apache.commons.lang3.StringUtils;

@@ -31,6 +31,7 @@ public class BatchUtils {
         g.end();
         return g.count;
     }
+
     public static long execute(int max, Consumer<ExGenerator> generator, Map<Predicate<Class<?>>, Consumer<OptionalCollection<Object>>> consumerMap) {
         final ExGenerator g = new ExGenerator(max, consumerMap);
         generator.accept(g);

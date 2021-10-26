@@ -2,16 +2,40 @@ package org.nature.forest.common.utils;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @see <a href="https://github.com/qiqiangvae/forest/blob/main/forest-common/src/main/java/org/nature/forest/common/java/util/OptionalCollection.java"></a>
+ */
 public class BatchUtilsTest {
 
     @Test
+    public void withoutBatchUtils() {
+        List<Object> list = new ArrayList<>(10);
+        long count = 0;
+        for (int i = 0; i < 99; i++) {
+            list.add(new Object());
+            count++;
+            if (list.size() == 10) {
+                System.out.println("插入数据" + list);
+                list.clear();
+            }
+        }
+        if (!list.isEmpty()) {
+            System.out.println("插入数据" + list);
+        }
+        System.out.println("共处理" + count);
+    }
+
+    @Test
     public void execute() {
-        long count = BatchUtils.execute(3, generator -> {
-            for (int i = 0; i < 10; i++) {
+        long count = BatchUtils.execute(9, generator -> {
+            for (int i = 0; i < 99; i++) {
                 generator.add(new Object());
             }
         }, optionalCollection -> optionalCollection.isNotEmpty(System.out::println));
-        System.out.println(count);
+        System.out.println("共处理" + count);
     }
 
     @Test
