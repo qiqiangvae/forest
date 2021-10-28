@@ -17,11 +17,13 @@ import java.util.List;
  *
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class ForestSqlInjector extends DefaultSqlInjector {
     @Override
     public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
         List<AbstractMethod> methodList = super.getMethodList(mapperClass);
         methodList.add(new FetchByStream());
+        methodList.add(new InsertBatch());
         return methodList;
     }
 }

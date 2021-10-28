@@ -18,8 +18,8 @@ public interface IForestEnhanceService<T> extends IService<T> {
      * 根据自定义条件批量更新
      *
      * @param entityList 需要更新的数据
-     * @param function 自定义条件
-     * @param batchSize     分批更新大小
+     * @param function   自定义条件
+     * @param batchSize  分批更新大小
      * @return 是否更新成功
      */
     boolean updateBatchByWrapper(Collection<T> entityList, Function<T, Wrapper<T>> function, int batchSize);
@@ -49,4 +49,15 @@ public interface IForestEnhanceService<T> extends IService<T> {
      * @return 结果集合
      */
     List<T> fetchByStream(@Param(Constants.WRAPPER) Wrapper<T> wrapper, int maxSize);
+
+    /**
+     * 批量插入
+     * 如果jdbc url 设置了 rewriteBatchedStatements=true  ，那么次方法和 {@link com.baomidou.mybatisplus.extension.service.IService#saveBatch(java.util.Collection)}效果相同
+     * 如果未设置改参数，请使用次方法
+     *
+     * @param list      插入的列表
+     * @param batchSize 一批插入的数量
+     * @return success
+     */
+    boolean insertBatch(List<T> list, int batchSize);
 }

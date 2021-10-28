@@ -67,8 +67,8 @@ public class ForestContext {
     }
 
     private static String generateSequence() {
-        // sequence#timestamp
-        return SEQUENCE_NUMBER.incrementAndGet() + "#" + System.currentTimeMillis();
+        // sequence#nanoTime
+        return SEQUENCE_NUMBER.incrementAndGet() + "#" + System.nanoTime();
     }
 
     public static String getRemoteSequence() {

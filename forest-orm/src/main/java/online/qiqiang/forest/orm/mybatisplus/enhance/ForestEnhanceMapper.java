@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.ResultHandler;
 
+import java.util.Collection;
+
 /**
  * forest 通用 mapper
  *
@@ -19,4 +21,12 @@ public interface ForestEnhanceMapper<T> extends BaseMapper<T> {
      * @param handler {@linkplain ResultHandler}
      */
     void fetchByStream(@Param(Constants.WRAPPER) Wrapper<T> wrapper, ResultHandler<T> handler);
+
+    /**
+     * 批量插入
+     *
+     * @param list 需要插入的列表
+     * @return success
+     */
+    boolean insertBatch(@Param("list") Collection<T> list);
 }

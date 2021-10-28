@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import online.qiqiang.forest.common.utils.BatchUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.session.ResultHandler;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -22,6 +24,7 @@ import java.util.function.Function;
  * @author qiqiang
  */
 @Slf4j
+@SuppressWarnings("unused")
 public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> extends ServiceImpl<M, T> implements IForestEnhanceService<T> {
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -60,5 +63,15 @@ public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> exten
             }
         });
         return result;
+    }
+
+    @Override
+    public boolean insertBatch(List<T> list, int batchSize) {
+        BatchUtils.execute(batchSize, (Consumer<BatchUtils.Generator<T>>) generator -> {
+            for (T t : list) {
+                generator.add(t);
+            }
+        }, optional -> optional.isNotEmpty(baseMapper::insertBatch));
+        return true;
     }
 }
