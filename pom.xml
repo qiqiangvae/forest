@@ -19,6 +19,9 @@
         <module>forest-framework</module>
         <module>forest-dubbo</module>
     </modules>
+    <url>https://github.com/qiqiangvae/forest.git</url>
+    <description>让开发者快速开发的框架</description>
+    <name>forest</name>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -50,6 +53,15 @@
     <build>
         <plugins>
             <plugin>
+                <!--统一修改版本号：mvn versions:set -DnewVersion= newVersion -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
@@ -68,7 +80,7 @@
                 <configuration>
                     <serverId>sonatype</serverId>
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
             <plugin>
@@ -116,15 +128,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <!--统一修改版本号：mvn versions:set -DnewVersion= newVersion -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <generateBackupPoms>false</generateBackupPoms>
-                </configuration>
             </plugin>
         </plugins>
     </build>
