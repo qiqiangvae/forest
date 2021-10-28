@@ -53,7 +53,7 @@ public class ForestMatchingPointcut implements Pointcut, ClassFilter, MethodMatc
                         classMetadata = reader.getClassMetadata();
                         String className = classMetadata.getClassName();
                         clazz = classLoader.loadClass(className);
-                        if (!clazz.isInterface()) {
+                        if (!clazz.isInterface() && !clazz.isEnum() && !clazz.isAnnotation()) {
                             classnameSet.add(clazz.getName());
                         }
                     }
