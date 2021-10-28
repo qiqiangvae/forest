@@ -60,7 +60,7 @@ public interface IForestEnhanceService<T> extends IService<T> {
      * @param batchSize 一批插入的数量
      * @return success
      */
-    boolean insertBatch(List<T> list, int batchSize);
+    boolean insertBatch(Collection<T> list, int batchSize);
 
     /**
      * 批量插入，默认最大批次1000
@@ -68,5 +68,5 @@ public interface IForestEnhanceService<T> extends IService<T> {
      * @param list 插入的列表
      * @return success
      */
-    boolean insertBatch(List<T> list);
+    boolean insertBatch(Collection<T> list);
 }

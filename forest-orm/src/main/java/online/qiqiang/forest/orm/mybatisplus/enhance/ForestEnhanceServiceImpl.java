@@ -66,7 +66,7 @@ public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> exten
     }
 
     @Override
-    public boolean insertBatch(List<T> list, int batchSize) {
+    public boolean insertBatch(Collection<T> list, int batchSize) {
         BatchUtils.execute(batchSize, (Consumer<BatchUtils.Generator<T>>) generator -> {
             for (T t : list) {
                 generator.add(t);
@@ -76,7 +76,7 @@ public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> exten
     }
 
     @Override
-    public boolean insertBatch(List<T> list) {
+    public boolean insertBatch(Collection<T> list) {
         return insertBatch(list, 1000);
     }
 }
