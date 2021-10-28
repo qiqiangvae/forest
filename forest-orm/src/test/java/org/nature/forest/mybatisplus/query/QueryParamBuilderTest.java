@@ -1,4 +1,4 @@
-package org.nature.forest.mybatisplus.query;
+package online.qiqiang.forest.mybatisplus.query;
 
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -9,9 +9,9 @@ import lombok.experimental.Accessors;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.nature.forest.common.utils.DateConvertor;
-import org.nature.forest.orm.mybatisplus.query.QueryParamBuilder;
-import org.nature.forest.query.*;
+import online.qiqiang.forest.common.utils.DateConvertor;
+import online.qiqiang.forest.orm.mybatisplus.query.QueryParamBuilder;
+import online.qiqiang.forest.query.*;
 
 import java.util.Date;
 

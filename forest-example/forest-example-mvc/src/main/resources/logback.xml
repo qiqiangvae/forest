@@ -19,7 +19,7 @@
     <property name="log.size" value="2MB"/>
     <property name="log.debug.size" value="2MB"/>
 
-    <conversionRule conversionWord="traceId" converterClass="org.nature.forest.framework.trace.TraceConvert" />
+    <conversionRule conversionWord="traceId" converterClass="online.qiqiang.forest.framework.trace.TraceConvert" />
 
     <!-- ConsoleAppender 控制台输出日志 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">

@@ -1,2 +1,2 @@
-consumerCtx=org.nature.forest.dubbo.filter.ForestContextConsumerFilter
-providerCtx=org.nature.forest.dubbo.filter.ForestContextProviderFilter
+consumerCtx=ForestContextConsumerFilter
+providerCtx=ForestContextProviderFilter

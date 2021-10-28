@@ -2,13 +2,13 @@
   "groups": [
     {
       "name": "forest-log",
-      "type": "org.nature.forest.framework.log.ForestLogProperties",
-      "sourceType": "org.nature.forest.framework.log.ForestLogProperties"
+      "type": "ForestLogProperties",
+      "sourceType": "ForestLogProperties"
     },
     {
       "name": "forest-context",
-      "type": "org.nature.forest.framework.context.ForestContextProperties",
-      "sourceType": "org.nature.forest.framework.context.ForestContextProperties"
+      "type": "ForestContextProperties",
+      "sourceType": "ForestContextProperties"
     }
   ],
   "properties": [
@@ -40,7 +40,7 @@
     },
     {
       "name": "forest.context.type",
-      "type": "org.nature.forest.framework.context.RemoteContextType",
+      "type": "RemoteContextType",
       "defaultValue": "simple",
       "description": "扫描包路径."
     }

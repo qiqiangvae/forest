@@ -2,8 +2,8 @@
   "groups": [
     {
       "name": "forest-mvc",
-      "type": "org.nature.forest.mvc.ForestMvcProperties",
-      "sourceType": "org.nature.forest.mvc.ForestMvcProperties"
+      "type": "ForestMvcProperties",
+      "sourceType": "ForestMvcProperties"
     }
   ],
   "properties": [
