@@ -13,6 +13,7 @@ import java.util.function.Function;
 /**
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public interface IForestEnhanceService<T> extends IService<T> {
     /**
      * 根据自定义条件批量更新
@@ -60,4 +61,12 @@ public interface IForestEnhanceService<T> extends IService<T> {
      * @return success
      */
     boolean insertBatch(List<T> list, int batchSize);
+
+    /**
+     * 批量插入，默认最大批次1000
+     *
+     * @param list 插入的列表
+     * @return success
+     */
+    boolean insertBatch(List<T> list);
 }

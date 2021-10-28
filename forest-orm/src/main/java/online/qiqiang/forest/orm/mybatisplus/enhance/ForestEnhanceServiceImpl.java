@@ -74,4 +74,9 @@ public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> exten
         }, optional -> optional.isNotEmpty(baseMapper::insertBatch));
         return true;
     }
+
+    @Override
+    public boolean insertBatch(List<T> list) {
+        return insertBatch(list, 1000);
+    }
 }
