@@ -23,6 +23,120 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     </properties>
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://github.com/qiqiangvae/forest</url>
+        <connection>https://github.com/qiqiangvae/forest.git</connection>
+        <developerConnection>https://github.com/qiqiangvae/forest</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>qiqiangvae</name>
+            <email>qiqiangvae@foxmail.com</email>
+            <url>https://blog.qiqiang.online</url>
+        </developer>
+    </developers>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <target>8</target>
+                    <source>8</source>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <!-- autoReleaseAfterClose的值为true，则脚本会自动完成在平台上close、release的操作，至此你将成功发布了 -->
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <charset>UTF-8</charset>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!--统一修改版本号：mvn versions:set -DnewVersion= newVersion -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
 </project>
