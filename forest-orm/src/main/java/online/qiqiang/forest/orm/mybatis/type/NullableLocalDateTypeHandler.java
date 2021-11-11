@@ -1,18 +1,16 @@
 package online.qiqiang.forest.orm.mybatis.type;
 
 
+import online.qiqiang.forest.common.utils.DateConvertor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.LocalDateTypeHandler;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
-import online.qiqiang.forest.common.utils.DateConvertor;
 
-import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -39,7 +37,7 @@ public class NullableLocalDateTypeHandler extends LocalDateTypeHandler {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, LocalDate parameter, JdbcType jdbcType) throws SQLException {
-        ps.setObject(i, parameter);
+        ps.setTimestamp(i, Timestamp.from(parameter.atStartOfDay(ZoneId.systemDefault()).toInstant()));
     }
 
     @Override

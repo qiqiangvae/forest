@@ -67,11 +67,8 @@ public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> exten
 
     @Override
     public boolean insertBatch(Collection<T> list, int batchSize) {
-        BatchUtils.execute(batchSize, (Consumer<BatchUtils.Generator<T>>) generator -> {
-            for (T t : list) {
-                generator.add(t);
-            }
-        }, optional -> optional.isNotEmpty(baseMapper::insertBatch));
+        BatchUtils.execute(batchSize, (Consumer<BatchUtils.Generator<T>>) generator -> list.forEach(generator::add),
+                optional -> optional.isNotEmpty(baseMapper::insertBatch));
         return true;
     }
 

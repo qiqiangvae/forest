@@ -26,7 +26,7 @@ public class FetchByStream extends AbstractMethod {
         }
         /* 缓存逻辑处理 */
         return builderAssistant.addMappedStatement(ForestMybatisPlusConst.METHOD_FETCH_BY_STREAM, sqlSource, StatementType.PREPARED, SqlCommandType.SELECT,
-                1000, null, null, null, null, modelClass,
+                Integer.MIN_VALUE, null, null, null, null, modelClass,
                 ResultSetType.FORWARD_ONLY, true, true, false, null, null, null,
                 configuration.getDatabaseId(), languageDriver, null);
     }
