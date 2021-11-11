@@ -24,6 +24,7 @@
     <name>forest</name>
 
     <properties>
+        <forest.version>1.0.0</forest.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>

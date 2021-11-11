@@ -23,6 +23,7 @@ public class ForestSqlInjector extends DefaultSqlInjector {
     public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
         List<AbstractMethod> methodList = super.getMethodList(mapperClass);
         methodList.add(new FetchByStream());
+        methodList.add(new FetchByCursor());
         methodList.add(new InsertBatch());
         return methodList;
     }

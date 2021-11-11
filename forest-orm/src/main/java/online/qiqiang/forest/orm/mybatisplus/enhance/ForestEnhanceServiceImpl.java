@@ -8,9 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import online.qiqiang.forest.common.utils.BatchUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.binding.MapperMethod;
+import org.apache.ibatis.cursor.Cursor;
+import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +29,7 @@ import java.util.function.Function;
 @Slf4j
 @SuppressWarnings("unused")
 public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> extends ServiceImpl<M, T> implements IForestEnhanceService<T> {
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateBatchByWrapper(Collection<T> entityList, Function<T, Wrapper<T>> function, int batchSize) {
@@ -43,26 +47,29 @@ public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> exten
     }
 
     @Override
-    public void fetchByStream(Wrapper<T> wrapper, ResultHandler<T> resultHandler) {
-        baseMapper.fetchByStream(wrapper, resultHandler);
+    public void fetchByStream(Wrapper<T> wrapper, Consumer<T> consumer) {
+        baseMapper.fetchByStream(wrapper, resultContext -> consumer.accept(resultContext.getResultObject()));
     }
 
+    /**
+     * 加上事务的原因是保持游标一直在连接状态，否则连接会断开
+     *
+     * @param wrapper  条件
+     * @param consumer 消费元素
+     */
     @Override
-    public List<T> fetchByStream(Wrapper<T> wrapper) {
-        return fetchByStream(wrapper, -1);
-    }
-
-    @Override
-    public List<T> fetchByStream(Wrapper<T> wrapper, int maxSize) {
-        List<T> result = new ArrayList<>();
-        baseMapper.fetchByStream(wrapper, resultContext -> {
-            result.add(resultContext.getResultObject());
-            if (maxSize > 0 && resultContext.getResultCount() == maxSize) {
-                resultContext.stop();
-                log.debug("到达最大数量[{}]，停止获取数据", maxSize);
-            }
-        });
-        return result;
+    @Transactional
+    public void fetchByCursor(Wrapper<T> wrapper, Consumer<T> consumer) {
+        Cursor<T> cursor = baseMapper.fetchByCursor(wrapper);
+        for (T t : cursor) {
+            consumer.accept(t);
+        }
+        try {
+            // 关闭游标
+            cursor.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

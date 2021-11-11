@@ -2,6 +2,7 @@ package online.qiqiang.forest.common.utils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,8 +15,8 @@ import java.util.regex.Pattern;
 @SuppressWarnings("unused")
 public class RegexUtils {
 
-    public static ArrayList<String[]> getListMatcher(String str, String regex) {
-        ArrayList<String[]> list = new ArrayList<>();
+    public static List<String[]> getListMatcher(String str, String regex) {
+        List<String[]> list = new ArrayList<>();
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
         while (matcher.find()) {
@@ -29,12 +30,12 @@ public class RegexUtils {
         return list;
     }
 
-    public static String replaceMatcher(String str, String regex, String tostr) {
+    public static String replaceMatcher(String str, String regex, String toStr) {
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
         StringBuffer buf = new StringBuffer();
         while (matcher.find()) {
-            matcher.appendReplacement(buf, tostr);
+            matcher.appendReplacement(buf, toStr);
         }
         matcher.appendTail(buf);
         return buf.toString();
@@ -49,7 +50,7 @@ public class RegexUtils {
     }
 
     public static Integer[] getEditorImgList(String str) {
-        ArrayList<String[]> list = RegexUtils.getListMatcher(str, RegexUtils.getEditorImgRegex());
+        List<String[]> list = RegexUtils.getListMatcher(str, RegexUtils.getEditorImgRegex());
         Set<Integer> set = new HashSet<>();
         for (String[] aa : list) {
             set.add(NumberUtils.parseInt(aa[0]));
@@ -59,14 +60,12 @@ public class RegexUtils {
 
     public static boolean compare(String regex, String str) {
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(str);
-        return matcher.matches();
+        return pattern.matcher(str).matches();
     }
 
     public static boolean find(String regex, String str) {
         Pattern reg = Pattern.compile(regex);
-        Matcher matcher = reg.matcher(str);
-        return matcher.find();
+        return reg.matcher(str).find();
     }
 
     public static String replaceBlankSpan(String str) {

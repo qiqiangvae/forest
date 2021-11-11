@@ -17,37 +17,37 @@
             <dependency>
                 <groupId>online.qiqiang</groupId>
                 <artifactId>forest-common</artifactId>
-                <version>${project.version}</version>
+                <version>${forest.version}</version>
             </dependency>
             <dependency>
                 <groupId>online.qiqiang</groupId>
                 <artifactId>forest-orm</artifactId>
-                <version>${project.version}</version>
+                <version>${forest.version}</version>
             </dependency>
             <dependency>
                 <groupId>online.qiqiang</groupId>
                 <artifactId>forest-query</artifactId>
-                <version>${project.version}</version>
+                <version>${forest.version}</version>
             </dependency>
             <dependency>
                 <groupId>online.qiqiang</groupId>
                 <artifactId>forest-mvc</artifactId>
-                <version>${project.version}</version>
+                <version>${forest.version}</version>
             </dependency>
             <dependency>
                 <groupId>online.qiqiang</groupId>
                 <artifactId>forest-dubbo</artifactId>
-                <version>${project.version}</version>
+                <version>${forest.version}</version>
             </dependency>
             <dependency>
                 <groupId>online.qiqiang</groupId>
                 <artifactId>forest-framework</artifactId>
-                <version>${project.version}</version>
+                <version>${forest.version}</version>
             </dependency>
             <dependency>
                 <groupId>online.qiqiang</groupId>
                 <artifactId>forest-dependence</artifactId>
-                <version>${project.version}</version>
+                <version>${forest.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

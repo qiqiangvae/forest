@@ -7,6 +7,6 @@ package online.qiqiang.forest.common.utils.codec;
  * @author qiqiang
  */
 @SuppressWarnings("unused")
-public class AesUtil {
+public class AesUtils {
 
 }

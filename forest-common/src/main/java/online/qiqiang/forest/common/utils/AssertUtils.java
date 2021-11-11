@@ -17,8 +17,20 @@ public final class AssertUtils {
         }
     }
 
-    public static void equals(Object object1, Object object2, String message) {
-        if (object1 != object2) {
+    public static void equals(Object object1, Object except, String message) {
+        if (object1 != except) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    public static void equalsLength(Collection<Object> collection, int exceptLength, String message) {
+        if (collection.size() != exceptLength) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    public static void equalsLength(Object[] array, int exceptLength, String message) {
+        if (array.length != exceptLength) {
             throw new IllegalArgumentException(message);
         }
     }

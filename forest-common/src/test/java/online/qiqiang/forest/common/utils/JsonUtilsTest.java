@@ -15,6 +15,8 @@ public class JsonUtilsTest extends BaseTest {
     public void read2ListTest() {
         List<Obj> objs = JsonUtils.read2List("[{\"name\":\"forest\",\"age\":1},{\"name\":\"kimi\",\"age\":2}]", Obj.class);
         assertEquals("解析失败", 2, objs.size());
+        List<Object> objects = JsonUtils.read2Object("[[1,2,1],[\"a1\",\"a2\\\\\"]]",List.class);
+        System.out.println(objects);
     }
 
     @Test

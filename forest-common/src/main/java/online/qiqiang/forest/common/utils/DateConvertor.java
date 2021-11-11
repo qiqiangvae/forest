@@ -27,8 +27,6 @@ public class DateConvertor {
         Arrays.stream(fields)
                 .map((ExFunction<Field, String>) field -> (String) field.get(null))
                 .forEach(o -> FORMATTER_MAP.put(o, DateTimeFormatter.ofPattern(Pattern.USUAL_DATE)));
-//        FORMATTER_MAP.put(Pattern.USUAL_DATE, DateTimeFormatter.ofPattern(Pattern.USUAL_DATE));
-//        FORMATTER_MAP.put(Pattern.USUAL_DATE_TIME, DateTimeFormatter.ofPattern(Pattern.USUAL_DATE_TIME));
     }
 
     public interface Pattern {

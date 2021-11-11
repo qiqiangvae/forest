@@ -10,6 +10,10 @@ public interface ForestMybatisPlusConst {
      */
     String METHOD_FETCH_BY_STREAM = "fetchByStream";
     /**
+     * 游标查询获取方法
+     */
+    String METHOD_FETCH_BY_CURSOR = "fetchByCursor";
+    /**
      * 批量插入
      */
     String METHOD_INSERT_BATCH = "insertBatch";

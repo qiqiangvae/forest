@@ -11,8 +11,7 @@ import java.net.URISyntaxException;
  */
 public class NetworkUtils {
     public static boolean available(String host, int port) {
-        try {
-            Socket socket = new Socket();
+        try (Socket socket = new Socket()) {
             socket.connect(new InetSocketAddress(host, port));
             return socket.isConnected();
         } catch (IOException ignored) {
