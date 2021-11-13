@@ -1,5 +1,7 @@
 package online.qiqiang.forest.query;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +14,12 @@ public class PageQuery implements QueryParam, Serializable {
     /**
      * 当前页
      */
+    @Getter
     private int current = 0;
     /**
      * 每页大小
      */
+    @Getter
     private int pageSize = 10;
 
     private List<SortColumn> sorts = new ArrayList<>();

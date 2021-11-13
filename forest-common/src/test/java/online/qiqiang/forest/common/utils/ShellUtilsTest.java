@@ -2,12 +2,13 @@ package online.qiqiang.forest.common.utils;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 public class ShellUtilsTest {
 
     @Test
     public void execute() {
-        ShellUtils.execute(ShellUtils.ShellType.bash, "ls");
+        List<String> list = CommandUtils.execute("ls");
+        System.out.println(list);
     }
 }

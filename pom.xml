@@ -7,7 +7,7 @@
     <groupId>online.qiqiang</groupId>
     <artifactId>forest-project</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>forest-parent</module>
         <module>forest-dependence</module>
@@ -24,7 +24,7 @@
     <name>forest</name>
 
     <properties>
-        <forest.version>1.0.0</forest.version>
+        <forest.version>1.0.0-SNAPSHOT</forest.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
