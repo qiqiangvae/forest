@@ -6,17 +6,15 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import online.qiqiang.forest.common.utils.BatchUtils;
+import online.qiqiang.forest.orm.exception.ForestOrmException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.cursor.Cursor;
-import org.apache.ibatis.session.ResultContext;
-import org.apache.ibatis.session.ResultHandler;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -32,23 +30,33 @@ public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> exten
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateBatchByWrapper(Collection<T> entityList, Function<T, Wrapper<T>> function, int batchSize) {
+    public long updateBatchByWrapper(Collection<T> entityList, Function<T, Wrapper<T>> function, int batchSize) {
         if (CollectionUtils.isEmpty(entityList)) {
             log.warn("updateBatchByWrapper entityList is empty");
-            return true;
+            return 0;
         }
+        AtomicLong count = new AtomicLong(0);
         String sqlStatement = getSqlStatement(SqlMethod.UPDATE_BY_ID);
-        return executeBatch(entityList, batchSize, (sqlSession, entity) -> {
+        executeBatch(entityList, batchSize, (sqlSession, entity) -> {
             MapperMethod.ParamMap<Object> param = new MapperMethod.ParamMap<>();
             param.put(Constants.ENTITY, entity);
             param.put(Constants.WRAPPER, function.apply(entity));
-            sqlSession.update(sqlStatement, param);
+            count.addAndGet(sqlSession.update(sqlStatement, param));
         });
+        return count.get();
     }
 
     @Override
     public void fetchByStream(Wrapper<T> wrapper, Consumer<T> consumer) {
         baseMapper.fetchByStream(wrapper, resultContext -> consumer.accept(resultContext.getResultObject()));
+    }
+
+    @Override
+    public void fetchByStream(Wrapper<T> wrapper, Consumer<Collection<T>> consumer, int pageSize) {
+        BatchUtils.execute(pageSize,
+                (Consumer<BatchUtils.Generator<T>>) generator ->
+                        baseMapper.fetchByStream(wrapper, resultContext -> generator.add(resultContext.getResultObject())),
+                optional -> optional.isNotEmpty(consumer));
     }
 
     /**
@@ -68,8 +76,15 @@ public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> exten
             // 关闭游标
             cursor.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ForestOrmException(e);
         }
+    }
+
+    @Override
+    public void fetchByCursor(Wrapper<T> wrapper, Consumer<Collection<T>> consumer, int pageSize) {
+        BatchUtils.execute(pageSize,
+                (Consumer<BatchUtils.Generator<T>>) generator -> this.fetchByCursor(wrapper, generator::add),
+                optional -> optional.isNotEmpty(consumer));
     }
 
     @Override

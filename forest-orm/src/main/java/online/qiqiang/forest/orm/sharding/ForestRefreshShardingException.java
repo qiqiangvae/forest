@@ -1,11 +1,11 @@
 package online.qiqiang.forest.orm.sharding;
 
-import online.qiqiang.forest.common.exception.BaseForestException;
+import online.qiqiang.forest.orm.exception.ForestOrmException;
 
 /**
  * @author qiqiang
  */
-public class ForestRefreshShardingException extends BaseForestException {
+public class ForestRefreshShardingException extends ForestOrmException {
     public ForestRefreshShardingException(String message) {
         super(message);
     }

@@ -20,9 +20,9 @@ public interface IForestEnhanceService<T> extends IService<T> {
      * @param entityList 需要更新的数据
      * @param function   自定义条件
      * @param batchSize  分批更新大小
-     * @return 是否更新成功
+     * @return 更新成功的条数
      */
-    boolean updateBatchByWrapper(Collection<T> entityList, Function<T, Wrapper<T>> function, int batchSize);
+    long updateBatchByWrapper(Collection<T> entityList, Function<T, Wrapper<T>> function, int batchSize);
 
     /**
      * 流式获取数据
@@ -33,12 +33,30 @@ public interface IForestEnhanceService<T> extends IService<T> {
     void fetchByStream(@Param(Constants.WRAPPER) Wrapper<T> wrapper, Consumer<T> consumer);
 
     /**
+     * 当达到一定数量时才消费
+     *
+     * @param wrapper  条件构造器
+     * @param consumer 消费
+     * @param pageSize 每批次大小
+     */
+    void fetchByStream(@Param(Constants.WRAPPER) Wrapper<T> wrapper, Consumer<Collection<T>> consumer, int pageSize);
+
+    /**
      * 游标查询方法，使用此方法时，需要在 jdbc url 设置 useCursorFetch=true，在 mybatis 配置中需要指定 fetchSize
      *
      * @param wrapper  条件
      * @param consumer 消费元素
      */
     void fetchByCursor(Wrapper<T> wrapper, Consumer<T> consumer);
+
+    /**
+     * 当达到一定数量时才消费
+     *
+     * @param wrapper  条件构造器
+     * @param consumer 消费
+     * @param pageSize 每批次大小
+     */
+    void fetchByCursor(Wrapper<T> wrapper, Consumer<Collection<T>> consumer, int pageSize);
 
     /**
      * 批量插入
