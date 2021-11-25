@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class ShellUtilsTest {
+public class CommandUtilsTest {
 
     @Test
     public void execute() {
-        List<String> list = CommandUtils.execute("ls");
+        List<String> list = CommandUtils.execute("hexo version");
         System.out.println(list);
     }
 }

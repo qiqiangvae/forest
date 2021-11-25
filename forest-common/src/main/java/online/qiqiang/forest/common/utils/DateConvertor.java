@@ -3,6 +3,7 @@ package online.qiqiang.forest.common.utils;
 import online.qiqiang.forest.common.java.util.function.ExFunction;
 
 import java.lang.reflect.Field;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -115,6 +116,14 @@ public class DateConvertor {
      */
     public static long timestamp(Date date) {
         return date.getTime();
+    }
+
+    public static Date dateFrom(long timestamp) {
+        return Date.from(Instant.ofEpochMilli(timestamp));
+    }
+
+    public static LocalDateTime localDateTimeFrom(long timestamp) {
+        return Instant.ofEpochMilli(timestamp).atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
     private static DateTimeFormatter getDateTimeFormatter(String pattern) {
