@@ -13,7 +13,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Basic {
-    String username() default "forest";
 
-    String password() default "forest";
 }
