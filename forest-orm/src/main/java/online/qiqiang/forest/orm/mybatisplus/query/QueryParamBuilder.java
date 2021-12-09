@@ -126,7 +126,7 @@ public class QueryParamBuilder {
                 queryWrapper.le(col, value);
                 break;
             case like:
-                queryWrapper.like(col, value);
+                queryWrapper.like(col, "%" + value + "%");
                 break;
             case left_like:
                 queryWrapper.likeLeft(col, "%" + value);
