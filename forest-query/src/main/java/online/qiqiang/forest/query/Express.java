@@ -11,7 +11,7 @@ public enum Express {
     /**
      * 不为 null
      */
-    is_not_null,
+    not_null,
     /**
      * 等于
      */
@@ -24,6 +24,7 @@ public enum Express {
      * in
      */
     in,
+    not_in,
     /**
      * 区间
      */

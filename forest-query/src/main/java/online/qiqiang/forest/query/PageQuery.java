@@ -2,7 +2,6 @@ package online.qiqiang.forest.query;
 
 import lombok.Getter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
  * @author qiqiang
  */
 @SuppressWarnings({"unchecked", "unused"})
-public class PageQuery implements QueryParam, Serializable {
+public class PageQuery implements QueryParam {
     /**
      * 当前页
      */

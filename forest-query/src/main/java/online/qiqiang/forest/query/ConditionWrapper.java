@@ -1,11 +1,15 @@
 package online.qiqiang.forest.query;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 /**
  * @author qiqiang
  */
 @Getter
+@Builder
+@AllArgsConstructor
 public class ConditionWrapper {
     /**
      * 表达式
@@ -17,10 +21,4 @@ public class ConditionWrapper {
     private final String col;
 
     private final boolean ignoreEmpty;
-
-    public ConditionWrapper(Express express, String col, boolean ignoreEmpty) {
-        this.express = express;
-        this.col = col;
-        this.ignoreEmpty = ignoreEmpty;
-    }
 }

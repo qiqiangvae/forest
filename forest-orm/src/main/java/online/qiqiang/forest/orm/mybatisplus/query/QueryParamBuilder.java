@@ -1,9 +1,11 @@
 package online.qiqiang.forest.orm.mybatisplus.query;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import online.qiqiang.forest.common.utils.reflection.AnnotationUtils;
 import online.qiqiang.forest.common.utils.reflection.PropertyUtils;
 import online.qiqiang.forest.query.*;
 import org.apache.commons.collections4.CollectionUtils;
@@ -18,6 +20,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -25,15 +28,19 @@ import java.util.stream.Collectors;
  */
 public class QueryParamBuilder {
 
+    private static final Map<Class<? extends AbstractQueryParam>, Map<Field, ConditionWrapper>> CONDITION_CACHE = new ConcurrentHashMap<>();
+    private static final Map<Class<? extends QueryParam>, Map<Field, SortColumn>> SORT_CACHE = new ConcurrentHashMap<>();
+
     private static final Validator VALIDATOR = Validation.byProvider(HibernateValidator.class)
             .configure().failFast(true).buildValidatorFactory()
             .getValidator();
 
-    public static <T> Page<T> toPage(AbstractQueryParam queryParam) {
-        int[] paging = queryParam.getPaging();
+    public static <T> Page<T> toPage(PageQuery pageQuery) {
+        int[] paging = pageQuery.getPaging();
         Page<T> page = new Page<>(paging[0], paging[1]);
-        List<SortColumn> sorts = queryParam.getSorts();
-        Map<Field, SortColumn> sortMap = QueryUtils.parseSorts(queryParam);
+        List<SortColumn> sorts = pageQuery.getSorts();
+        // 从缓存中获取
+        Map<Field, SortColumn> sortMap = SORT_CACHE.computeIfAbsent(pageQuery.getClass(), QueryUtils::parseSorts);
         for (Map.Entry<Field, SortColumn> entry : sortMap.entrySet()) {
             SortColumn value = entry.getValue();
             if (StringUtils.isBlank(value.getColumn())) {
@@ -64,7 +71,9 @@ public class QueryParamBuilder {
         if (CollectionUtils.isNotEmpty(queryParam.getSelectList())) {
             queryWrapper.select(queryParam.getSelectList().toArray(new String[0]));
         }
-        Map<Field, ConditionWrapper> conditionMap = QueryUtils.parseQueryParam(queryParam);
+        Class<? extends AbstractQueryParam> queryParamClass = queryParam.getClass();
+        // 从缓存中获取
+        Map<Field, ConditionWrapper> conditionMap = CONDITION_CACHE.computeIfAbsent(queryParamClass, QueryUtils::parseQueryParam);
         for (Map.Entry<Field, ConditionWrapper> entry : conditionMap.entrySet()) {
             final Field field = entry.getKey();
             final String fieldName = field.getName();
@@ -84,20 +93,26 @@ public class QueryParamBuilder {
             }
             String col = condition.getCol();
             if (StringUtils.isBlank(col)) {
-                col = fieldName;
+                TableField tableField = AnnotationUtils.getAnnotation(field, TableField.class);
+                if (tableField != null) {
+                    col = tableField.value();
+                }
+                if (StringUtils.isBlank(col)) {
+                    col = fieldName;
+                }
             }
             Express express = condition.getExpress();
-            buildQueryWrapper(queryParam, queryWrapper, fieldName, value, col, express);
+            buildQueryWrapper(queryParamClass, queryWrapper, fieldName, value, col, express);
         }
         return queryWrapper;
     }
 
-    private static <T> void buildQueryWrapper(AbstractQueryParam queryParam, QueryWrapper<T> queryWrapper, String fieldName, Object value, String col, Express express) {
+    private static <T> void buildQueryWrapper(Class<? extends AbstractQueryParam> queryParamClass, QueryWrapper<T> queryWrapper, String fieldName, Object value, String col, Express express) {
         switch (express) {
             case is_null:
                 queryWrapper.isNull(col);
                 break;
-            case is_not_null:
+            case not_null:
                 queryWrapper.isNotNull(col);
                 break;
             case equals:
@@ -110,7 +125,14 @@ public class QueryParamBuilder {
                 if (value instanceof Collection || value.getClass().isArray()) {
                     queryWrapper.in(col, value);
                 } else {
-                    throw new QueryBuildForestException(queryParam.getClass() + "." + fieldName + "必须是集合或数组类型");
+                    throw new QueryBuildForestException(queryParamClass + "." + fieldName + "必须是集合或数组类型");
+                }
+                break;
+            case not_in:
+                if (value instanceof Collection || value.getClass().isArray()) {
+                    queryWrapper.notIn(col, value);
+                } else {
+                    throw new QueryBuildForestException(queryParamClass + "." + fieldName + "必须是集合或数组类型");
                 }
                 break;
             case gt:

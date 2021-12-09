@@ -14,21 +14,24 @@ import java.util.Set;
  */
 public class QueryUtils {
 
-    public static Map<Field, ConditionWrapper> parseQueryParam(QueryParam queryParam) {
-        Class<? extends QueryParam> paramClass = queryParam.getClass();
+    public static Map<Field, ConditionWrapper> parseQueryParam(Class<? extends QueryParam> paramClass) {
         Set<Field> fields = FieldUtils.getAllFields(paramClass);
         Map<Field, ConditionWrapper> conditionMap = new LinkedHashMap<>(fields.size());
         for (Field field : fields) {
             Condition condition = AnnotationUtils.getAnnotation(field, Condition.class);
             if (condition != null) {
-                conditionMap.put(field, new ConditionWrapper(condition.express(), condition.col(), condition.ignoreEmpty()));
+                ConditionWrapper conditionWrapper = ConditionWrapper.builder()
+                        .express(condition.express())
+                        .col(condition.col())
+                        .ignoreEmpty(condition.ignoreEmpty())
+                        .build();
+                conditionMap.put(field, conditionWrapper);
             }
         }
         return conditionMap;
     }
 
-    public static Map<Field, SortColumn> parseSorts(QueryParam queryParam) {
-        Class<? extends QueryParam> paramClass = queryParam.getClass();
+    public static Map<Field, SortColumn> parseSorts(Class<? extends QueryParam> paramClass) {
         Set<Field> fields = FieldUtils.getAllFields(paramClass);
         Map<Field, SortColumn> map = new HashMap<>(fields.size());
         for (Field field : fields) {
