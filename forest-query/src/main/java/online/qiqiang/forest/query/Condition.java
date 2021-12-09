@@ -24,4 +24,11 @@ public @interface Condition {
      * @return 字段名
      */
     String col() default "";
+
+    /**
+     * 为空是是否忽略该查询条件
+     *
+     * @return 是否忽略
+     */
+    boolean ignoreEmpty() default true;
 }

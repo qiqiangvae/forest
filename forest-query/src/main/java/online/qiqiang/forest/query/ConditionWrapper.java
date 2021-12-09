@@ -16,8 +16,11 @@ public class ConditionWrapper {
      */
     private final String col;
 
-    public ConditionWrapper(Express express, String col) {
+    private final boolean ignoreEmpty;
+
+    public ConditionWrapper(Express express, String col, boolean ignoreEmpty) {
         this.express = express;
         this.col = col;
+        this.ignoreEmpty = ignoreEmpty;
     }
 }

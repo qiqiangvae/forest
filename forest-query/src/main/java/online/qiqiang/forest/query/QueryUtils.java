@@ -21,7 +21,7 @@ public class QueryUtils {
         for (Field field : fields) {
             Condition condition = AnnotationUtils.getAnnotation(field, Condition.class);
             if (condition != null) {
-                conditionMap.put(field, new ConditionWrapper(condition.express(), condition.col()));
+                conditionMap.put(field, new ConditionWrapper(condition.express(), condition.col(), condition.ignoreEmpty()));
             }
         }
         return conditionMap;

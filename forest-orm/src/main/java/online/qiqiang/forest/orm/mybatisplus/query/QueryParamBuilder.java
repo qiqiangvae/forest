@@ -4,11 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import online.qiqiang.forest.common.utils.reflection.PropertyUtils;
+import online.qiqiang.forest.query.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.HibernateValidator;
-import online.qiqiang.forest.common.utils.reflection.PropertyUtils;
-import online.qiqiang.forest.query.*;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -68,11 +68,20 @@ public class QueryParamBuilder {
         for (Map.Entry<Field, ConditionWrapper> entry : conditionMap.entrySet()) {
             final Field field = entry.getKey();
             final String fieldName = field.getName();
-            final Object value = PropertyUtils.getValue(field, queryParam);
-            if (value == null) {
-                continue;
-            }
             ConditionWrapper condition = entry.getValue();
+            // 空值
+            final Object value = PropertyUtils.getValue(field, queryParam);
+            if (condition.isIgnoreEmpty()) {
+                if (value == null) {
+                    continue;
+                }
+                if (value instanceof String && StringUtils.isBlank((String) value)) {
+                    continue;
+                }
+                if (value instanceof Collection && CollectionUtils.isEmpty((Collection<?>) value)) {
+                    continue;
+                }
+            }
             String col = condition.getCol();
             if (StringUtils.isBlank(col)) {
                 col = fieldName;
@@ -85,6 +94,12 @@ public class QueryParamBuilder {
 
     private static <T> void buildQueryWrapper(AbstractQueryParam queryParam, QueryWrapper<T> queryWrapper, String fieldName, Object value, String col, Express express) {
         switch (express) {
+            case is_null:
+                queryWrapper.isNull(col);
+                break;
+            case is_not_null:
+                queryWrapper.isNotNull(col);
+                break;
             case equals:
                 queryWrapper.eq(col, value);
                 break;

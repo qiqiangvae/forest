@@ -15,7 +15,7 @@ public class ForestPage<T> implements Serializable {
     /**
      * 内容
      */
-    private List<T> context;
+    private List<T> content;
     /**
      * 当前页
      */

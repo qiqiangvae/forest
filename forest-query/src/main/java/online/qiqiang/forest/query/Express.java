@@ -5,6 +5,14 @@ package online.qiqiang.forest.query;
  */
 public enum Express {
     /**
+     * 为 null
+     */
+    is_null,
+    /**
+     * 不为 null
+     */
+    is_not_null,
+    /**
      * 等于
      */
     equals,

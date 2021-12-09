@@ -16,8 +16,9 @@ import java.util.function.BiConsumer;
 public class PageConvertor {
     public static <T> ForestPage<T> convert(Page<T> page) {
         return new ForestPage<T>()
-                .setContext(page.getRecords())
+                .setContent(page.getRecords())
                 .setCurrent(page.getCurrent())
+                .setCurrentSize(page.getRecords().size())
                 .setPageSize((int) page.getSize())
                 .setPages(page.getPages())
                 .setTotalSize(page.getTotal());
@@ -26,8 +27,9 @@ public class PageConvertor {
     public static <T, K> ForestPage<K> convert(Page<T> page, Class<K> clazz, BiConsumer<T, K> consumer) {
         List<K> context = BeanUtils.copy(page.getRecords(), clazz, consumer);
         return new ForestPage<K>()
-                .setContext(context)
+                .setContent(context)
                 .setCurrent(page.getCurrent())
+                .setCurrentSize(context.size())
                 .setPageSize((int) page.getSize())
                 .setPages(page.getPages())
                 .setTotalSize(page.getTotal());
