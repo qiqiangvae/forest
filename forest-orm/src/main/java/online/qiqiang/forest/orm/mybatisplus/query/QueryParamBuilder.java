@@ -76,22 +76,11 @@ public class QueryParamBuilder {
         Class<? extends AbstractQueryParam> queryParamClass = queryParam.getClass();
         // 从缓存中获取
         Map<Field, ConditionWrapper> conditionMap = CONDITION_CACHE.computeIfAbsent(queryParamClass, QueryUtils::parseQueryParam);
-        for (Map.Entry<Field, ConditionWrapper> entry : conditionMap.entrySet()) {
-            final Field field = entry.getKey();
-            final String fieldName = field.getName();
-            ConditionWrapper condition = entry.getValue();
+        conditionMap.forEach((field, condition) -> {
             // 空值
             final Object value = PropertyUtils.getValue(field, queryParam);
-            if (condition.isIgnoreEmpty()) {
-                if (value == null) {
-                    continue;
-                }
-                if (value instanceof String && StringUtils.isBlank((String) value)) {
-                    continue;
-                }
-                if (value instanceof Collection && CollectionUtils.isEmpty((Collection<?>) value)) {
-                    continue;
-                }
+            if (condition.isIgnoreEmpty() && ConditionWrapper.ignore(value)) {
+                return;
             }
             String col = condition.getCol();
             if (StringUtils.isBlank(col)) {
@@ -100,12 +89,12 @@ public class QueryParamBuilder {
                     col = tableField.value();
                 }
                 if (StringUtils.isBlank(col)) {
-                    col = fieldName;
+                    col = field.getName();
                 }
             }
             Express express = condition.getExpress();
-            buildQueryWrapper(queryParamClass, queryWrapper, fieldName, value, col, express);
-        }
+            buildQueryWrapper(queryParamClass, queryWrapper, field.getName(), value, col, express);
+        });
         return queryWrapper;
     }
 

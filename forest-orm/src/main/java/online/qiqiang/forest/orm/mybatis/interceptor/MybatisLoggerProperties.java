@@ -11,24 +11,24 @@ import java.util.Set;
 /**
  * @author qiqiang
  */
-@EnableConfigurationProperties(MybatisLoggerProperties.class)
 @Getter
 @Setter
+@EnableConfigurationProperties(MybatisLoggerProperties.class)
 public class MybatisLoggerProperties implements MybatisLoggerPropertiesFunction {
     @Value("${forest.mybatis-log.enable:false}")
     private boolean enable;
 
-    @Value("${forest.mybatis-log.sql-command-type}")
+    @Value("${forest.mybatis-log.sql-command-type:select}")
     private Set<SqlCommandType> sqlCommandType;
 
     /**
      * 打印的最大sql长度，默认1024
      */
-    @Value("${forest.mybatis-log.max-length:512}")
+    @Value("${forest.mybatis-log.max-length:256}")
     private int maxLength;
 
     /**
-     * 慢查询时间，默认5s
+     * 慢查询时间，默认3s
      */
     @Value("${forest.mybatis-log.slow-sql-time:3000}")
     private int slowSqlTime;

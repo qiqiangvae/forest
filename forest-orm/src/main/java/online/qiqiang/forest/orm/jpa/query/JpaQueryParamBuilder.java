@@ -1,7 +1,5 @@
 package online.qiqiang.forest.orm.jpa.query;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import online.qiqiang.forest.common.utils.reflection.AnnotationUtils;
 import online.qiqiang.forest.common.utils.reflection.PropertyUtils;
 import online.qiqiang.forest.orm.QueryBuildForestException;
 import online.qiqiang.forest.orm.QueryConst;
@@ -27,6 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class JpaQueryParamBuilder {
 
     private static final Map<Class<? extends AbstractQueryParam>, Map<Field, ConditionWrapper>> CONDITION_CACHE = new ConcurrentHashMap<>();
@@ -52,36 +51,21 @@ public class JpaQueryParamBuilder {
             Class<? extends AbstractQueryParam> queryParamClass = queryParam.getClass();
             // 从缓存中获取
             Map<Field, ConditionWrapper> conditionMap = CONDITION_CACHE.computeIfAbsent(queryParamClass, QueryUtils::parseQueryParam);
-            for (Map.Entry<Field, ConditionWrapper> entry : conditionMap.entrySet()) {
-                final Field field = entry.getKey();
-                final String fieldName = field.getName();
-                ConditionWrapper condition = entry.getValue();
+            conditionMap.forEach((field, condition) -> {
                 // 空值
                 final Object value = PropertyUtils.getValue(field, queryParam);
-                if (condition.isIgnoreEmpty()) {
-                    if (value == null) {
-                        continue;
-                    }
-                    if (value instanceof String && StringUtils.isBlank((String) value)) {
-                        continue;
-                    }
-                    if (value instanceof Collection && CollectionUtils.isEmpty((Collection<?>) value)) {
-                        continue;
-                    }
+                if (condition.isIgnoreEmpty() && ConditionWrapper.ignore(value)) {
+                    return;
                 }
                 String col = condition.getCol();
                 if (StringUtils.isBlank(col)) {
-                    TableField tableField = AnnotationUtils.getAnnotation(field, TableField.class);
-                    if (tableField != null) {
-                        col = tableField.value();
-                    }
                     if (StringUtils.isBlank(col)) {
-                        col = fieldName;
+                        col = field.getName();
                     }
                 }
                 Express express = condition.getExpress();
-                buildQueryWrapper(queryParamClass, p, cb, root, fieldName, value, express);
-            }
+                buildQueryWrapper(queryParamClass, p, cb, root, col, value, express);
+            });
             Predicate[] pre = new Predicate[p.size()];
             Predicate and = cb.and(p.toArray(pre));
             query.where(and);
