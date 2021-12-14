@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author qiqiang
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","unchecked"})
 public class JpaQueryParamBuilder {
 
     private static final Map<Class<? extends AbstractQueryParam>, Map<Field, ConditionWrapper>> CONDITION_CACHE = new ConcurrentHashMap<>();
@@ -45,7 +45,7 @@ public class JpaQueryParamBuilder {
         if (CollectionUtils.isNotEmpty(violations)) {
             throw new QueryBuildForestException(violations.toString());
         }
-        return (Specification<T>) (root, query, cb) -> {
+        return (root, query, cb) -> {
             //用于添加所有查询条件
             List<Predicate> p = new ArrayList<>();
             Class<? extends AbstractQueryParam> queryParamClass = queryParam.getClass();
@@ -138,7 +138,7 @@ public class JpaQueryParamBuilder {
             case between:
                 Object[] arr;
                 if (value.getClass().isArray()) {
-                    arr = (Object[]) value;
+                    arr = (Comparable[]) value;
                     if (arr.length != QueryConst.BETWEEN_VALUE_LENGTH) {
                         throw new QueryBuildForestException(fieldName + "的长度必须是2");
                     }
@@ -151,7 +151,7 @@ public class JpaQueryParamBuilder {
                 } else {
                     throw new QueryBuildForestException(fieldName + "必须是元素为2的集合或数组");
                 }
-                // predicate = builder.between(root.get(fieldName), arr[0], arr[1]);
+                predicate = builder.between(root.get(fieldName), (Comparable) arr[0], (Comparable) arr[1]);
                 break;
             default:
                 throw new QueryBuildForestException(fieldName + "的条件不合法");
