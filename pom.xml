@@ -19,6 +19,7 @@
         <module>forest-framework</module>
         <module>forest-dubbo</module>
         <module>forest-security</module>
+        <module>forest-batch</module>
     </modules>
     <url>https://github.com/qiqiangvae/forest.git</url>
     <description>让开发者快速开发的框架</description>

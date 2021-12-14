@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  online.qiqiang.forest.orm.mybatis.config.ForestMybatisLoggerAutoConfiguration

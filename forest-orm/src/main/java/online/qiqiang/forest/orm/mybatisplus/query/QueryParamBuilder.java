@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import online.qiqiang.forest.common.utils.reflection.AnnotationUtils;
 import online.qiqiang.forest.common.utils.reflection.PropertyUtils;
+import online.qiqiang.forest.orm.QueryBuildForestException;
+import online.qiqiang.forest.orm.QueryConst;
 import online.qiqiang.forest.query.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

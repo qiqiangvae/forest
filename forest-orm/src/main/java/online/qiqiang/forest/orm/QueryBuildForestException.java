@@ -1,4 +1,4 @@
-package online.qiqiang.forest.orm.mybatisplus.query;
+package online.qiqiang.forest.orm;
 
 
 import online.qiqiang.forest.common.exception.BaseForestException;
