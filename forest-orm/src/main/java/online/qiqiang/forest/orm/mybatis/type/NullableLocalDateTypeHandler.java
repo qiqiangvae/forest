@@ -1,8 +1,7 @@
 package online.qiqiang.forest.orm.mybatis.type;
 
 
-import online.qiqiang.forest.common.utils.DateConvertor;
-import org.apache.commons.lang3.StringUtils;
+import online.qiqiang.forest.common.utils.SmartDateUtils;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.LocalDateTypeHandler;
 import org.apache.ibatis.type.MappedJdbcTypes;
@@ -11,7 +10,6 @@ import org.apache.ibatis.type.MappedTypes;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @author qiqiang
@@ -21,23 +19,10 @@ import java.time.format.DateTimeFormatter;
 @SuppressWarnings("unused")
 public class NullableLocalDateTypeHandler extends LocalDateTypeHandler {
 
-    private final DateTimeFormatter formatter;
-
-    public NullableLocalDateTypeHandler() {
-        this(DateConvertor.Pattern.USUAL_DATE);
-    }
-
-    public NullableLocalDateTypeHandler(String pattern) {
-        if (StringUtils.isBlank(pattern)) {
-            this.formatter = DateTimeFormatter.ofPattern(DateConvertor.Pattern.USUAL_DATE);
-        } else {
-            this.formatter = DateTimeFormatter.ofPattern(pattern);
-        }
-    }
-
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, LocalDate parameter, JdbcType jdbcType) throws SQLException {
-        ps.setTimestamp(i, Timestamp.from(parameter.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        Timestamp timestamp = Timestamp.from(parameter.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        ps.setTimestamp(i, timestamp);
     }
 
     @Override
@@ -45,7 +30,7 @@ public class NullableLocalDateTypeHandler extends LocalDateTypeHandler {
         if (null == rs.getObject(columnName)) {
             return null;
         }
-        return LocalDate.parse(rs.getObject(columnName).toString(), formatter);
+        return SmartDateUtils.toLocalDate(rs.getObject(columnName).toString());
     }
 
     @Override
@@ -53,7 +38,7 @@ public class NullableLocalDateTypeHandler extends LocalDateTypeHandler {
         if (null == rs.getObject(columnIndex)) {
             return null;
         }
-        return LocalDate.parse(rs.getObject(columnIndex).toString(), formatter);
+        return SmartDateUtils.toLocalDate(rs.getObject(columnIndex).toString());
     }
 
     @Override
@@ -61,7 +46,7 @@ public class NullableLocalDateTypeHandler extends LocalDateTypeHandler {
         if (null == cs.getObject(columnIndex)) {
             return null;
         }
-        return LocalDate.parse(cs.getObject(columnIndex).toString(), formatter);
+        return SmartDateUtils.toLocalDate(cs.getObject(columnIndex).toString());
     }
 
 }

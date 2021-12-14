@@ -144,11 +144,11 @@ public class ForestMybatisLogger implements Interceptor {
         if (obj instanceof String) {
             value = "'" + obj + "'";
         } else if (obj instanceof Date) {
-            value = "'" + DateConvertor.parseToString((Date) obj, DateConvertor.Pattern.USUAL_DATE_TIME) + "'";
+            value = "'" + DateConvertor.format((Date) obj, DateConvertor.Pattern.USUAL_DATE_TIME) + "'";
         } else if (obj instanceof LocalDate) {
-            value = "'" + DateConvertor.parseToString((LocalDate) obj, DateConvertor.Pattern.USUAL_DATE) + "'";
+            value = "'" + DateConvertor.format((LocalDate) obj, DateConvertor.Pattern.USUAL_DATE) + "'";
         } else if (obj instanceof LocalDateTime) {
-            value = "'" + DateConvertor.parseToString((LocalDateTime) obj, DateConvertor.Pattern.USUAL_DATE_TIME) + "'";
+            value = "'" + DateConvertor.format((LocalDateTime) obj, DateConvertor.Pattern.USUAL_DATE_TIME) + "'";
         } else {
             if (obj != null) {
                 value = obj.toString();

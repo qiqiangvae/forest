@@ -22,8 +22,8 @@ public class DateUtilsTest {
 
     @Test
     public void parseToStringTest() {
-        System.out.println(DateConvertor.parseToString(new Date(), DateConvertor.Pattern.USUAL_DATE_TIME));
-        System.out.println(DateConvertor.parseToString(LocalDateTime.now(), DateConvertor.Pattern.USUAL_DATE_TIME));
-        System.out.println(DateConvertor.parseToString(LocalDate.now(), DateConvertor.Pattern.USUAL_DATE_TIME));
+        System.out.println(DateConvertor.format(new Date(), DateConvertor.Pattern.USUAL_DATE_TIME));
+        System.out.println(DateConvertor.format(LocalDateTime.now(), DateConvertor.Pattern.USUAL_DATE_TIME));
+        System.out.println(DateConvertor.format(LocalDate.now(), DateConvertor.Pattern.USUAL_DATE_TIME));
     }
 }

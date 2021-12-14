@@ -89,7 +89,7 @@ public class DateConvertor {
     /**
      * Date 解析成字符串
      */
-    public static String parseToString(Date date, String pattern) {
+    public static String format(Date date, String pattern) {
         DateTimeFormatter formatter = getDateTimeFormatter(pattern);
         return formatter.format(date.toInstant().atZone(ZoneId.systemDefault()));
     }
@@ -97,7 +97,7 @@ public class DateConvertor {
     /**
      * LocalDateTime 解析成字符串
      */
-    public static String parseToString(LocalDateTime localDateTime, String pattern) {
+    public static String format(LocalDateTime localDateTime, String pattern) {
         DateTimeFormatter formatter = getDateTimeFormatter(pattern);
         return formatter.format(localDateTime);
     }
@@ -105,7 +105,7 @@ public class DateConvertor {
     /**
      * LocalDate 解析成字符串
      */
-    public static String parseToString(LocalDate localDate, String pattern) {
+    public static String format(LocalDate localDate, String pattern) {
         DateTimeFormatter formatter = getDateTimeFormatter(pattern);
         return formatter.format(localDate.atStartOfDay());
     }
