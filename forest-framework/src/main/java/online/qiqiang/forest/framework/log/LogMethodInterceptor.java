@@ -2,11 +2,13 @@ package online.qiqiang.forest.framework.log;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import online.qiqiang.forest.common.java.util.function.ExFunction;
+import online.qiqiang.forest.common.java.util.logging.Logging;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang3.StringUtils;
-import online.qiqiang.forest.common.java.util.function.ExFunction;
-import online.qiqiang.forest.common.java.util.logging.Logging;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.CollectionUtils;
@@ -180,13 +182,14 @@ public class LogMethodInterceptor implements MethodInterceptor {
             ignoreReq.addAll(Stream.of(methodLogPointer.ignoreReq()).collect(Collectors.toSet()));
             ignoreResp.addAll(Stream.of(methodLogPointer.ignoreResp()).collect(Collectors.toSet()));
         }
-        String name = target.getClass().getSimpleName() + "#" + method.getName();
+        String name = target.getClass().getName() + "." + method.getName();
+        Logger printLogger = LoggerFactory.getLogger(name);
         if (enable) {
             try {
                 // 因为没法获取实际参数名，所以利用 spring 线程的方法获取实际参数名
                 String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);
                 Map<String, Object> requestLog = getRequestLog(ignoreReq, parameterNames, args);
-                Logging.info(log, () -> log.info("[{}]入参：[{}]", name, logPrinterFunction.toString(requestLog)));
+                Logging.info(printLogger, () -> printLogger.info("入参：[{}]", logPrinterFunction.toString(requestLog)));
             } catch (Exception e) {
                 log.error(e.getLocalizedMessage(), e);
             }
@@ -196,7 +199,7 @@ public class LogMethodInterceptor implements MethodInterceptor {
         if (enable) {
             try {
                 String responseLog = getResponseLog(ignoreResp, result, writerClass);
-                Logging.info(log, () -> log.info("[{}]出参：[{}]", name, responseLog));
+                Logging.info(printLogger, () -> printLogger.info("出参：[{}]", responseLog));
             } catch (Exception e) {
                 log.error(e.getLocalizedMessage(), e);
             }

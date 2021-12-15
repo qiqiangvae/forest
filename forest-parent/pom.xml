@@ -41,11 +41,6 @@
             </dependency>
             <dependency>
                 <groupId>online.qiqiang</groupId>
-                <artifactId>forest-security</artifactId>
-                <version>${forest.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>online.qiqiang</groupId>
                 <artifactId>forest-framework</artifactId>
                 <version>${forest.version}</version>
             </dependency>

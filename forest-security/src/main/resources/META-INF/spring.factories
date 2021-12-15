@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  online.qiqiang.forest.security.ForestSecurityAutoConfiguration

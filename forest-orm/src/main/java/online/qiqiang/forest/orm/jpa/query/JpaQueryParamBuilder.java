@@ -70,9 +70,26 @@ public class JpaQueryParamBuilder {
             Predicate and = cb.and(p.toArray(pre));
             query.where(and);
             //设置排序
+            List<SortColumn> sorts = queryParam.getSorts();
+            // 从缓存中获取
+            Map<Field, SortColumn> sortMap = SORT_CACHE.computeIfAbsent(queryParam.getClass(), QueryUtils::parseSorts);
+            for (Map.Entry<Field, SortColumn> entry : sortMap.entrySet()) {
+                SortColumn value = entry.getValue();
+                if (StringUtils.isBlank(value.getColumn())) {
+                    value.setColumn(entry.getKey().getName());
+                }
+            }
+            sorts.addAll(sortMap.values());
             List<Order> orders = new ArrayList<>();
-            orders.add(cb.desc(root.get("age")));       //倒序
-            orders.add(cb.asc(root.get("username")));   //正序
+            if (CollectionUtils.isNotEmpty(sorts)) {
+                for (SortColumn sort : sorts) {
+                    if (SortColumn.Sort.Asc.equals(sort.getSort())) {
+                        orders.add(cb.asc(root.get(sort.getColumn())));
+                    } else if (SortColumn.Sort.Desc.equals(sort.getSort())) {
+                        orders.add(cb.desc(root.get(sort.getColumn())));
+                    }
+                }
+            }
             return query.orderBy(orders).getRestriction();
         };
     }
@@ -101,30 +118,22 @@ public class JpaQueryParamBuilder {
                 break;
             case not_in:
                 if (value instanceof Collection || value.getClass().isArray()) {
-                    predicate = builder.isNotMember(value, root.get(fieldName));
+                    predicate = builder.in(root.get(fieldName)).in(value).not();
                 } else {
                     throw new QueryBuildForestException(queryParamClass + "." + fieldName + "必须是集合或数组类型");
                 }
                 break;
             case gt:
-                if (value instanceof Number) {
-                    predicate = builder.gt(root.get(fieldName).as(Number.class), (Number) value);
-                }
+                predicate = builder.greaterThan(root.get(fieldName), (Comparable) value);
                 break;
             case gte:
-                if (value instanceof Number) {
-                    predicate = builder.ge(root.get(fieldName).as(Number.class), (Number) value);
-                }
+                predicate = builder.greaterThanOrEqualTo(root.get(fieldName), (Comparable) value);
                 break;
             case lt:
-                if (value instanceof Number) {
-                    predicate = builder.lt(root.get(fieldName).as(Number.class), (Number) value);
-                }
+                predicate = builder.lessThan(root.get(fieldName), (Comparable) value);
                 break;
             case lte:
-                if (value instanceof Number) {
-                    predicate = builder.le(root.get(fieldName).as(Number.class), (Number) value);
-                }
+                predicate = builder.lessThanOrEqualTo(root.get(fieldName), (Comparable) value);
                 break;
             case like:
                 predicate = builder.like(root.get(fieldName), "%" + value + "%");
@@ -138,7 +147,7 @@ public class JpaQueryParamBuilder {
             case between:
                 Object[] arr;
                 if (value.getClass().isArray()) {
-                    arr = (Comparable[]) value;
+                    arr = (Object[]) value;
                     if (arr.length != QueryConst.BETWEEN_VALUE_LENGTH) {
                         throw new QueryBuildForestException(fieldName + "的长度必须是2");
                     }

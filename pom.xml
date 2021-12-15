@@ -18,7 +18,6 @@
         <module>forest-maven-plugin</module>
         <module>forest-framework</module>
         <module>forest-dubbo</module>
-        <module>forest-security</module>
         <module>forest-batch</module>
     </modules>
     <url>https://github.com/qiqiangvae/forest.git</url>

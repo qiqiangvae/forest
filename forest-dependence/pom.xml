@@ -37,6 +37,8 @@
         <!--分布式-->
         <dubbo.version>3.0.2.1</dubbo.version>
         <alibaba.version>2.2.6.RELEASE</alibaba.version>
+        <!--sa token 权限认证框架-->
+        <sa-token.version>1.28.0</sa-token.version>
     </properties>
 
 
@@ -56,6 +58,12 @@
                 <version>${spring-cloud.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <!--sa token 权限认证框架-->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
+                <version>${sa-token.version}</version>
             </dependency>
 
             <!--数据库-->
