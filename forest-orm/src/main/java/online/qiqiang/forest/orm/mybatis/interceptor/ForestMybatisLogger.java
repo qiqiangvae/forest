@@ -34,7 +34,7 @@ import java.util.regex.Matcher;
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
 @RequiredArgsConstructor
 public class ForestMybatisLogger implements Interceptor {
-    private final MybatisLoggerPropertiesFunction mybatisLoggerPropertiesFunction;
+    private final MybatisLoggerFunction mybatisLoggerPropertiesFunction;
 
     private SlowSqlCallback slowSqlCallback;
 

@@ -5,6 +5,7 @@ import online.qiqiang.forest.common.java.util.logging.Logging;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -16,12 +17,8 @@ import org.springframework.core.io.ResourceLoader;
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 @EnableAspectJAutoProxy
+@EnableConfigurationProperties(ForestLogProperties.class)
 public class LogPrinterAutoConfiguration {
-
-    @Bean(ForestLogPrinterConstants.BEAN_FOREST_LOG_PROPERTIES)
-    ForestLogProperties forestLogProperties() {
-        return new ForestLogProperties();
-    }
 
     /**
      * 日志打印切入点建议

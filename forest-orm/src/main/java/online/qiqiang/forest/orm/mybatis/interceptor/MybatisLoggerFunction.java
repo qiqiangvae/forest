@@ -6,9 +6,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 支持开发者自定义扩展，实现动态生效
+ *
  * @author qiqiang
  */
-public interface MybatisLoggerPropertiesFunction {
+public interface MybatisLoggerFunction {
     default boolean enable() {
         return false;
     }

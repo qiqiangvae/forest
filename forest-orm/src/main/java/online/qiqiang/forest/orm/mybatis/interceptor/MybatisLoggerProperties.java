@@ -2,10 +2,13 @@ package online.qiqiang.forest.orm.mybatis.interceptor;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import online.qiqiang.forest.common.utils.JsonUtils;
 import org.apache.ibatis.mapping.SqlCommandType;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import javax.annotation.PostConstruct;
+import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -13,43 +16,33 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@EnableConfigurationProperties(MybatisLoggerProperties.class)
-public class MybatisLoggerProperties implements MybatisLoggerPropertiesFunction {
-    @Value("${forest.mybatis-log.enable:false}")
-    private boolean enable;
-
-    @Value("${forest.mybatis-log.sql-command-type:select}")
-    private Set<SqlCommandType> sqlCommandType;
+@ConfigurationProperties(prefix = MybatisLoggerProperties.PREFIX)
+@Slf4j
+public class MybatisLoggerProperties {
+    static final String PREFIX = "forest.mybatis-log";
 
     /**
-     * 打印的最大sql长度，默认1024
+     * 是否启用
      */
-    @Value("${forest.mybatis-log.max-length:256}")
-    private int maxLength;
+    private boolean enable = false;
+
+    /**
+     * 支持的命令类型
+     */
+    private Set<SqlCommandType> sqlCommandType = Collections.singleton(SqlCommandType.SELECT);
+
+    /**
+     * 打印的最大sql长度，默认512
+     */
+    private int maxLength = 512;
 
     /**
      * 慢查询时间，默认3s
      */
-    @Value("${forest.mybatis-log.slow-sql-time:3000}")
-    private int slowSqlTime;
+    private int slowSqlTime = 3000;
 
-    @Override
-    public boolean enable() {
-        return enable;
-    }
-
-    @Override
-    public Set<SqlCommandType> supportedCommandTypes() {
-        return sqlCommandType;
-    }
-
-    @Override
-    public int maxlength() {
-        return maxLength;
-    }
-
-    @Override
-    public int slowSqlTime() {
-        return slowSqlTime;
+    @PostConstruct
+    public void postConstruct() {
+        log.info("mybatis log properties:{}", JsonUtils.write2String(this));
     }
 }

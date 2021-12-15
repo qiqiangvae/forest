@@ -16,16 +16,19 @@
     {
       "name": "forest.mybatis-log.sql-command-type",
       "type": "java.util.Set<org.apache.ibatis.mapping.SqlCommandType>",
+      "defaultValue": "select",
       "description": "需要打印的 sql 的类型."
     },
     {
       "name": "forest.mybatis-log.max-length",
       "type": "java.lang.Integer",
+      "description": 512,
       "description": "日志最大长度."
     },
     {
       "name": "forest.mybatis-log.slow-sql-time",
       "type": "java.lang.Integer",
+      "defaultValue": 3000,
       "description": "慢 Sql 时间阈值."
     }
   ]
