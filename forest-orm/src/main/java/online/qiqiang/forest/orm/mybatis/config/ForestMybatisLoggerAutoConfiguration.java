@@ -1,6 +1,6 @@
 package online.qiqiang.forest.orm.mybatis.config;
 
-import online.qiqiang.forest.orm.mybatis.interceptor.*;
+import online.qiqiang.forest.orm.mybatis.log.*;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

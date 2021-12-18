@@ -1,4 +1,4 @@
-package online.qiqiang.forest.orm.mybatis.interceptor;
+package online.qiqiang.forest.orm.mybatis.log;
 
 import lombok.RequiredArgsConstructor;
 import online.qiqiang.forest.common.utils.DateConvertor;
@@ -89,7 +89,7 @@ public class ForestMybatisLogger implements Interceptor {
                 long time = System.currentTimeMillis() - start;
                 // 慢 sql 回调
                 if (slowSqlCallback != null && time > mybatisLoggerFunction.slowSqlTime()) {
-                    slowSqlCallback.callback(time, ms.getId(), fullSql);
+                    slowSqlCallback.callback(new SlowSqlSource(sqlId, fullSql, time));
                 }
                 // 判断长度
                 if (fullSql.length() > mybatisLoggerFunction.maxlength()) {

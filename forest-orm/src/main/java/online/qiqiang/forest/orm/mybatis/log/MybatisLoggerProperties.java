@@ -1,11 +1,9 @@
-package online.qiqiang.forest.orm.mybatis.interceptor;
+package online.qiqiang.forest.orm.mybatis.log;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import online.qiqiang.forest.common.utils.JsonUtils;
-import org.apache.ibatis.mapping.SqlCommandType;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.annotation.PostConstruct;

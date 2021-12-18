@@ -1,4 +1,4 @@
-package online.qiqiang.forest.orm.mybatis.interceptor;
+package online.qiqiang.forest.orm.mybatis.log;
 
 import java.util.HashSet;
 import java.util.Set;
