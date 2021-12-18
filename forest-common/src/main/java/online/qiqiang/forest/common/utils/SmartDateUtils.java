@@ -12,6 +12,7 @@ import java.util.Date;
  *
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class SmartDateUtils {
 
     /**

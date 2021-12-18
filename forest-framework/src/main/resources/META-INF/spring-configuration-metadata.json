@@ -3,12 +3,12 @@
     {
       "name": "forest-log",
       "type": "ForestLogProperties",
-      "sourceType": "ForestLogProperties"
+      "sourceType": "online.qiqiang.forest.framework.log.ForestLogProperties"
     },
     {
       "name": "forest-context",
       "type": "ForestContextProperties",
-      "sourceType": "ForestContextProperties"
+      "sourceType": "online.qiqiang.forest.framework.context.ForestContextProperties"
     }
   ],
   "properties": [
@@ -16,33 +16,39 @@
       "name": "forest.log.enable",
       "type": "java.lang.Boolean",
       "defaultValue": false,
-      "description": "是否开启切面日志记录."
+      "description": "是否开启切面日志记录.",
+      "sourceType": "online.qiqiang.forest.framework.log.ForestLogProperties"
     },
     {
       "name": "forest.log.ignore-text",
       "type": "java.lang.String",
-      "description": "日志忽略字段提示文本."
+      "description": "日志忽略字段提示文本.",
+      "sourceType": "online.qiqiang.forest.framework.log.ForestLogProperties"
     },
     {
       "name": "forest.log.ignore-req",
       "type": "java.lang.String",
-      "description": "全局忽略请求字段."
+      "description": "全局忽略请求字段.",
+      "sourceType": "online.qiqiang.forest.framework.log.ForestLogProperties"
     },
     {
       "name": "forest.log.ignore-resp",
       "type": "java.lang.String",
-      "description": "全局忽略返回字段."
+      "description": "全局忽略返回字段.",
+      "sourceType": "online.qiqiang.forest.framework.log.ForestLogProperties"
     },
     {
       "name": "forest.log.package-path",
       "type": "java.lang.String",
-      "description": "扫描包路径,可逗号分割配置多路径."
+      "description": "扫描包路径,可逗号分割配置多路径.",
+      "sourceType": "online.qiqiang.forest.framework.log.ForestLogProperties"
     },
     {
       "name": "forest.context.type",
       "type": "RemoteContextType",
       "defaultValue": "simple",
-      "description": "扫描包路径."
+      "description": "扫描包路径.",
+      "sourceType": "online.qiqiang.forest.framework.context.ForestContextProperties"
     }
   ]
 }

@@ -10,20 +10,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class CommandUtils {
     private static boolean printResult = false;
-    private static final String[] envArray;
-
-    static {
-        Map<String, String> env = System.getenv();
-        envArray = env.entrySet().stream().map(e -> e.getKey() + "=" + e.getValue()).toArray(String[]::new);
-    }
 
     public static void setPrintResult(boolean printResult) {
         CommandUtils.printResult = printResult;

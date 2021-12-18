@@ -16,8 +16,11 @@ import java.util.Map;
  *
  * @author qiqiang
  */
-@Activate(group = CommonConstants.PROVIDER, order = -9999)
+@Activate(group = CommonConstants.PROVIDER, order = ForestContextProviderFilter.ORDER)
+@SuppressWarnings("unused")
 public class ForestContextProviderFilter implements Filter {
+    final static int ORDER = -9999;
+
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
         Map<String, Object> attachments = RpcContext.getServerContext().getObjectAttachments();

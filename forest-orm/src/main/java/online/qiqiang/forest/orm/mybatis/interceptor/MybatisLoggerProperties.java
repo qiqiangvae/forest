@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import online.qiqiang.forest.common.utils.JsonUtils;
 import org.apache.ibatis.mapping.SqlCommandType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.annotation.PostConstruct;
@@ -29,7 +30,12 @@ public class MybatisLoggerProperties {
     /**
      * 支持的命令类型
      */
-    private Set<SqlCommandType> sqlCommandType = Collections.singleton(SqlCommandType.SELECT);
+    private Set<String> sqlCommandType = Collections.emptySet();
+
+    /**
+     * 需要打印的 sql id
+     */
+    private Set<String> sqlIds = Collections.emptySet();
 
     /**
      * 打印的最大sql长度，默认512

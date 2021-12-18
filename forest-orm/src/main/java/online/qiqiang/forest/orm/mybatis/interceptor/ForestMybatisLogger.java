@@ -2,6 +2,7 @@ package online.qiqiang.forest.orm.mybatis.interceptor;
 
 import lombok.RequiredArgsConstructor;
 import online.qiqiang.forest.common.utils.DateConvertor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -34,7 +35,7 @@ import java.util.regex.Matcher;
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
 @RequiredArgsConstructor
 public class ForestMybatisLogger implements Interceptor {
-    private final MybatisLoggerFunction mybatisLoggerPropertiesFunction;
+    private final MybatisLoggerFunction mybatisLoggerFunction;
 
     private SlowSqlCallback slowSqlCallback;
 
@@ -48,8 +49,16 @@ public class ForestMybatisLogger implements Interceptor {
         boolean isUpdate = args.length == 2;
         MappedStatement ms = (MappedStatement) args[0];
         // 判断是否开启
-        if (!mybatisLoggerPropertiesFunction.enable() || mybatisLoggerPropertiesFunction.supportedCommandTypes() == null
-                || !mybatisLoggerPropertiesFunction.supportedCommandTypes().contains(ms.getSqlCommandType())) {
+        if (!mybatisLoggerFunction.enable()) {
+            return invocation.proceed();
+        }
+        // 条件一：sql command type 条件是否生效
+        boolean byType = mybatisLoggerFunction.sqlCommandTypes() == null && mybatisLoggerFunction.sqlCommandTypes().contains(ms.getSqlCommandType().name());
+        String sqlId = ms.getId();
+        // 条件二：sql id 条件是否生效
+        boolean bySqlId = CollectionUtils.isNotEmpty(mybatisLoggerFunction.sqlIds()) && mybatisLoggerFunction.sqlIds().contains(sqlId);
+        // 条件一跟条件二都不生效
+        if (!byType && !bySqlId) {
             return invocation.proceed();
         }
         Object parameter = null;
@@ -79,12 +88,12 @@ public class ForestMybatisLogger implements Interceptor {
                 }
                 long time = System.currentTimeMillis() - start;
                 // 慢 sql 回调
-                if (slowSqlCallback != null && time > mybatisLoggerPropertiesFunction.slowSqlTime()) {
+                if (slowSqlCallback != null && time > mybatisLoggerFunction.slowSqlTime()) {
                     slowSqlCallback.callback(time, ms.getId(), fullSql);
                 }
                 // 判断长度
-                if (fullSql.length() > mybatisLoggerPropertiesFunction.maxlength()) {
-                    fullSql = StringUtils.substring(fullSql, 0, mybatisLoggerPropertiesFunction.maxlength()) + "……";
+                if (fullSql.length() > mybatisLoggerFunction.maxlength()) {
+                    fullSql = StringUtils.substring(fullSql, 0, mybatisLoggerFunction.maxlength()) + "……";
                 }
                 Logger logger = LoggerFactory.getLogger(ms.getId());
                 logger.info("耗时【{}】,结果数量【{}】,sql【{}】", time, size, fullSql);

@@ -1,7 +1,6 @@
 package online.qiqiang.forest.orm.mybatis.interceptor;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.mapping.SqlCommandType;
 
 import java.util.Set;
 
@@ -19,8 +18,13 @@ public class DefaultMybatisLoggerFunction implements MybatisLoggerFunction {
     }
 
     @Override
-    public Set<SqlCommandType> supportedCommandTypes() {
+    public Set<String> sqlCommandTypes() {
         return mybatisLoggerProperties.getSqlCommandType();
+    }
+
+    @Override
+    public Set<String> sqlIds() {
+        return mybatisLoggerProperties.getSqlIds();
     }
 
     @Override

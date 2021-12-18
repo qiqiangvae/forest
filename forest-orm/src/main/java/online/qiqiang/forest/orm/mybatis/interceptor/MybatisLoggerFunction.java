@@ -1,7 +1,5 @@
 package online.qiqiang.forest.orm.mybatis.interceptor;
 
-import org.apache.ibatis.mapping.SqlCommandType;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +13,11 @@ public interface MybatisLoggerFunction {
         return false;
     }
 
-    default Set<SqlCommandType> supportedCommandTypes() {
+    default Set<String> sqlCommandTypes() {
+        return new HashSet<>();
+    }
+
+    default Set<String> sqlIds() {
         return new HashSet<>();
     }
 

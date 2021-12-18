@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * @author : Zhang Huang
- * @date : 2021-09-13 9:52 上午
+ * @author Zhang Huang
  */
 @Slf4j
 public class TraceFilter implements Filter {

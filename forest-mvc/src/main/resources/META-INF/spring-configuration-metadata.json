@@ -2,20 +2,22 @@
   "groups": [
     {
       "name": "forest-mvc",
-      "type": "ForestMvcProperties",
-      "sourceType": "ForestMvcProperties"
+      "type": "online.qiqiang.forest.mvc.ForestMvcProperties",
+      "sourceType": "online.qiqiang.forest.mvc.ForestMvcProperties"
     }
   ],
   "properties": [
     {
       "name": "forest.mvc.enable-xss",
       "type": "java.lang.Boolean",
+      "sourceType": "online.qiqiang.forest.mvc.ForestMvcProperties",
       "defaultValue": false,
       "description": "是否开启 xss 攻击拦截."
     },
     {
       "name": "forest.mvc.enable-trace",
       "type": "java.lang.Boolean",
+      "sourceType": "online.qiqiang.forest.mvc.ForestMvcProperties",
       "defaultValue": false,
       "description": "是否开启日志追踪 traceId."
     }

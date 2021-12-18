@@ -10,6 +10,7 @@ import java.util.function.Supplier;
  * @author qiqiang
  */
 @FunctionalInterface
+@SuppressWarnings("unused")
 public interface ExSupplier<R> extends Supplier<R> {
 
     /**

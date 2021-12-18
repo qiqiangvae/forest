@@ -3,6 +3,7 @@ package online.qiqiang.forest.framework.log;
 import lombok.extern.slf4j.Slf4j;
 import online.qiqiang.forest.common.java.util.logging.Logging;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -10,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ResourceLoader;
+
+import java.util.List;
 
 /**
  * @author qiqiang
@@ -50,7 +53,7 @@ public class LogPrinterAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(LogPrinterFunction.class)
-    public LogPrinterFunction defaultLogPrinter() {
-        return new DefaultLogPrinter();
+    public LogPrinterFunction defaultLogPrinter(ObjectProvider<List<JacksonLogPrinterCustomizer>> jacksonLogPrinterCustomizerProvider) {
+        return new DefaultLogPrinter(jacksonLogPrinterCustomizerProvider);
     }
 }

@@ -17,6 +17,7 @@ import java.util.Map;
  * @author qiqiang
  */
 @Activate(group = CommonConstants.CONSUMER)
+@SuppressWarnings("unused")
 public class ForestContextConsumerFilter implements Filter {
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
