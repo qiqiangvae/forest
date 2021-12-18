@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import online.qiqiang.forest.common.java.util.logging.Logging;
 import online.qiqiang.forest.orm.mybatisplus.enhance.ForestEnhanceMapper;
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
@@ -71,7 +72,7 @@ public class EnhanceMapperReader<T> extends ItemStreamSupport implements ItemRea
     private T consume() {
         // 如果停止获取数据了，并且队列也没有数据了，这时候才是真正的停止
         if (stop && queue.isEmpty()) {
-            log.info("没有数据了，共消费[{}]条数据", totalConsume.get());
+            Logging.info(log, () -> log.info("没有数据了，共消费[{}]条数据", totalConsume.get()));
             return EMPTY;
         }
         T item;
@@ -102,7 +103,7 @@ public class EnhanceMapperReader<T> extends ItemStreamSupport implements ItemRea
                     total.incrementAndGet();
                 }
             });
-            log.info("没有数据了，共获取到[{}]条数据", total.get());
+            Logging.info(log, () -> log.info("没有数据了，共获取到[{}]条数据", total.get()));
             stop = true;
         });
     }

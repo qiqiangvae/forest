@@ -6,6 +6,7 @@ import java.util.function.Function;
 
 /**
  * 包装 Function 类，可以优雅的在 lambda 中抛出异常
+ *
  * @author qiqiang
  */
 @FunctionalInterface
@@ -20,7 +21,7 @@ public interface ExFunction<T, R> extends Function<T, R> {
     @Override
     default R apply(T t) {
         try {
-            return innerApply(t);
+            return exApply(t);
         } catch (Throwable ex) {
             Throwing.sneakyThrow(ex);
         }
@@ -34,5 +35,5 @@ public interface ExFunction<T, R> extends Function<T, R> {
      * @return 输出
      * @throws Throwable ex
      */
-    R innerApply(T t) throws Throwable;
+    R exApply(T t) throws Throwable;
 }

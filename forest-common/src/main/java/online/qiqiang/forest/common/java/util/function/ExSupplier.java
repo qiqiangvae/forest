@@ -21,7 +21,7 @@ public interface ExSupplier<R> extends Supplier<R> {
     @Override
     default R get() {
         try {
-            return innerGet();
+            return exGet();
         } catch (Throwable ex) {
             Throwing.sneakyThrow(ex);
         }
@@ -34,5 +34,5 @@ public interface ExSupplier<R> extends Supplier<R> {
      * @return 输出
      * @throws Throwable ex
      */
-    R innerGet() throws Throwable;
+    R exGet() throws Throwable;
 }

@@ -8,6 +8,7 @@ import online.qiqiang.forest.common.exception.IErrorCode;
  * @author qiqiang
  */
 @Data
+@SuppressWarnings("unused")
 public class FResponse<T> {
     private int code;
     private T data;

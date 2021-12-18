@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 /**
  * 包装 Consumer 类，可以优雅的在 lambda 中抛出异常
+ *
  * @author qiqiang
  */
 @FunctionalInterface
@@ -19,7 +20,7 @@ public interface ExConsumer<T> extends Consumer<T> {
     @Override
     default void accept(final T e) {
         try {
-            innerAccept(e);
+            exAccept(e);
         } catch (Throwable ex) {
             Throwing.sneakyThrow(ex);
         }
@@ -31,5 +32,5 @@ public interface ExConsumer<T> extends Consumer<T> {
      * @param e 数据
      * @throws Throwable ex
      */
-    void innerAccept(T e) throws Throwable;
+    void exAccept(T e) throws Throwable;
 }

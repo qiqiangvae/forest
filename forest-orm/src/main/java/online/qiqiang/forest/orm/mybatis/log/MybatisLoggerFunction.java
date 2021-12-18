@@ -1,7 +1,6 @@
 package online.qiqiang.forest.orm.mybatis.log;
 
-import java.util.HashSet;
-import java.util.Set;
+import org.apache.ibatis.mapping.SqlCommandType;
 
 /**
  * 支持开发者自定义扩展，实现动态生效
@@ -13,12 +12,12 @@ public interface MybatisLoggerFunction {
         return false;
     }
 
-    default Set<String> sqlCommandTypes() {
-        return new HashSet<>();
+    default boolean supportCommand(SqlCommandType sqlCommandType) {
+        return false;
     }
 
-    default Set<String> sqlIds() {
-        return new HashSet<>();
+    default boolean supportSqlId(String sqlId) {
+        return false;
     }
 
     default int maxlength() {

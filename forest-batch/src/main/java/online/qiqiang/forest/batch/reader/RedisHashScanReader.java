@@ -2,6 +2,7 @@ package online.qiqiang.forest.batch.reader;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import online.qiqiang.forest.common.java.util.logging.Logging;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemStreamSupport;
@@ -61,7 +62,7 @@ public class RedisHashScanReader extends ItemStreamSupport implements ItemReader
     private Map.Entry<String, String> consume() {
         // 如果停止获取数据了，并且队列也没有数据了，这时候才是真正的停止
         if (stop && queue.isEmpty()) {
-            log.info("[{}]没有数据了，共消费[{}]条数据", redisKey, totalConsume.get());
+            Logging.debug(log, () -> log.info("[{}]没有数据了，共消费[{}]条数据", redisKey, totalConsume.get()));
             return EMPTY;
         }
         Map.Entry<String, String> item;
@@ -86,7 +87,7 @@ public class RedisHashScanReader extends ItemStreamSupport implements ItemReader
     }
 
     private synchronized void initThread() {
-        log.info("正在遍历[{}]的数据", redisKey);
+        Logging.debug(log, () -> log.info("正在遍历[{}]的数据", redisKey));
         this.completableFuture = CompletableFuture.runAsync(() -> {
             HashOperations<String, String, String> operations = stringRedisTemplate.opsForHash();
             try (Cursor<Map.Entry<String, String>> cursor = operations.scan(redisKey, scanOptions)) {
@@ -97,7 +98,7 @@ public class RedisHashScanReader extends ItemStreamSupport implements ItemReader
                     total.incrementAndGet();
                     operations.delete(redisKey, key);
                 }
-                log.info("[{}]没有数据了，共获取到[{}]条数据", redisKey, total.get());
+                Logging.info(log, () -> log.info("[{}]没有数据了，共获取到[{}]条数据", redisKey, total.get()));
                 stop = true;
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
@@ -107,7 +108,7 @@ public class RedisHashScanReader extends ItemStreamSupport implements ItemReader
 
     @Override
     public void close() {
-        log.info("正在关闭遍历[{}]的数据", redisKey);
+        Logging.debug(log, () -> log.info("正在关闭遍历[{}]的数据", redisKey));
         completableFuture.complete(null);
         completableFuture.cancel(true);
     }

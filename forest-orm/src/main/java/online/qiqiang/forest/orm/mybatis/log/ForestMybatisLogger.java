@@ -2,7 +2,6 @@ package online.qiqiang.forest.orm.mybatis.log;
 
 import lombok.RequiredArgsConstructor;
 import online.qiqiang.forest.common.utils.DateConvertor;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -53,16 +52,16 @@ public class ForestMybatisLogger implements Interceptor {
             return invocation.proceed();
         }
         // 条件一：sql command type 条件是否生效
-        boolean byType = mybatisLoggerFunction.sqlCommandTypes() == null && mybatisLoggerFunction.sqlCommandTypes().contains(ms.getSqlCommandType().name());
+        boolean byType = mybatisLoggerFunction.supportCommand(ms.getSqlCommandType());
         String sqlId = ms.getId();
         // 条件二：sql id 条件是否生效
-        boolean bySqlId = CollectionUtils.isNotEmpty(mybatisLoggerFunction.sqlIds()) && mybatisLoggerFunction.sqlIds().contains(sqlId);
+        boolean bySqlId = mybatisLoggerFunction.supportSqlId(sqlId);
         // 条件一跟条件二都不生效
         if (!byType && !bySqlId) {
             return invocation.proceed();
         }
         Object parameter = null;
-        //获取参数，if语句成立，表示sql语句有参数，参数格式是map形式
+        //获取参数，if语句成立，表示sql语句有参数，参数格式是 map 形式
         if (invocation.getArgs().length > 1) {
             parameter = invocation.getArgs()[1];
         }

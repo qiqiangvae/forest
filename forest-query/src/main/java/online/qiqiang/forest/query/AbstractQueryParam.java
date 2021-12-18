@@ -1,8 +1,7 @@
 package online.qiqiang.forest.query;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author qiqiang
@@ -23,7 +22,7 @@ public abstract class AbstractQueryParam extends PageQuery {
     @SuppressWarnings("unchecked")
     public <T extends AbstractQueryParam> T select(String... col) {
         if (col != null && col.length > 0) {
-            this.selectList = Stream.of(col).collect(Collectors.toList());
+            this.selectList = Arrays.asList(col);
         }
         return (T) this;
     }
