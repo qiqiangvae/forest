@@ -24,9 +24,9 @@ public class PageConvertor {
                 .setTotalSize(page.getTotal());
     }
 
-    public static <T, K> ForestPage<K> convert(Page<T> page, Class<K> clazz, BiConsumer<T, K> consumer) {
-        List<K> context = BeanUtils.copy(page.getRecords(), clazz, consumer);
-        return new ForestPage<K>()
+    public static <S, T> ForestPage<T> convert(Page<S> page, Class<T> clazz, BiConsumer<S, T> consumer) {
+        List<T> context = BeanUtils.copy(page.getRecords(), clazz, consumer);
+        return new ForestPage<T>()
                 .setContent(context)
                 .setCurrent(page.getCurrent())
                 .setCurrentSize(context.size())
@@ -35,7 +35,7 @@ public class PageConvertor {
                 .setTotalSize(page.getTotal());
     }
 
-    public static <T, K> ForestPage<K> convert(Page<T> page, Class<K> clazz) {
+    public static <S, T> ForestPage<T> convert(Page<S> page, Class<T> clazz) {
         return convert(page, clazz, null);
     }
 }

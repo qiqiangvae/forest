@@ -42,6 +42,10 @@
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -68,13 +68,10 @@ public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> exten
     @Override
     @Transactional
     public void fetchByCursor(Wrapper<T> wrapper, Consumer<T> consumer) {
-        Cursor<T> cursor = baseMapper.fetchByCursor(wrapper);
-        for (T t : cursor) {
-            consumer.accept(t);
-        }
-        try {
-            // 关闭游标
-            cursor.close();
+        try (Cursor<T> cursor = baseMapper.fetchByCursor(wrapper)) {
+            for (T t : cursor) {
+                consumer.accept(t);
+            }
         } catch (IOException e) {
             throw new ForestOrmException(e);
         }

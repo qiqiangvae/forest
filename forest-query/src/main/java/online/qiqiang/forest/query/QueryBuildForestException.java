@@ -1,4 +1,4 @@
-package online.qiqiang.forest.orm;
+package online.qiqiang.forest.query;
 
 
 import online.qiqiang.forest.common.exception.BaseForestException;

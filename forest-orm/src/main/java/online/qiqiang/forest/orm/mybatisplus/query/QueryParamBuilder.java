@@ -7,8 +7,6 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import online.qiqiang.forest.common.utils.reflection.AnnotationUtils;
 import online.qiqiang.forest.common.utils.reflection.PropertyUtils;
-import online.qiqiang.forest.orm.QueryBuildForestException;
-import online.qiqiang.forest.orm.QueryConst;
 import online.qiqiang.forest.query.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -17,21 +15,15 @@ import org.hibernate.validator.HibernateValidator;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
  * @author qiqiang
  */
-public class QueryParamBuilder {
-
-    private static final Map<Class<? extends AbstractQueryParam>, Map<Field, ConditionWrapper>> CONDITION_CACHE = new ConcurrentHashMap<>();
-    private static final Map<Class<? extends QueryParam>, Map<Field, SortColumn>> SORT_CACHE = new ConcurrentHashMap<>();
+public class QueryParamBuilder extends AbstractParamBuilder {
 
     private static final Validator VALIDATOR = Validation.byProvider(HibernateValidator.class)
             .configure().failFast(true).buildValidatorFactory()
@@ -42,14 +34,7 @@ public class QueryParamBuilder {
         Page<T> page = new Page<>(paging[0], paging[1]);
         List<SortColumn> sorts = pageQuery.getSorts();
         // 从缓存中获取
-        Map<Field, SortColumn> sortMap = SORT_CACHE.computeIfAbsent(pageQuery.getClass(), QueryUtils::parseSorts);
-        for (Map.Entry<Field, SortColumn> entry : sortMap.entrySet()) {
-            SortColumn value = entry.getValue();
-            if (StringUtils.isBlank(value.getColumn())) {
-                value.setColumn(entry.getKey().getName());
-            }
-        }
-        sorts.addAll(sortMap.values());
+        sorts.addAll(getSorts(pageQuery));
         if (CollectionUtils.isNotEmpty(sorts)) {
             List<OrderItem> orderItems = sorts.stream()
                     .sorted()
@@ -68,15 +53,13 @@ public class QueryParamBuilder {
         if (CollectionUtils.isNotEmpty(violations)) {
             throw new QueryBuildForestException(violations.toString());
         }
-        // 构建
+        // 构建查询结果
         QueryWrapper<T> queryWrapper = new QueryWrapper<>();
         if (CollectionUtils.isNotEmpty(queryParam.getSelectList())) {
             queryWrapper.select(queryParam.getSelectList().toArray(new String[0]));
         }
-        Class<? extends AbstractQueryParam> queryParamClass = queryParam.getClass();
-        // 从缓存中获取
-        Map<Field, ConditionWrapper> conditionMap = CONDITION_CACHE.computeIfAbsent(queryParamClass, QueryUtils::parseQueryParam);
-        conditionMap.forEach((field, condition) -> {
+        // 构建查询条件
+        iterate(queryParam.getClass(), (field, condition) -> {
             // 空值
             final Object value = PropertyUtils.getValue(field, queryParam);
             if (condition.isIgnoreEmpty() && ConditionWrapper.ignore(value)) {
@@ -93,7 +76,7 @@ public class QueryParamBuilder {
                 }
             }
             Express express = condition.getExpress();
-            buildQueryWrapper(queryParamClass, queryWrapper, field.getName(), value, col, express);
+            buildQueryWrapper(queryParam.getClass(), queryWrapper, field.getName(), value, col, express);
         });
         return queryWrapper;
     }
@@ -148,21 +131,7 @@ public class QueryParamBuilder {
                 queryWrapper.likeRight(col, value + "%");
                 break;
             case between:
-                Object[] arr;
-                if (value.getClass().isArray()) {
-                    arr = (Object[]) value;
-                    if (arr.length != QueryConst.BETWEEN_VALUE_LENGTH) {
-                        throw new QueryBuildForestException(fieldName + "的长度必须是2");
-                    }
-                } else if (value instanceof Collection) {
-                    Collection<?> collections = (Collection<?>) value;
-                    if (collections.size() != QueryConst.BETWEEN_VALUE_LENGTH) {
-                        throw new QueryBuildForestException(fieldName + "的长度必须是2");
-                    }
-                    arr = collections.toArray();
-                } else {
-                    throw new QueryBuildForestException(fieldName + "必须是元素为2的集合或数组");
-                }
+                Object[] arr = betweenValue(fieldName, value);
                 queryWrapper.between(col, arr[0], arr[1]);
                 break;
             default:

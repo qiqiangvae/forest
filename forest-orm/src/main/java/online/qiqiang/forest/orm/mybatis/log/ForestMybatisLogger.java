@@ -30,6 +30,7 @@ import java.util.regex.Matcher;
  */
 @Intercepts({
         @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
+        @Signature(type = Executor.class, method = "queryCursor", args = {MappedStatement.class, Object.class, RowBounds.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
 @RequiredArgsConstructor
@@ -67,7 +68,8 @@ public class ForestMybatisLogger implements Interceptor {
         }
         BoundSql boundSql = null;
         if (!isUpdate && ms.getSqlCommandType() == SqlCommandType.SELECT) {
-            if (args.length == 4) {
+            // queryCursor 和 query
+            if (args.length == 3 || args.length == 4) {
                 boundSql = ms.getBoundSql(parameter);
             } else {
                 // 几乎不可能走进这里面,除非使用Executor的代理对象调用query[args[6]]

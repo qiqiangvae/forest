@@ -36,9 +36,6 @@ public class ConditionWrapper {
         if (value instanceof String && StringUtils.isBlank((String) value)) {
             return true;
         }
-        if (value instanceof Collection && CollectionUtils.isEmpty((Collection<?>) value)) {
-            return true;
-        }
-        return false;
+        return value instanceof Collection && CollectionUtils.isEmpty((Collection<?>) value);
     }
 }

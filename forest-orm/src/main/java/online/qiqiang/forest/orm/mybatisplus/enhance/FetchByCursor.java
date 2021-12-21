@@ -20,7 +20,7 @@ public class FetchByCursor extends AbstractMethod {
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
         String statementName = mapperClass.getName() + DOT + ForestMybatisPlusConst.METHOD_FETCH_BY_CURSOR;
         if (configuration.hasStatement(statementName, false)) {
-            logger.warn(LEFT_SQ_BRACKET + statementName + "] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [" + getClass() + RIGHT_SQ_BRACKET);
+            logger.warn(LEFT_SQ_BRACKET + statementName + "] Has been loaded by XML or SqlProvider or Mybatis`s Annotation, so ignoring this injection for [" + getClass() + RIGHT_SQ_BRACKET);
             return null;
         }
         return builderAssistant.addMappedStatement(ForestMybatisPlusConst.METHOD_FETCH_BY_CURSOR, sqlSource, StatementType.PREPARED, SqlCommandType.SELECT,

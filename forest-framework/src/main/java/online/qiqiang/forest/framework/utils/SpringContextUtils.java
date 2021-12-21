@@ -13,9 +13,9 @@ import java.util.Map;
 /**
  * @author qiqiang
  */
-@SuppressWarnings({"unused","unchecked"})
 @Component
 @Slf4j
+@SuppressWarnings("unused")
 public class SpringContextUtils implements ApplicationContextAware {
     private static ApplicationContext context;
 
@@ -29,7 +29,7 @@ public class SpringContextUtils implements ApplicationContextAware {
         return context.getBean(clazz);
     }
 
-
+    @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) {
         return (T) context.getBean(name);
     }
