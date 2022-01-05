@@ -17,4 +17,8 @@ public interface ForestMybatisPlusConst {
      * 批量插入
      */
     String METHOD_INSERT_BATCH = "insertBatch";
+    /**
+     * replace into
+     */
+    String METHOD_REPLACE = "replace";
 }

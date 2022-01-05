@@ -7,19 +7,19 @@
 * forest-mvc。MVC 相关扩展。
 * forest-mybatis-plus-starter。mybatis-plus 相关扩展。
 * forest-query。查询基础模块，其它类型数据库的查询操作可以基于此扩展。
-* Forest-framework。核心框架，提供通用日志打印功能、上下文工具。
+* forest-framework。核心框架，提供通用日志打印功能、上下文工具。
 
 # forest-common
 
 包括基础工具类。
 
-* BeanUtils。Bean 拷贝工具类，基于 BeanCopier 实现，效率比apache和spring 的 BeanUtils 要快很多。
+* BeanUtils。Bean 拷贝工具类，基于 BeanCopier 实现，效率比 apache 和 spring 的 BeanUtils 要快很多。
 * DateUtils。时间日期转换工具类。
 * IdGenerator。Id 生成器。
 * JsonUtils。Json 序列化和反序列化工具类。
 * NetworkUtils。网络工具类。
 * NumberUtils。数字工具类。
-* OSUtils。操作系统工具类。
+* OsUtils。操作系统工具类。
 * RegexUtils。正则工具类。
 
 # forest-mybatis-plus-starter
@@ -55,7 +55,7 @@ forest:
   log:
     ignore-text: "#该字段不打印#"
     ignore-req: ""
-    ignore-resp: context
+    ignore-resp: content
     package-path: online.qiqiang.forest.example.mvc.controller
     enable: true
 ```

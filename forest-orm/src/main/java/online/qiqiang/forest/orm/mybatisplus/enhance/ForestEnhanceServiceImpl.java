@@ -28,6 +28,25 @@ import java.util.function.Function;
 @SuppressWarnings("unused")
 public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> extends ServiceImpl<M, T> implements IForestEnhanceService<T> {
 
+    private static final int DEFAULT_BATCH_SIZE = 1000;
+
+    @Override
+    public long updateBatchByWrapper(Collection<Wrapper<T>> wrappers, int size) {
+        if (org.springframework.util.CollectionUtils.isEmpty(wrappers)) {
+            log.warn("wrappers is empty");
+            return 0;
+        }
+        String sqlStatement = getSqlStatement(SqlMethod.UPDATE);
+        AtomicLong count = new AtomicLong(0);
+        executeBatch(wrappers, size, (sqlSession, wrapper) -> {
+            MapperMethod.ParamMap<Object> param = new MapperMethod.ParamMap<>();
+            param.put(Constants.ENTITY, null);
+            param.put(Constants.WRAPPER, wrapper);
+            count.addAndGet(sqlSession.update(sqlStatement, param));
+        });
+        return count.get();
+    }
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public long updateBatchByWrapper(Collection<T> entityList, Function<T, Wrapper<T>> function, int batchSize) {
@@ -93,6 +112,25 @@ public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> exten
 
     @Override
     public boolean insertBatch(Collection<T> list) {
-        return insertBatch(list, 1000);
+        return insertBatch(list, DEFAULT_BATCH_SIZE);
+    }
+
+    @Override
+    public boolean replaceInto(T entity) {
+        return getBaseMapper().replace(entity);
+    }
+
+    /**
+     * 不能使用 getBaseMapper() 方法获取 mapper，因为哪个 Mapper 的 Executor 是 Simple，
+     * 需要通过 Mybatis plus 的 executeBatch 获取一个 Batch 的 Executor
+     */
+    @Override
+    public boolean replaceBatch(Collection<T> list, int batchSize) {
+        return executeBatch(list, batchSize, (sqlSession, entity) -> sqlSession.getMapper(mapperClass).replace(entity));
+    }
+
+    @Override
+    public boolean replaceBatch(Collection<T> list) {
+        return replaceBatch(list, DEFAULT_BATCH_SIZE);
     }
 }

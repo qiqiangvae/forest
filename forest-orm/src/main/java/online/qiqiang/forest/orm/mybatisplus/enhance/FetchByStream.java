@@ -24,6 +24,7 @@ public class FetchByStream extends AbstractMethod {
             logger.warn(LEFT_SQ_BRACKET + statementName + "] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [" + getClass() + RIGHT_SQ_BRACKET);
             return null;
         }
+        // fetchSize 必须设置为 Integer.MIN_VALUE 才能是流模式
         return builderAssistant.addMappedStatement(ForestMybatisPlusConst.METHOD_FETCH_BY_STREAM, sqlSource, StatementType.PREPARED, SqlCommandType.SELECT,
                 Integer.MIN_VALUE, null, null, null, null, modelClass,
                 ResultSetType.FORWARD_ONLY, true, true, false, null, null, null,

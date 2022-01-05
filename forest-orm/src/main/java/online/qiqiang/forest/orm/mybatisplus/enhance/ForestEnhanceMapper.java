@@ -38,4 +38,12 @@ public interface ForestEnhanceMapper<T> extends BaseMapper<T> {
      * @return success
      */
     boolean insertBatch(@Param("list") Collection<T> list);
+
+    /**
+     * replace into
+     *
+     * @param entity 实体数据
+     * @return 是否成功
+     */
+    boolean replace(T entity);
 }

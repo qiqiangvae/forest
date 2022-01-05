@@ -14,6 +14,15 @@ import java.util.function.Function;
  */
 @SuppressWarnings("unused")
 public interface IForestEnhanceService<T> extends IService<T> {
+
+    /**
+     * 批量更新
+     *
+     * @param wrappers 条件
+     * @param size     大小
+     */
+    long updateBatchByWrapper(Collection<Wrapper<T>> wrappers, int size);
+
     /**
      * 根据自定义条件批量更新
      *
@@ -76,4 +85,23 @@ public interface IForestEnhanceService<T> extends IService<T> {
      * @return success
      */
     boolean insertBatch(Collection<T> list);
+
+    /**
+     * replace into
+     *
+     * @param entity 实体数据
+     * @return 是否成功
+     */
+    boolean replaceInto(T entity);
+
+    /**
+     * replace into batch
+     *
+     * @param list      实体数据集合
+     * @param batchSize 批次大小
+     * @return 是否成功
+     */
+    boolean replaceBatch(Collection<T> list, int batchSize);
+
+    boolean replaceBatch(Collection<T> list);
 }

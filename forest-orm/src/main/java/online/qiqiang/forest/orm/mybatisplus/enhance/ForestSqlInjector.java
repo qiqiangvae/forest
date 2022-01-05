@@ -25,6 +25,7 @@ public class ForestSqlInjector extends DefaultSqlInjector {
         methodList.add(new FetchByStream());
         methodList.add(new FetchByCursor());
         methodList.add(new InsertBatch());
+        methodList.add(new Replace());
         return methodList;
     }
 }

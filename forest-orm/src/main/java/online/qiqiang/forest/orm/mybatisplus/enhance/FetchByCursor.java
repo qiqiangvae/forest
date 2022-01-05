@@ -7,7 +7,6 @@ import org.apache.ibatis.mapping.*;
 
 /**
  * @author qiqiang
- * @date 2021/8/26 11:42
  */
 public class FetchByCursor extends AbstractMethod {
 
@@ -23,6 +22,7 @@ public class FetchByCursor extends AbstractMethod {
             logger.warn(LEFT_SQ_BRACKET + statementName + "] Has been loaded by XML or SqlProvider or Mybatis`s Annotation, so ignoring this injection for [" + getClass() + RIGHT_SQ_BRACKET);
             return null;
         }
+        // fetchSize 设置为 1000
         return builderAssistant.addMappedStatement(ForestMybatisPlusConst.METHOD_FETCH_BY_CURSOR, sqlSource, StatementType.PREPARED, SqlCommandType.SELECT,
                 1000, null, null, null, null, modelClass,
                 ResultSetType.FORWARD_ONLY, false, true, false, null, null, null,

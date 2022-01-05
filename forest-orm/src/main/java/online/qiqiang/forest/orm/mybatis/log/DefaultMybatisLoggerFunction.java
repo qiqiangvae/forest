@@ -1,9 +1,9 @@
 package online.qiqiang.forest.orm.mybatis.log;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.mapping.SqlCommandType;
-
-import java.util.Set;
+import org.springframework.util.AntPathMatcher;
 
 /**
  * @author qiqiang
@@ -12,6 +12,7 @@ import java.util.Set;
 public class DefaultMybatisLoggerFunction implements MybatisLoggerFunction {
 
     private final MybatisLoggerProperties mybatisLoggerProperties;
+    private final AntPathMatcher pathMatcher = new AntPathMatcher(".");
 
     @Override
     public boolean enable() {
@@ -26,7 +27,8 @@ public class DefaultMybatisLoggerFunction implements MybatisLoggerFunction {
 
     @Override
     public boolean supportSqlId(String sqlId) {
-        return mybatisLoggerProperties.getSqlIds() != null && mybatisLoggerProperties.getSqlIds().contains(sqlId);
+        return CollectionUtils.isNotEmpty(mybatisLoggerProperties.getSqlIds())
+                && mybatisLoggerProperties.getSqlIds().stream().anyMatch(path -> pathMatcher.match(path, sqlId));
     }
 
     @Override
