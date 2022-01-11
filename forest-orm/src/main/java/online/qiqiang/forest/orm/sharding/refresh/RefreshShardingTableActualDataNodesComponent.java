@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
  * @author qiqiang
  */
 @Slf4j
+@SuppressWarnings("unused")
 public class RefreshShardingTableActualDataNodesComponent {
     private final ShardingDataSource dataSource;
 

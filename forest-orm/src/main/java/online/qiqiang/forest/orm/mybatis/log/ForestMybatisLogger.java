@@ -89,7 +89,7 @@ public class ForestMybatisLogger implements Interceptor {
                 }
                 long time = System.currentTimeMillis() - start;
                 // 慢 sql 回调
-                if (slowSqlCallback != null && time > mybatisLoggerFunction.slowSqlTime()) {
+                if (slowSqlCallback != null && time > mybatisLoggerFunction.slowSqlTime() && mybatisLoggerFunction.slowSqlTime() > 0) {
                     slowSqlCallback.callback(new SlowSqlSource(sqlId, fullSql, time));
                 }
                 // 判断长度

@@ -2,6 +2,10 @@ package online.qiqiang.forest.orm.mybatisplus.enhance;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
+import online.qiqiang.forest.orm.mybatisplus.enhance.method.FetchByCursor;
+import online.qiqiang.forest.orm.mybatisplus.enhance.method.FetchByStream;
+import online.qiqiang.forest.orm.mybatisplus.enhance.method.InsertBatch;
+import online.qiqiang.forest.orm.mybatisplus.enhance.method.Replace;
 
 import java.util.List;
 

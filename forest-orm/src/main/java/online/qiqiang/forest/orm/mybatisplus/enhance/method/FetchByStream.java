@@ -1,4 +1,4 @@
-package online.qiqiang.forest.orm.mybatisplus.enhance;
+package online.qiqiang.forest.orm.mybatisplus.enhance.method;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;

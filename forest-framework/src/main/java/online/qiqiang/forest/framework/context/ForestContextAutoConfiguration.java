@@ -1,6 +1,6 @@
 package online.qiqiang.forest.framework.context;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +18,12 @@ public class ForestContextAutoConfiguration {
 
 
     @Bean
+    @ConditionalOnProperty(name = "forest.context.type", havingValue = "simple")
+    RemoteContext simpleRemoteContext() {
+        return new SimpleRemoteContext();
+    }
+
+    @Bean
     @ConditionalOnProperty(name = "forest.context.type", havingValue = "redis")
     RemoteContext redisRemoteContext() {
         return new RedisRemoteContext();
@@ -30,15 +36,9 @@ public class ForestContextAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(RemoteContext.class)
-    RemoteContext simpleRemoteContext() {
-        return new SimpleRemoteContext();
-    }
-
-    @Bean
-    ForestContext forestContext(RemoteContext remoteContext) {
+    ForestContext forestContext(ObjectProvider<RemoteContext> remoteContextProvider) {
         ForestContext forestContext = new ForestContext();
-        ForestContext.setRemoteContext(remoteContext);
+        ForestContext.setRemoteContext(remoteContextProvider.getIfAvailable(SimpleRemoteContext::new));
         return forestContext;
     }
 
