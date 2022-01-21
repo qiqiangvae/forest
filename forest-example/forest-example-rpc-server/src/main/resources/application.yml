@@ -1,0 +1,5 @@
+forest:
+  rpc:
+    provider:
+      port: 7687
+      workers: 4

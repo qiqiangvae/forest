@@ -1,0 +1,6 @@
+forest:
+  rpc:
+    consumer:
+      host: localhost
+      port: 7687
+      timeout: 5000

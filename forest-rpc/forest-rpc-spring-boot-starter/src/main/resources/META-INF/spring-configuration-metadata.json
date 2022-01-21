@@ -1,0 +1,46 @@
+{
+  "groups": [
+    {
+      "name": "forest-rpc-consumer",
+      "type": "ForestRpcClientProperties",
+      "sourceType": "online.qiqiang.forest.rpc.core.client.ForestRpcClientProperties"
+    },
+    {
+      "name": "forest-rpc-provider",
+      "type": "ForestRpcServerProperties",
+      "sourceType": "online.qiqiang.forest.rpc.core.server.ForestRpcServerProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "forest.rpc.consumer.host",
+      "type": "java.lang.String",
+      "description": "服务器连接地址.",
+      "sourceType": "online.qiqiang.forest.rpc.core.client.ForestRpcClientProperties"
+    },
+    {
+      "name": "forest.rpc.consumer.port",
+      "type": "java.lang.Integer",
+      "description": "服务器连接端口.",
+      "sourceType": "online.qiqiang.forest.rpc.core.client.ForestRpcClientProperties"
+    },
+    {
+      "name": "forest.rpc.consumer.timeout",
+      "type": "java.lang.Integer",
+      "description": "请求超时时间.",
+      "sourceType": "online.qiqiang.forest.rpc.core.client.ForestRpcClientProperties"
+    },
+    {
+      "name": "forest.rpc.provider.port",
+      "type": "java.lang.Integer",
+      "description": "服务开放端口.",
+      "sourceType": "online.qiqiang.forest.rpc.core.server.ForestRpcServerProperties"
+    },
+    {
+      "name": "forest.rpc.provider.workers",
+      "type": "java.lang.Integer",
+      "description": "netty worker 数量配置.",
+      "sourceType": "online.qiqiang.forest.rpc.core.server.ForestRpcServerProperties"
+    }
+  ]
+}

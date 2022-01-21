@@ -8,6 +8,11 @@ import java.lang.reflect.Field;
  */
 @SuppressWarnings("unused")
 public class AnnotationUtils {
+
+    public static <T extends Annotation> boolean hasAnnotation(Field field, Class<T> annotationClass) {
+        return field.getAnnotation(annotationClass) != null;
+    }
+
     public static <T extends Annotation> T getAnnotation(Field field, Class<T> annotationClass) {
         return field.getAnnotation(annotationClass);
     }

@@ -19,6 +19,10 @@
         <module>forest-framework</module>
         <module>forest-dubbo</module>
         <module>forest-batch</module>
+        <module>forest-rpc</module>
+        <module>forest-monitor</module>
+        <module>forest-example/forest-example-rpc-server</module>
+        <module>forest-example/forest-example-rpc-api</module>
     </modules>
     <url>https://github.com/qiqiangvae/forest.git</url>
     <description>让开发者快速开发的框架</description>
