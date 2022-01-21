@@ -15,13 +15,13 @@ public class ChannelWriter {
     }
 
     public void writeAndFlush(Channel channel, String requestId, Object message) {
-        ForestRpcProtocol forestRpcMessage = new ForestRpcProtocol();
-        forestRpcMessage.setVersion((byte) 1);
-        forestRpcMessage.setSessionId(1L);
-        forestRpcMessage.setRequestId(requestId);
-        forestRpcMessage.setMessageType(MessageTypeEnum.REQ);
-        forestRpcMessage.setBody(message);
-        channel.writeAndFlush(forestRpcMessage);
+        ForestRpcProtocol forestRpcProtocol = new ForestRpcProtocol();
+        forestRpcProtocol.setVersion((byte) 1);
+        forestRpcProtocol.setSessionId(1L);
+        forestRpcProtocol.setRequestId(requestId);
+        forestRpcProtocol.setMessageType(MessageTypeEnum.REQ);
+        forestRpcProtocol.setBody(message);
+        channel.writeAndFlush(forestRpcProtocol);
     }
 
     public void setChannel(Channel defaultChannel) {

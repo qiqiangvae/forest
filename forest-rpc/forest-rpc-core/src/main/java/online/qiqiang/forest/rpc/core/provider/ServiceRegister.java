@@ -28,16 +28,16 @@ public class ServiceRegister {
     }
 
     public static void register(Object service) {
+        ForestService forestService = service.getClass().getAnnotation(ForestService.class);
+        if (forestService == null) {
+            return;
+        }
         Method[] methods = service.getClass().getDeclaredMethods();
         Class<?>[] interfaces = service.getClass().getInterfaces();
         if (interfaces.length == 0) {
             return;
         }
         for (Method method : methods) {
-            ForestService forestService = method.getAnnotation(ForestService.class);
-            if (forestService == null) {
-                continue;
-            }
             register(interfaces[0], method, forestService, service);
         }
     }

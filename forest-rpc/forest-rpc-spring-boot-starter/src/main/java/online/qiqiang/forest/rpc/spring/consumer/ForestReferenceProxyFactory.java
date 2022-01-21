@@ -2,6 +2,7 @@ package online.qiqiang.forest.rpc.spring.consumer;
 
 import lombok.RequiredArgsConstructor;
 import online.qiqiang.forest.common.utils.id.IdGenerator;
+import online.qiqiang.forest.rpc.core.annotation.ForestReference;
 import online.qiqiang.forest.rpc.core.client.ChannelWriter;
 import online.qiqiang.forest.rpc.core.consumer.InvokeExecutor;
 import online.qiqiang.forest.rpc.core.matedata.RpcWrapper;
@@ -19,7 +20,7 @@ public class ForestReferenceProxyFactory {
 
     private final ChannelWriter channelWriter;
 
-    public Object newProxyReference(Class<?> fieldClass, int timeout) {
+    public Object newProxyReference(ForestReference forestReference, Class<?> fieldClass, int timeout) {
         return Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[]{fieldClass}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -30,7 +31,7 @@ public class ForestReferenceProxyFactory {
                     ServiceMetaData metaData = new ServiceMetaData();
                     metaData.setClazz(fieldClass);
                     metaData.setMethodName(method.getName());
-                    metaData.setVersion("");
+                    metaData.setVersion(forestReference.version());
                     metaData.setParamClasses(method.getParameterTypes());
                     metaData.setReturnClazz(String.class);
                     rpcWrapper.setMetaData(metaData);

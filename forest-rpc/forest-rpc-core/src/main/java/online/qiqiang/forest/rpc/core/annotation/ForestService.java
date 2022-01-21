@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * @author qiqiang
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target({ElementType.TYPE})
 public @interface ForestService {
     String version() default "";
 }

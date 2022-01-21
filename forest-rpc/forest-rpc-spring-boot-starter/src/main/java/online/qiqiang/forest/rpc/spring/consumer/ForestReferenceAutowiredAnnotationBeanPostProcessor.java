@@ -28,7 +28,8 @@ public class ForestReferenceAutowiredAnnotationBeanPostProcessor implements Inst
         for (Field field : fields) {
             Class<?> fieldClass = field.getType();
             // 获取代理对象
-            Object proxyObject = factory.newProxyReference(fieldClass, forestRpcClientProperties.getTimeout());
+            ForestReference forestReference = AnnotationUtils.getAnnotation(field, ForestReference.class);
+            Object proxyObject = factory.newProxyReference(forestReference, fieldClass, forestRpcClientProperties.getTimeout());
             // 注入到 bean 中
             PropertyUtils.setValue(field, bean, proxyObject);
         }

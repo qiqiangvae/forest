@@ -1,4 +1,5 @@
 # forest
+
 一个业务无关的通用脚手架、工具框架
 
 * forest-parent。父依赖模块。
@@ -8,6 +9,7 @@
 * forest-mybatis-plus-starter。mybatis-plus 相关扩展。
 * forest-query。查询基础模块，其它类型数据库的查询操作可以基于此扩展。
 * forest-framework。核心框架，提供通用日志打印功能、上下文工具。
+* forest-rpc。一个简单的 Rpc 框架。
 
 # forest-common
 
@@ -42,8 +44,6 @@ forest:
     enable-xss: true
 ```
 
-
-
 # forest-framework
 
 框架核心层。提供如下功能：
@@ -68,3 +68,6 @@ forest:
     type: redis
 ```
 
+# forest-rpc
+
+一个简单的 rpc 调用框架。

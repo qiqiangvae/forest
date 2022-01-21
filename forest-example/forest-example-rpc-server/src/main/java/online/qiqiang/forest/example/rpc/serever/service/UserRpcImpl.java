@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
  * @author qiqiang
  */
 @Service
+@ForestService
 public class UserRpcImpl implements UserRpc {
     @Override
-    @ForestService
     public String username(String index) {
         return "forestRpc-" + index;
     }

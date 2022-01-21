@@ -16,6 +16,6 @@ public class ClientMessageHandler extends SimpleChannelInboundHandler<ForestRpcP
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, ForestRpcProtocol protocol) {
         RpcWrapper responseWrapper = SerializerManager.getSerializer().deserialize(protocol.getBody(), RpcWrapper.class);
-        InvokeExecutor.setResponse(protocol.getRequestId(), responseWrapper.getResponse());
+        InvokeExecutor.setResponse(protocol.getRequestId(), responseWrapper);
     }
 }
