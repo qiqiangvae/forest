@@ -1,4 +1,4 @@
-package online.qiqiang.forest.rpc.core.server;
+package online.qiqiang.forest.rpc.core.provider.server;
 
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -26,6 +26,5 @@ public class ServerMessageHandler extends SimpleChannelInboundHandler<ForestRpcP
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }

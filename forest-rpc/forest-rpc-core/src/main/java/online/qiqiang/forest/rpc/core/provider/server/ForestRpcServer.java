@@ -1,4 +1,4 @@
-package online.qiqiang.forest.rpc.core.server;
+package online.qiqiang.forest.rpc.core.provider.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -17,13 +17,13 @@ import java.util.concurrent.CountDownLatch;
  */
 @Slf4j
 public class ForestRpcServer implements Closeable {
-    private final ForestRpcServerProperties properties;
+    private final ForestRpcProviderProperties properties;
     private CompletableFuture<Void> future;
     private ServerBootstrap serverBootstrap;
     private ChannelFuture channelFuture;
     private CountDownLatch restartTimes = new CountDownLatch(3);
 
-    public ForestRpcServer(ForestRpcServerProperties properties) {
+    public ForestRpcServer(ForestRpcProviderProperties properties) {
         this.properties = properties;
     }
 
@@ -64,11 +64,11 @@ public class ForestRpcServer implements Closeable {
         if (restartTimes.getCount() == 0) {
             return;
         }
-        channelFuture = serverBootstrap.bind(new InetSocketAddress(properties.getPort()))
+        channelFuture = serverBootstrap.bind(new InetSocketAddress(properties.getExposePort()))
                 .addListener((ChannelFutureListener) channelFuture -> {
                     if (channelFuture.isSuccess()) {
                         restartTimes = new CountDownLatch(3);
-                        log.info("启动成功，端口[{}]", properties.getPort());
+                        log.info("启动成功，端口[{}]", properties.getExposePort());
                     } else {
                         restartTimes.countDown();
                     }

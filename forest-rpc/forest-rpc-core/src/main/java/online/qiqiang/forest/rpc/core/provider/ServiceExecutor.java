@@ -2,7 +2,7 @@ package online.qiqiang.forest.rpc.core.provider;
 
 import io.netty.channel.Channel;
 import online.qiqiang.forest.common.utils.BeanUtils;
-import online.qiqiang.forest.rpc.core.client.ChannelWriter;
+import online.qiqiang.forest.rpc.core.consumer.client.ChannelWriter;
 import online.qiqiang.forest.rpc.core.exception.RpcInvokeException;
 import online.qiqiang.forest.rpc.core.matedata.RpcWrapper;
 import online.qiqiang.forest.rpc.core.matedata.ServiceMetaData;

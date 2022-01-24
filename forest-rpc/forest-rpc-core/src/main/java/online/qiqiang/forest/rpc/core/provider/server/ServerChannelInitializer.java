@@ -1,4 +1,4 @@
-package online.qiqiang.forest.rpc.core.server;
+package online.qiqiang.forest.rpc.core.provider.server;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

@@ -1,7 +1,7 @@
 package online.qiqiang.forest.rpc.spring.provider;
 
-import online.qiqiang.forest.rpc.core.server.ForestRpcServer;
-import online.qiqiang.forest.rpc.core.server.ForestRpcServerProperties;
+import online.qiqiang.forest.rpc.core.provider.server.ForestRpcProviderProperties;
+import online.qiqiang.forest.rpc.core.provider.server.ForestRpcServer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -12,8 +12,8 @@ public class ForestRpcServerAutoConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "forest.rpc.provider")
-    public ForestRpcServerProperties forestRpcServerProperties() {
-        return new ForestRpcServerProperties();
+    public ForestRpcProviderProperties forestRpcServerProperties() {
+        return new ForestRpcProviderProperties();
     }
 
     @Bean
@@ -22,7 +22,7 @@ public class ForestRpcServerAutoConfiguration {
     }
 
     @Bean(initMethod = "start", destroyMethod = "close")
-    public ForestRpcServer forestRpcServer(ForestRpcServerProperties forestRpcServerProperties) {
+    public ForestRpcServer forestRpcServer(ForestRpcProviderProperties forestRpcServerProperties) {
         return new ForestRpcServer(forestRpcServerProperties);
     }
 }

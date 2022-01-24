@@ -1,4 +1,4 @@
-package online.qiqiang.forest.rpc.core.client;
+package online.qiqiang.forest.rpc.core.consumer.client;
 
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

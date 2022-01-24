@@ -3,7 +3,7 @@ package online.qiqiang.forest.rpc.spring.consumer;
 import lombok.RequiredArgsConstructor;
 import online.qiqiang.forest.common.utils.id.IdGenerator;
 import online.qiqiang.forest.rpc.core.annotation.ForestReference;
-import online.qiqiang.forest.rpc.core.client.ChannelWriter;
+import online.qiqiang.forest.rpc.core.consumer.client.ChannelWriter;
 import online.qiqiang.forest.rpc.core.consumer.InvokeExecutor;
 import online.qiqiang.forest.rpc.core.matedata.RpcWrapper;
 import online.qiqiang.forest.rpc.core.matedata.ServiceMetaData;

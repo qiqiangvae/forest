@@ -1,8 +1,8 @@
 package online.qiqiang.forest.rpc.spring.consumer;
 
-import online.qiqiang.forest.rpc.core.client.ChannelWriter;
-import online.qiqiang.forest.rpc.core.client.ForestRpcClient;
-import online.qiqiang.forest.rpc.core.client.ForestRpcClientProperties;
+import online.qiqiang.forest.rpc.core.consumer.client.ChannelWriter;
+import online.qiqiang.forest.rpc.core.consumer.client.ForestRpcClient;
+import online.qiqiang.forest.rpc.core.consumer.client.ForestRpcConsumerProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -13,12 +13,12 @@ public class ForestRpcClientAutoConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "forest.rpc.consumer")
-    ForestRpcClientProperties forestRpcClientProperties() {
-        return new ForestRpcClientProperties();
+    ForestRpcConsumerProperties forestRpcClientProperties() {
+        return new ForestRpcConsumerProperties();
     }
 
     @Bean(initMethod = "start", destroyMethod = "close")
-    ForestRpcClient forestRpcClient(ForestRpcClientProperties forestRpcClientProperties) {
+    ForestRpcClient forestRpcClient(ForestRpcConsumerProperties forestRpcClientProperties) {
         return new ForestRpcClient(forestRpcClientProperties);
     }
 

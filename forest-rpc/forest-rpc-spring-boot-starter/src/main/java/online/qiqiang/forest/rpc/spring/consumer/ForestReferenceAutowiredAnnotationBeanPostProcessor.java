@@ -4,7 +4,7 @@ import online.qiqiang.forest.common.utils.reflection.AnnotationUtils;
 import online.qiqiang.forest.common.utils.reflection.FieldUtils;
 import online.qiqiang.forest.common.utils.reflection.PropertyUtils;
 import online.qiqiang.forest.rpc.core.annotation.ForestReference;
-import online.qiqiang.forest.rpc.core.client.ForestRpcClientProperties;
+import online.qiqiang.forest.rpc.core.consumer.client.ForestRpcConsumerProperties;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  */
 public class ForestReferenceAutowiredAnnotationBeanPostProcessor implements InstantiationAwareBeanPostProcessor, BeanFactoryAware {
     private ForestReferenceProxyFactory factory;
-    private ForestRpcClientProperties forestRpcClientProperties;
+    private ForestRpcConsumerProperties forestRpcClientProperties;
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
@@ -40,6 +40,6 @@ public class ForestReferenceAutowiredAnnotationBeanPostProcessor implements Inst
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         factory = beanFactory.getBean(ForestReferenceProxyFactory.class);
-        forestRpcClientProperties = beanFactory.getBean(ForestRpcClientProperties.class);
+        forestRpcClientProperties = beanFactory.getBean(ForestRpcConsumerProperties.class);
     }
 }
