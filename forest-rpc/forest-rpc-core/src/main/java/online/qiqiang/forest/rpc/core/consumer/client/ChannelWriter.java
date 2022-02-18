@@ -10,16 +10,16 @@ import online.qiqiang.forest.rpc.common.protocol.ForestRpcProtocol;
 public class ChannelWriter {
     private Channel defaultChannel;
 
-    public void writeAndFlush(String requestId, Object message) {
-        writeAndFlush(defaultChannel, requestId, message);
+    public void sendMessage(String requestId, Object message, MessageTypeEnum messageType) {
+        sendMessage(defaultChannel, requestId, message, messageType);
     }
 
-    public void writeAndFlush(Channel channel, String requestId, Object message) {
+    public void sendMessage(Channel channel, String requestId, Object message, MessageTypeEnum messageType) {
         ForestRpcProtocol forestRpcProtocol = new ForestRpcProtocol();
         forestRpcProtocol.setVersion((byte) 1);
         forestRpcProtocol.setSessionId(1L);
         forestRpcProtocol.setRequestId(requestId);
-        forestRpcProtocol.setMessageType(MessageTypeEnum.REQ);
+        forestRpcProtocol.setMessageType(messageType);
         forestRpcProtocol.setBody(message);
         channel.writeAndFlush(forestRpcProtocol);
     }

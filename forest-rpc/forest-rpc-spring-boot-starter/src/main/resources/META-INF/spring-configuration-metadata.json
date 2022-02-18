@@ -1,12 +1,12 @@
 {
   "groups": [
     {
-      "name": "forest-rpc-consumer",
+      "name": "forest.rpc.consumer",
       "type": "ForestRpcClientProperties",
       "sourceType": "online.qiqiang.forest.rpc.core.consumer.client.ForestRpcConsumerProperties"
     },
     {
-      "name": "forest-rpc-provider",
+      "name": "forest.rpc.provider",
       "type": "ForestRpcServerProperties",
       "sourceType": "online.qiqiang.forest.rpc.core.provider.server.ForestRpcProviderProperties"
     }

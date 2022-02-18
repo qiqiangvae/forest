@@ -1,11 +1,16 @@
 package online.qiqiang.forest.rpc.core.provider.server;
 
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.extern.slf4j.Slf4j;
+import online.qiqiang.forest.common.utils.JsonUtils;
+import online.qiqiang.forest.rpc.core.registration.LocalRegistrationContext;
+import online.qiqiang.forest.rpc.core.registration.ProviderInfo;
 
 import java.io.Closeable;
 import java.net.InetSocketAddress;
@@ -22,9 +27,11 @@ public class ForestRpcServer implements Closeable {
     private ServerBootstrap serverBootstrap;
     private ChannelFuture channelFuture;
     private CountDownLatch restartTimes = new CountDownLatch(3);
+    private final LocalRegistrationContext registrationContext;
 
     public ForestRpcServer(ForestRpcProviderProperties properties) {
         this.properties = properties;
+        this.registrationContext = new LocalRegistrationContext();
     }
 
     /**
@@ -69,9 +76,24 @@ public class ForestRpcServer implements Closeable {
                     if (channelFuture.isSuccess()) {
                         restartTimes = new CountDownLatch(3);
                         log.info("启动成功，端口[{}]", properties.getExposePort());
+                        register();
                     } else {
                         restartTimes.countDown();
                     }
                 }).sync();
     }
+
+    /**
+     * 注册自己到注册中心
+     */
+    private void register() {
+        ProviderInfo providerInfo = new ProviderInfo();
+        HttpUtil.post(properties.getRegisterUrl() + "/provider", JsonUtils.write2String(providerInfo));
+        String json = HttpRequest.get(properties.getRegisterUrl()).execute().body();
+        this.registrationContext.clear();
+        for (ProviderInfo info : JsonUtils.read2List(json, ProviderInfo.class)) {
+            this.registrationContext.connect(info);
+        }
+    }
+
 }

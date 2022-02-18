@@ -8,18 +8,22 @@ import lombok.Data;
 @Data
 public class ForestRpcConsumerProperties {
     /**
+     * 注册地址
+     */
+    private String registerUrl;
+    /**
      * 注册中心地址
      */
-    private String url;
+    private String connectUrl;
     /**
      * 调用超时时间
      */
     private int timeout;
 
-    public void setUrl(String url) {
-        if (!url.startsWith("forest")) {
-            url = "forest://" + url;
+    public void setConnectUrl(String connectUrl) {
+        if (!connectUrl.startsWith("forest")) {
+            connectUrl = "forest://" + connectUrl;
         }
-        this.url = url;
+        this.connectUrl = connectUrl;
     }
 }

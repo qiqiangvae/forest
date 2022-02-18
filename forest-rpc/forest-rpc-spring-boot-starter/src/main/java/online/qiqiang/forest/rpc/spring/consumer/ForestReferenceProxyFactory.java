@@ -2,9 +2,10 @@ package online.qiqiang.forest.rpc.spring.consumer;
 
 import lombok.RequiredArgsConstructor;
 import online.qiqiang.forest.common.utils.id.IdGenerator;
+import online.qiqiang.forest.rpc.common.consts.MessageTypeEnum;
 import online.qiqiang.forest.rpc.core.annotation.ForestReference;
-import online.qiqiang.forest.rpc.core.consumer.client.ChannelWriter;
 import online.qiqiang.forest.rpc.core.consumer.InvokeExecutor;
+import online.qiqiang.forest.rpc.core.consumer.client.ChannelWriter;
 import online.qiqiang.forest.rpc.core.matedata.RpcWrapper;
 import online.qiqiang.forest.rpc.core.matedata.ServiceMetaData;
 
@@ -37,7 +38,7 @@ public class ForestReferenceProxyFactory {
                     rpcWrapper.setMetaData(metaData);
                     rpcWrapper.setParams(args);
                     String requestId = IdGenerator.uuid();
-                    channelWriter.writeAndFlush(requestId, rpcWrapper);
+                    channelWriter.sendMessage(requestId, rpcWrapper, MessageTypeEnum.REQ);
                     return InvokeExecutor.getResponse(requestId, timeout);
                 }
             }

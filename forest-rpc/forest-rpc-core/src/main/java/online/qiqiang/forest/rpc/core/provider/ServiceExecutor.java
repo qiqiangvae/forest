@@ -2,6 +2,7 @@ package online.qiqiang.forest.rpc.core.provider;
 
 import io.netty.channel.Channel;
 import online.qiqiang.forest.common.utils.BeanUtils;
+import online.qiqiang.forest.rpc.common.consts.MessageTypeEnum;
 import online.qiqiang.forest.rpc.core.consumer.client.ChannelWriter;
 import online.qiqiang.forest.rpc.core.exception.RpcInvokeException;
 import online.qiqiang.forest.rpc.core.matedata.RpcWrapper;
@@ -33,7 +34,7 @@ public class ServiceExecutor {
             e.printStackTrace();
             responseWrapper.setException(new RpcInvokeException(e));
         } finally {
-            channelWriter.writeAndFlush(requestId, responseWrapper);
+            channelWriter.sendMessage(requestId, responseWrapper, MessageTypeEnum.RESP);
         }
     }
 }

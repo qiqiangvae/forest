@@ -8,9 +8,9 @@ import lombok.Data;
 @Data
 public class ForestRpcProviderProperties {
     /**
-     * 注册中心地址
+     * 注册地址
      */
-    private String connectUrl;
+    private String registerUrl;
     /**
      * 服务提供端口
      */
