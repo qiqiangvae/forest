@@ -46,11 +46,6 @@
             </dependency>
             <dependency>
                 <groupId>online.qiqiang</groupId>
-                <artifactId>forest-monitor</artifactId>
-                <version>${forest.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>online.qiqiang</groupId>
                 <artifactId>forest-dependence</artifactId>
                 <version>${forest.version}</version>
                 <type>pom</type>

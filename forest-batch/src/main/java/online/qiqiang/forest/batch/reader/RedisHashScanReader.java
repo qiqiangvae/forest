@@ -100,7 +100,7 @@ public class RedisHashScanReader extends ItemStreamSupport implements ItemReader
                 }
                 Logging.info(log, () -> log.info("[{}]没有数据了，共获取到[{}]条数据", redisKey, total.get()));
                 stop = true;
-            } catch (IOException | InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });

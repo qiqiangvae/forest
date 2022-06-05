@@ -15,13 +15,9 @@
         <module>forest-orm</module>
         <module>forest-query</module>
         <module>forest-mvc</module>
-        <module>forest-maven-plugin</module>
         <module>forest-framework</module>
         <module>forest-dubbo</module>
         <module>forest-batch</module>
-        <module>forest-rpc</module>
-        <module>forest-monitor</module>
-        <module>foeest-report</module>
     </modules>
     <url>https://github.com/qiqiangvae/forest.git</url>
     <description>让开发者快速开发的框架</description>
