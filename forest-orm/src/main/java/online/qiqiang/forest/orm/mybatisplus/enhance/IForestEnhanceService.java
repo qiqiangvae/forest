@@ -3,9 +3,11 @@ package online.qiqiang.forest.orm.mybatisplus.enhance;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.service.IService;
+import online.qiqiang.forest.common.java.util.Pair;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -104,4 +106,6 @@ public interface IForestEnhanceService<T> extends IService<T> {
     boolean replaceBatch(Collection<T> list, int batchSize);
 
     boolean replaceBatch(Collection<T> list);
+
+    <R> List<Pair<T, R>> leftJoin(Wrapper<T> leftWrapper, Wrapper<R> rightWrapper, JoinOn joinOn);
 }

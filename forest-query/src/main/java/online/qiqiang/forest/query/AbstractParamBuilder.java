@@ -50,7 +50,7 @@ public abstract class AbstractParamBuilder {
     }
 
     protected static Map<Field, ConditionWrapper> parseQueryParam(Class<? extends QueryParam> paramClass) {
-        Set<Field> fields = FieldUtils.getAllFields(paramClass);
+        List<Field> fields = FieldUtils.getAllFields(paramClass);
         Map<Field, ConditionWrapper> conditionMap = new LinkedHashMap<>(fields.size());
         for (Field field : fields) {
             Condition condition = AnnotationUtils.getAnnotation(field, Condition.class);
@@ -67,7 +67,7 @@ public abstract class AbstractParamBuilder {
     }
 
     private static Map<Field, SortColumn> parseSorts(Class<? extends QueryParam> paramClass) {
-        Set<Field> fields = FieldUtils.getAllFields(paramClass);
+        List<Field> fields = FieldUtils.getAllFields(paramClass);
         Map<Field, SortColumn> map = new HashMap<>(fields.size());
         for (Field field : fields) {
             Sort sort = AnnotationUtils.getAnnotation(field, Sort.class);

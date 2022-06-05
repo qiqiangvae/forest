@@ -23,7 +23,7 @@ public class NetworkUtils {
     /**
      * 解析带协议的地址
      *
-     * @param address 如：http://127.0.0.1:8080
+     * @param address 如：<a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a>
      * @return available
      */
     public static boolean available(String address) {

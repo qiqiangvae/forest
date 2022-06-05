@@ -21,4 +21,9 @@ public interface ForestMybatisPlusConst {
      * replace into
      */
     String METHOD_REPLACE = "replace";
+
+    String LEFT_WRAPPER = "leftWrapper";
+    String RIGHT_WRAPPER = "rightWrapper";
+    String JOIN_ON = "joinOn";
+    String LEFT_JOIN = "leftJoin";
 }

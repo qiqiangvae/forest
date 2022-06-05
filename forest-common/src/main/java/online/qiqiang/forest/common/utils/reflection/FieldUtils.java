@@ -1,15 +1,22 @@
 package online.qiqiang.forest.common.utils.reflection;
 
+import sun.misc.Unsafe;
+
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Optional;
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * @author qiqiang
  */
+@SuppressWarnings("unused")
 public class FieldUtils {
+    private static final Map<Class<?>, List<Field>> CACHE = new ConcurrentHashMap<>();
+    private static final Unsafe unsafe = PropertyUtils.getValue(FieldUtils.getField(Unsafe.class, "theUnsafe"), null);
 
     /**
      * 获取一个类及其父类的所有字段
@@ -17,14 +24,14 @@ public class FieldUtils {
      * @param clazz Class
      * @return field set
      */
-    public static Set<Field> getAllFields(Class<?> clazz) {
+    public static List<Field> getAllFields(Class<?> clazz) {
         // 获取自己的字段
-        Set<Field> fields = getFields(clazz);
+        List<Field> all = getFields(clazz);
         Class<?> superclass = clazz.getSuperclass();
         if (superclass != null) {
-            fields.addAll(getAllFields(superclass));
+            all.addAll(getAllFields(superclass));
         }
-        return fields;
+        return all;
     }
 
     /**
@@ -33,8 +40,8 @@ public class FieldUtils {
      * @param clazz Class
      * @return field set
      */
-    public static Set<Field> getFields(Class<?> clazz) {
-        return Stream.of(clazz.getDeclaredFields()).collect(Collectors.toSet());
+    public static List<Field> getFields(Class<?> clazz) {
+        return CACHE.computeIfAbsent(clazz, cls -> Stream.of(clazz.getDeclaredFields()).collect(Collectors.toList()));
     }
 
     /**
@@ -55,5 +62,20 @@ public class FieldUtils {
             }
         }
         return field;
+    }
+
+    /**
+     * 获取被注解标志的字段
+     *
+     * @param clazz           Class
+     * @param annotationClass field name
+     * @return field set
+     */
+    public static List<Field> getField(Class<?> clazz, Class<? extends Annotation> annotationClass) {
+        return getFields(clazz).stream().filter(cls -> cls.getAnnotation(annotationClass) != null).collect(Collectors.toList());
+    }
+
+    public static long offset(Class<?> clazz, String fieldName) {
+        return unsafe.objectFieldOffset(FieldUtils.getField(clazz, fieldName));
     }
 }

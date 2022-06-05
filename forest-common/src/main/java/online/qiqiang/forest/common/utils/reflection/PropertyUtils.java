@@ -1,6 +1,7 @@
 package online.qiqiang.forest.common.utils.reflection;
 
 import online.qiqiang.forest.common.exception.ReflectForestException;
+import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;
 
@@ -11,6 +12,8 @@ import java.lang.reflect.Field;
  */
 @SuppressWarnings("unused")
 public class PropertyUtils {
+    private static final Unsafe unsafe = PropertyUtils.getValue(FieldUtils.getField(Unsafe.class, "theUnsafe"), null);
+
     /**
      * 获取一个对象的字段值
      *
@@ -20,6 +23,7 @@ public class PropertyUtils {
      * @return field value
      */
     @SuppressWarnings("unchecked")
+
     public static <T> T getValue(Field field, Object object) {
         boolean accessible = field.isAccessible();
         try {
@@ -67,5 +71,16 @@ public class PropertyUtils {
         } finally {
             field.setAccessible(accessible);
         }
+    }
+
+    /**
+     * 设置属性
+     *
+     * @param object 对象
+     * @param offset 偏移量
+     * @param value  新值
+     */
+    public static void setValueFaster(Object object, long offset, Object value) {
+        unsafe.putObject(object, offset, value);
     }
 }

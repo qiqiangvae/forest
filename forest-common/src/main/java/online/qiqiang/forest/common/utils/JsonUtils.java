@@ -41,7 +41,6 @@ public class JsonUtils {
         OBJECT_MAPPER.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         OBJECT_MAPPER.registerModule(new JavaTimeModule());
         OBJECT_MAPPER.setTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
-
     }
 
     /**

@@ -2,6 +2,7 @@ package online.qiqiang.forest.mybatisplus.query;
 
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +36,11 @@ public class QueryParamBuilderTest {
         System.out.println(studentDOWrapper.getCustomSqlSegment());
         Page<StudentDO> page = QueryParamBuilder.toPage(studentParam);
         System.out.println(page);
+    }
+
+    @Test
+    public void wrapperTest(){
+        QueryWrapper wrapper  = new QueryWrapper();
     }
 
     @Getter

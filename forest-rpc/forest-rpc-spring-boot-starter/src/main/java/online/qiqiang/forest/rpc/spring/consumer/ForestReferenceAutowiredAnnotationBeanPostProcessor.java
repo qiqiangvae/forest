@@ -11,6 +11,7 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,8 +24,8 @@ public class ForestReferenceAutowiredAnnotationBeanPostProcessor implements Inst
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        Set<Field> fields = FieldUtils.getAllFields(bean.getClass());
-        fields = fields.stream().filter(filed -> AnnotationUtils.hasAnnotation(filed, ForestReference.class)).collect(Collectors.toSet());
+        List<Field> fields = FieldUtils.getAllFields(bean.getClass());
+        fields = fields.stream().filter(filed -> AnnotationUtils.hasAnnotation(filed, ForestReference.class)).collect(Collectors.toList());
         for (Field field : fields) {
             Class<?> fieldClass = field.getType();
             // 获取代理对象

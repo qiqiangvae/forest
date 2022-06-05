@@ -27,7 +27,7 @@ public class DateConvertor {
         Field[] fields = Pattern.class.getFields();
         Arrays.stream(fields)
                 .map((ExFunction<Field, String>) field -> (String) field.get(null))
-                .forEach(o -> FORMATTER_MAP.put(o, DateTimeFormatter.ofPattern(Pattern.USUAL_DATE)));
+                .forEach(o -> FORMATTER_MAP.put(o, DateTimeFormatter.ofPattern(o)));
     }
 
     public interface Pattern {
@@ -39,6 +39,7 @@ public class DateConvertor {
      * 字符串解析成 Date
      */
     public static Date parseToDate(String text, String pattern) {
+        DateTimeFormatter formatter = getDateTimeFormatter(pattern);
         return localDateToDate(parseToLocalDate(text, pattern));
     }
 

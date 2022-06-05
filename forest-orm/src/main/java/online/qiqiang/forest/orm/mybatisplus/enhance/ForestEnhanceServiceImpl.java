@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import online.qiqiang.forest.common.java.util.Pair;
 import online.qiqiang.forest.common.utils.BatchUtils;
 import online.qiqiang.forest.orm.exception.ForestOrmException;
 import org.apache.commons.collections4.CollectionUtils;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -132,5 +134,10 @@ public class ForestEnhanceServiceImpl<M extends ForestEnhanceMapper<T>, T> exten
     @Override
     public boolean replaceBatch(Collection<T> list) {
         return replaceBatch(list, DEFAULT_BATCH_SIZE);
+    }
+
+    @Override
+    public <R> List<Pair<T, R>> leftJoin(Wrapper<T> leftWrapper, Wrapper<R> rightWrapper, JoinOn joinOn) {
+        return getBaseMapper().leftJoin(leftWrapper, rightWrapper, joinOn);
     }
 }

@@ -21,7 +21,7 @@
         <sharding.version>4.1.1</sharding.version>
         <!--spring-->
         <hutool.version>5.7.17</hutool.version>
-        <spring-boot.version>2.4.9</spring-boot.version>
+        <spring-boot.version>2.6.2</spring-boot.version>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
         <feign.version>10.12</feign.version>
         <!--工具-->
@@ -96,7 +96,20 @@
                 <version>${sharding.version}</version>
             </dependency>
 
+
             <!--工具-->
+            <!-- ql 表达式-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>QLExpress</artifactId>
+                <version>3.3.0</version>
+            </dependency>
+            <!--yaml解析工具-->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.30</version>
+            </dependency>
             <!--文档地址 https://www.hutool.cn/docs -->
             <dependency>
                 <groupId>cn.hutool</groupId>
@@ -111,16 +124,19 @@
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
             </dependency>
+            <!--http 调用工具-->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient.version}</version>
             </dependency>
+            <!--cglib-->
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
                 <version>${cglib.version}</version>
             </dependency>
+            <!--集合工具类-->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
@@ -143,7 +159,6 @@
                 <artifactId>jsoup</artifactId>
                 <version>${jsoup.version}</version>
             </dependency>
-
             <!--json-->
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -155,6 +170,7 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
+            <!--编解码工具-->
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
