@@ -8,5 +8,5 @@ public interface NothingConsumer {
     /**
      * 消费
      */
-    void accept();
+    void accept() throws Exception;
 }
