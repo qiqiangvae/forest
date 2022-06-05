@@ -1,5 +1,0 @@
-forest:
-  rpc:
-    consumer:
-      timeout: 5000
-      connect-url: forest://localhost:7687

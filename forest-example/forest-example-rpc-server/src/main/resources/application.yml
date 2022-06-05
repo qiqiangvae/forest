@@ -1,5 +1,0 @@
-forest:
-  rpc:
-    provider:
-      workers: 4
-      expose-port: 7687
